@@ -38,7 +38,10 @@
   /* radius / shadow / font */
   --radius-md: 8px;
   --radius-pill: 9999px;
-  --font-sans: "Inter", "Noto Sans Thai", system-ui, sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Inter", "Noto Sans Thai", system-ui, sans-serif;
+
+  /* gradient แบรนด์ (ใช้กับ element ไม่ใช่ bg หน้า/ตัวหนังสือ) */
+  --gradient-brand: linear-gradient(135deg, #EC2129 0%, #F4574B 45%, #F48569 100%);
 }
 ```
 
@@ -50,6 +53,11 @@
   --i24-text-muted: #6B7280;
   --i24-primary: #EC2129;   --i24-primary-hover: #C81B22;
   --i24-on-primary: #FFFFFF; --i24-accent: #F48569;
+  /* effects (glass + page) */
+  --i24-page-bg:#f4f5f8;
+  --i24-glass-bg:rgba(255,255,255,.55); --i24-glass-bg-strong:rgba(255,255,255,.72);
+  --i24-glass-border:rgba(255,255,255,.70); --i24-glass-hairline:rgba(20,20,24,.08);
+  --i24-glass-shadow:0 8px 32px rgba(31,20,20,.12), inset 0 1px 0 rgba(255,255,255,.6);
 }
 [data-theme="dark"] {
   --i24-bg: #0F1115;        --i24-surface: #171A21;
@@ -57,8 +65,29 @@
   --i24-text-muted: #9CA3AF;
   --i24-primary: #EC2129;   --i24-primary-hover: #F04E52;
   --i24-on-primary: #FFFFFF; --i24-accent: #F7A48A;
+  --i24-page-bg:#0a0a0f;
+  --i24-glass-bg:rgba(255,255,255,.06); --i24-glass-bg-strong:rgba(255,255,255,.10);
+  --i24-glass-border:rgba(255,255,255,.14); --i24-glass-hairline:rgba(255,255,255,.10);
+  --i24-glass-shadow:0 8px 32px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.10);
 }
 ```
+
+### Web fonts + glass utility
+```html
+<!-- ใน <head>: โหลดฟอนต์ (หรือ self-host) -->
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+```
+```css
+.glass {
+  background:var(--i24-glass-bg); border:1px solid var(--i24-glass-border);
+  box-shadow:var(--i24-glass-shadow); border-radius:20px;
+  backdrop-filter:blur(22px) saturate(160%); -webkit-backdrop-filter:blur(22px) saturate(160%);
+}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) { .glass{ background:var(--i24-surface);} }
+@media (prefers-reduced-transparency: reduce) { .glass{ background:var(--i24-surface); backdrop-filter:none; -webkit-backdrop-filter:none;} }
+```
+> รายละเอียด gradient/glass/a11y เต็ม → [`effects.md`](effects.md)
 
 ## 3) ใช้ใน markup
 ```html

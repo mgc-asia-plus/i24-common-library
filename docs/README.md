@@ -16,6 +16,7 @@
 | [`brand/palette.md`](brand/palette.md) | สีจากโลโก้ พร้อม hex code + usage + do/don't |
 | [`brand/design-tokens.md`](brand/design-tokens.md) | tokens ทั้งหมด (color/type/spacing/radius/shadow) + semantic light/dark |
 | [`brand/theme-tailwind.md`](brand/theme-tailwind.md) | map tokens → Tailwind v4 `@theme` |
+| [`brand/effects.md`](brand/effects.md) | gradient + glass (modern UI) tokens + recipe + a11y |
 
 ### Components
 [`components/README.md`](components/README.md) — หลักการร่วม + รายการ

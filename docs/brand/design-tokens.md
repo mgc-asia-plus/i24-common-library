@@ -14,7 +14,7 @@ Component อ้าง **semantic** เสมอ ไม่อ้าง primitive
 ### Typography
 | Token | ค่า | หมายเหตุ |
 |-------|-----|----------|
-| `font-sans` | `"Inter", "Noto Sans Thai", system-ui, sans-serif` | รองรับไทย |
+| `font-sans` | `-apple-system, BlinkMacSystemFont, "Inter", "Noto Sans Thai", system-ui, sans-serif` | Mac/iOS ใช้ SF Pro; อื่น ๆ ใช้ Inter (ละติน) + Noto Sans Thai (ไทย) |
 | `font-mono` | `"JetBrains Mono", ui-monospace, monospace` | code |
 | `text-xs` | 12px / 1.4 | |
 | `text-sm` | 14px / 1.5 | |
@@ -23,7 +23,9 @@ Component อ้าง **semantic** เสมอ ไม่อ้าง primitive
 | `text-xl` | 20px / 1.4 | |
 | `text-2xl` | 24px / 1.3 | heading |
 | `text-3xl` | 30px / 1.25 | |
-| `font-normal / medium / semibold / bold` | 400 / 500 / 600 / 700 | |
+| `font-normal / medium / semibold / bold / extrabold` | 400 / 500 / 600 / 700 / 800 | 800 สำหรับ display/heading เด่น |
+
+> **Web fonts**: โหลด Inter + Noto Sans Thai (เช่น Google Fonts `display=swap` + `preconnect`) หรือ self-host ผ่าน `@font-face`. ดูตัวอย่างใน `prototype/index.html`
 
 ### Spacing (scale 4px)
 `space-1=4` · `2=8` · `3=12` · `4=16` · `5=20` · `6=24` · `8=32` · `10=40` · `12=48` · `16=64` (px)
@@ -64,6 +66,12 @@ Component ใช้ชื่อพวกนี้ ค่าจะเปลี่
 | `color-focus-ring` | `brand-red-400` `#F04E52` | `brand-red-400` `#F04E52` |
 
 > ค่าฝั่ง dark เป็นชุดเริ่มต้น (derived) — ปรับได้ตอนยืนยันแบรนด์ แต่ต้องคง contrast ให้ผ่าน AA
+
+## 3) Effect tokens (modern UI)
+ลุค modern ใช้ **gradient** + **glass** เพิ่มจาก semantic tokens — ค่าเต็ม + a11y caveats อยู่ที่ [`effects.md`](effects.md)
+- `grad-brand`, `grad-brand-soft` — gradient แบรนด์ (ใช้กับปุ่ม/โลโก้/badge; **ไม่ใช้กับพื้นหลังหน้า/ตัวหนังสือ**)
+- `glass-bg`, `glass-bg-strong`, `glass-border`, `glass-hairline`, `glass-shadow`, `glass-blur` — พื้นผิวกระจก (theme-aware)
+- `page-bg`, `blob-1..3` — พื้นหลังหน้า + ambient glow โทน neutral (ไม่ปนแดง)
 
 ## กติกาใช้ token
 - Component/หน้า → ใช้ **semantic** เท่านั้น (`color-primary`, `color-text`, …)

@@ -20,6 +20,7 @@ spec ของ UI component กลาง — อธิบายพฤติก�
 - **Contrast** ต้องผ่าน WCAG AA (ตรวจจริงด้วยเครื่องมือ — a11y เต็มต้องทดสอบเพิ่ม)
 - **Radius**: control ทั่วไป `radius-md`; ปุ่ม/แท็บสไตล์แบรนด์ใช้ `radius-pill` ได้
 - **State ครบ**: อย่าลืม disabled และ focus-visible
+- **Modern look (gradient + glass)**: surface (card/nav/footer/ปุ่มรอง) ใช้ **glass** ได้; ปุ่ม primary/badge เน้น/โลโก้ใช้ **gradient** ได้ — แต่ **ห้าม gradient ที่พื้นหลังหน้า/ตัวหนังสือ**. ค่า token + a11y (contrast, `prefers-reduced-transparency`, fallback) ดู [`../brand/effects.md`](../brand/effects.md)
 
 ## รายการ (v1)
 | Component | ไฟล์ | สรุป |

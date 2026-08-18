@@ -20,6 +20,13 @@
 - `docs/stacks/expressjs.md`: layering route→controller→service→repository, zod validation, error middleware (envelope), request-id/logging, auth (แนวทาง)
 - backend envelope + JSON snake_case ตรงกันทั้ง Nest.js และ Express.js
 
+### Added — Modern theme (gradient + glass)
+- `docs/brand/effects.md`: มาตรฐาน gradient + glass (glassmorphism) — tokens, recipe, ambient background (neutral, ไม่ปนแดง), a11y (contrast, `prefers-reduced-transparency`, fallback `@supports`), performance
+- design-tokens/theme-tailwind: เพิ่ม `gradient-brand`, glass tokens, `page-bg`; อัปเดต `font-sans` (-apple-system → Inter → Noto Sans Thai) + web font loading
+- palette: เพิ่ม Brand gradient (`#EC2129 → #F4574B → #F48569`)
+- components: เพิ่ม variant `glass` (button, card) + หลักการ modern (gradient เฉพาะ element ห้ามที่ bg หน้า/ตัวหนังสือ)
+- `prototype/index.html`: รีดีไซน์แนว modern glass + gradient + โหลดฟอนต์ Inter/Noto Sans Thai; ambient background โทน neutral; ตัวหนังสือ/พื้นหลังไม่ใช้ gradient แดง
+
 ### Changed
 - ลบ `.kiro/steering/{product,tech,structure,session-boot}.md` (ของ i24-etax-service ที่ก็อปมาผิดโปรเจกต์); คงเหลือ `aidlc.md` (shim ของ common library)
 

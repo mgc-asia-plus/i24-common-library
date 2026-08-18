@@ -59,3 +59,9 @@
 - **Action**: color correction + asset switch
 - **Artifacts**: prototype/index.html, docs/brand/{palette,design-tokens,theme-tailwind}.md, docs/components/footer.md, blueprints/{product,resources}.md, context.md, README.md, CHANGELOG.md, manifest
 - **Outcome**: พบ i24_LOGO.svg ทางการที่ root — fill จริง: red=#EC2129, coral=#F48569, white≈#FFFFFF. แก้ brand-red-500 #EC2028→#EC2129 ทุกไฟล์; สลับ footer/prototype ใช้ i24_LOGO.svg; footer.md ระบุ asset เป็น SVG
+
+### [2026-08-17T12:10:00+07:00] Theme: codify modern (gradient + glass + fonts)
+- **Phase**: implementation (docs)
+- **Action**: generation + edit
+- **Artifacts**: docs/brand/effects.md (ใหม่), design-tokens.md, theme-tailwind.md, palette.md, components/{README,button,card}.md, docs/README.md, CHANGELOG.md, prototype/index.html
+- **Outcome**: codify ธีม modern เป็นมาตรฐาน — gradient (element only), glass tokens (theme-aware) + recipe + a11y/fallback, ambient bg neutral (ไม่ปนแดง), fonts Inter+Noto Sans Thai; เพิ่ม variant glass; prototype ปรับตามมติ (ไม่มี gradient แดงที่ bg/text) — เตรียม commit

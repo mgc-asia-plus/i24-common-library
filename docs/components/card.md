@@ -20,6 +20,7 @@
 | `elevated` (default) | พื้น `color-bg` + `shadow-sm` | card ลอยบนพื้น |
 | `outlined` | border `color-border`, ไม่มีเงา | บนพื้นที่มีเงาไม่เหมาะ |
 | `filled` | พื้น `color-surface` | เน้นแยกจากพื้นหลัง |
+| `glass` | โปร่ง + blur + ขอบ hairline (glass tokens) | ลุค modern บนพื้นหลัง gradient/ambient — ดู [`../brand/effects.md`](../brand/effects.md) |
 
 ## States
 - static เป็นหลัก

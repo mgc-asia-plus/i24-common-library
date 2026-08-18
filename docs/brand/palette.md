@@ -10,6 +10,10 @@
 โลโก้ i24 = พื้นสี่เหลี่ยมมุมมนสีแดงสด + ตัวอักษร "i24" สีขาว + วง accent สีส้มปะการัง (coral) ด้านหลัง
 ค่าจาก `i24_LOGO.svg`: **แดง `#EC2129`**, **ขาว `#FFFFFF`**, **coral `#F48569`**
 
+## Brand gradient
+`grad-brand = linear-gradient(135deg, #EC2129 0%, #F4574B 45%, #F48569 100%)` (แดง → coral)
+ใช้กับ **องค์ประกอบ** (ปุ่ม primary, โลโก้, badge เน้น) — **ห้ามใช้กับพื้นหลังหน้า/ตัวหนังสือ**. รายละเอียด + glass ดู [`effects.md`](effects.md)
+
 ## Core brand colors
 
 | Token | Hex | ที่มา | ตัวอย่างการใช้ |
