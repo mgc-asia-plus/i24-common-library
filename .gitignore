@@ -1,0 +1,30 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor / IDE
+.idea/
+*.swp
+*.swo
+.vscode/*
+!.vscode/extensions.json
+
+# Node (สำหรับโปรเจกต์ปลายทางในอนาคต)
+node_modules/
+dist/
+.next/
+out/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Go
+*.exe
+*.test
+bin/
+
+# Temp
+_color_sample.ps1
+_color_out.txt
+*.tmp

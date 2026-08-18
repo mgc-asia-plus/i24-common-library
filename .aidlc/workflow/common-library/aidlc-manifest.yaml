@@ -1,0 +1,86 @@
+version: "1.0.0"
+feature: "common-library"
+language: "th"
+platform: "kiro"
+created: "2026-08-17T09:00:00+07:00"
+updated: "2026-08-17T09:00:00+07:00"
+state:
+  status: "active"
+  scope: "new"
+  sharedPhases: [context, requirements]
+  mode: null
+  foundationSkipped: false
+  implementationMode: null
+  quickPath: false
+artifacts:
+  context:
+    status: "approved"
+    timestamp: "2026-08-17T09:00:00+07:00"
+    files: [context.md]
+  requirements:
+    status: "approved"
+    timestamp: "2026-08-17T09:35:00+07:00"
+    files: [decisions-requirements.md]
+    note: "pivot → documentation-based; deliverable = docs/*.md (สร้างจริงแล้ว) แทน user stories code product"
+  implementation:
+    status: "delivered"
+    timestamp: "2026-08-17T10:00:00+07:00"
+    files:
+      - README.md
+      - CHANGELOG.md
+      - docs/README.md
+      - docs/scaffolding.md
+      - docs/brand/palette.md
+      - docs/brand/design-tokens.md
+      - docs/brand/theme-tailwind.md
+      - docs/components/README.md
+      - docs/components/button.md
+      - docs/components/badge.md
+      - docs/components/card.md
+      - docs/components/input.md
+      - docs/components/table.md
+      - docs/components/nav-header.md
+      - docs/components/alert.md
+      - docs/components/theme-mode.md
+      - docs/stacks/go-monolith.md
+      - docs/stacks/nextjs.md
+      - docs/stacks/nestjs.md
+      - docs/stacks/expressjs.md
+      - docs/conventions/project-structure.md
+      - docs/conventions/naming.md
+      - docs/conventions/git.md
+      - docs/conventions/json-api.md
+implementation:
+  totalTasks: 0
+  completedTasks: 0
+  currentTask: null
+  currentWave: null
+context-summary:
+  type: "Greenfield"
+  scope: "new"
+  stack: "Markdown docs (ไม่มี build); documented stacks: Go monolith / Next.js / Nest.js / Express.js"
+  architecture: "Documentation repo: brand/tokens SSOT → component specs + stack guides"
+  feature: "ชุดเอกสารมาตรฐานกลาง (.md): brand/สีจากโลโก้, tokens, component spec, convention, stack setup guide"
+  impact: "New standalone"
+  complexity: "Low/Medium"
+  teamSize: "large"
+  recommendations: { personas: false, units: true, nfr: false }
+decisions:
+  requirements:
+    v1Scope: "common layer + generator + templates(Go monolith, Next.js) + base components + dark mode"
+    v11Scope: "backend templates (Nest.js, Express.js) + shared backend util/config"
+    targetStacks: [go-monolith, nextjs, nestjs, expressjs]
+    generator: "Node CLI (npx create-i24, interactive)"
+    scaffoldOutput: "new folder, strip git history"
+    commonLayer: "tokens+theme (light/dark) + UI components + backend util/config"
+    deliverableFormat: "Markdown docs only — no code templates (pivot)"
+    colorSoT: "confirmed from official vector i24_LOGO.svg fills: red-500=#EC2129, coral-400=#F48569, white=#FFFFFF"
+    personas: false
+    teamSize: "large (9+)"
+    outOfScopeV1: "no real package publish, no docs site, backend template = skeleton+convention only, no i18n, no CI auto-publish"
+steering:
+  updatedBy:
+    product: [context]
+    tech: [context]
+    structure: [context]
+units: []

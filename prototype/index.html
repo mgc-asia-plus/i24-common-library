@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="th" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>i24 Common Library — Preview</title>
+<!-- FOUC guard: set theme ก่อน paint -->
+<script>
+  (function () {
+    var t = localStorage.getItem('i24-theme');
+    if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', t);
+  })();
+</script>
+<style>
+  /* ============ tokens (ค่าจริงจาก docs/brand) ============ */
+  :root, [data-theme="light"] {
+    --brand-red-50:#FDECED; --brand-red-100:#FBD0D2; --brand-red-400:#F04E52;
+    --brand-red-500:#EC2129; --brand-red-600:#C81B22; --brand-red-700:#AA171D;
+    --brand-coral-300:#F7A48A; --brand-coral-400:#F48569; --brand-coral-500:#F1684D;
+
+    --color-bg:#FFFFFF; --color-surface:#F7F7F8; --color-border:#D1D5DB;
+    --color-text:#1A1A1A; --color-text-muted:#6B7280;
+    --color-primary:#EC2129; --color-primary-hover:#C81B22; --color-on-primary:#FFFFFF;
+    --color-accent:#F48569; --color-focus-ring:#F04E52;
+    --color-success:#16A34A; --color-warning:#F59E0B; --color-danger:#DC2626; --color-info:#2563EB;
+
+    --radius-md:8px; --radius-lg:12px; --radius-pill:9999px;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.06); --shadow-md:0 2px 8px rgba(0,0,0,.10);
+  }
+  [data-theme="dark"] {
+    --color-bg:#0F1115; --color-surface:#171A21; --color-border:#2A2F3A;
+    --color-text:#F3F4F6; --color-text-muted:#9CA3AF;
+    --color-primary:#EC2129; --color-primary-hover:#F04E52; --color-on-primary:#FFFFFF;
+    --color-accent:#F7A48A; --color-focus-ring:#F04E52;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.5); --shadow-md:0 2px 12px rgba(0,0,0,.6);
+  }
+
+  * { box-sizing:border-box; }
+  body {
+    margin:0; font-family:"Inter","Noto Sans Thai",system-ui,sans-serif;
+    background:var(--color-bg); color:var(--color-text); line-height:1.6;
+    transition:background .2s,color .2s;
+  }
+  a { color:var(--color-primary); }
+  h1,h2,h3 { line-height:1.25; }
+  .wrap { max-width:1040px; margin:0 auto; padding:0 24px 64px; }
+  section { margin-top:48px; }
+  section > h2 { border-bottom:1px solid var(--color-border); padding-bottom:8px; }
+  .muted { color:var(--color-text-muted); }
+  .grid { display:grid; gap:16px; }
+  .row { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+
+  /* header / nav */
+  header.app {
+    position:sticky; top:0; z-index:10; background:var(--color-bg);
+    border-bottom:1px solid var(--color-border); box-shadow:var(--shadow-sm);
+  }
+  header.app nav { display:flex; align-items:center; gap:24px; height:56px; max-width:1040px; margin:0 auto; padding:0 24px; }
+  .logo { display:grid; place-items:center; width:40px; height:28px; border-radius:var(--radius-md);
+           background:var(--color-primary); color:var(--color-on-primary); font-weight:700; font-size:14px; }
+  header.app nav a { text-decoration:none; color:var(--color-text); }
+  header.app nav a.active { color:var(--color-primary); font-weight:600; }
+  .spacer { margin-left:auto; }
+
+  /* focus */
+  :where(button,a,input,[tabindex]):focus-visible {
+    outline:2px solid var(--color-focus-ring); outline-offset:2px;
+  }
+
+  /* swatch */
+  .swatches { grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); }
+  .swatch { border:1px solid var(--color-border); border-radius:var(--radius-md); overflow:hidden; }
+  .swatch .chip { height:64px; }
+  .swatch .meta { padding:8px 10px; font-size:12px; }
+  .swatch .meta b { display:block; }
+  .swatch .meta code { color:var(--color-text-muted); }
+
+  /* button */
+  .btn { display:inline-flex; align-items:center; gap:8px; border:1px solid transparent; cursor:pointer;
+         border-radius:var(--radius-pill); font:inherit; height:40px; padding:0 20px; transition:background .15s; }
+  .btn-primary { background:var(--color-primary); color:var(--color-on-primary); }
+  .btn-primary:hover { background:var(--color-primary-hover); }
+  .btn-secondary { background:transparent; border-color:var(--color-border); color:var(--color-text); }
+  .btn-secondary:hover { background:var(--color-surface); }
+  .btn-ghost { background:transparent; color:var(--color-primary); }
+  .btn-ghost:hover { background:var(--color-surface); }
+  .btn-danger { background:var(--color-danger); color:#fff; }
+  .btn[disabled] { opacity:.5; cursor:not-allowed; }
+  .btn.sm { height:32px; padding:0 12px; font-size:14px; }
+  .btn.lg { height:48px; padding:0 24px; font-size:18px; }
+
+  /* badge */
+  .badge { display:inline-flex; align-items:center; gap:6px; border-radius:var(--radius-pill);
+           font-size:12px; padding:2px 10px; height:22px; }
+  .badge .dot { width:6px; height:6px; border-radius:var(--radius-pill); background:currentColor; }
+  .badge-neutral { background:var(--color-surface); color:var(--color-text-muted); }
+  .badge-brand { background:var(--brand-red-50); color:var(--brand-red-600); }
+  .badge-accent { background:var(--brand-coral-300); color:#5c1e12; }
+  .badge-success { background:#DCFCE7; color:var(--color-success); }
+  .badge-warning { background:#FEF3C7; color:#92600A; }
+  .badge-danger { background:#FEE2E2; color:var(--color-danger); }
+
+  /* card */
+  .card { background:var(--color-bg); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); padding:24px;
+          border:1px solid transparent; }
+  .card.outlined { border-color:var(--color-border); box-shadow:none; }
+  .card.filled { background:var(--color-surface); box-shadow:none; }
+
+  /* input */
+  .field { display:flex; flex-direction:column; gap:4px; max-width:320px; }
+  .field label { font-size:14px; }
+  .input { height:40px; border:1px solid var(--color-border); background:var(--color-bg); color:var(--color-text);
+           border-radius:var(--radius-md); padding:0 12px; font:inherit; }
+  .input:focus-visible { border-color:var(--color-primary); outline:2px solid var(--color-focus-ring); outline-offset:0; }
+  .input[disabled] { background:var(--color-surface); opacity:.7; cursor:not-allowed; }
+  .input.err { border-color:var(--color-danger); }
+  .err-text { color:var(--color-danger); font-size:14px; }
+
+  /* table */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  thead th { text-align:left; color:var(--color-text-muted); border-bottom:1px solid var(--color-border); padding:12px 8px; font-weight:600; }
+  tbody td { border-bottom:1px solid var(--color-border); padding:12px 8px; }
+  tbody tr:hover { background:var(--color-surface); }
+  tbody tr.selected { background:var(--brand-red-50); }
+
+  /* alert */
+  .alert { display:flex; gap:12px; border-radius:var(--radius-md); padding:16px; background:var(--color-surface);
+           border-left:4px solid var(--color-border); }
+  .alert.info { border-left-color:var(--color-info); }
+  .alert.success { border-left-color:var(--color-success); }
+  .alert.warning { border-left-color:var(--color-warning); }
+  .alert.danger { border-left-color:var(--color-danger); }
+  .alert b { display:block; }
+
+  .toggle { height:36px; width:36px; display:grid; place-items:center; border-radius:var(--radius-pill);
+            border:1px solid var(--color-border); background:transparent; color:var(--color-text); cursor:pointer; font-size:16px; }
+  .note { font-size:13px; color:var(--color-text-muted); background:var(--color-surface); padding:12px 16px; border-radius:var(--radius-md); }
+
+  /* footer */
+  footer.app { border-top:1px solid var(--color-border); background:var(--color-surface); margin-top:64px; }
+  footer.app .inner { max-width:1040px; margin:0 auto; padding:24px; display:flex; align-items:center;
+                      justify-content:center; gap:8px; color:var(--color-text-muted); font-size:13px; }
+  footer.app .inner img { height:22px; width:auto; display:block; }
+</style>
+</head>
+<body>
+
+<header class="app">
+  <nav aria-label="หลัก">
+    <span class="logo">i24</span>
+    <a href="#" class="active" aria-current="page">แดชบอร์ด</a>
+    <a href="#">ใบแจ้งหนี้</a>
+    <a href="#">รายงาน</a>
+    <span class="spacer"></span>
+    <button class="toggle" id="themeBtn" aria-label="สลับธีม" title="สลับ light/dark">🌓</button>
+  </nav>
+</header>
+
+<div class="wrap">
+  <section id="intro">
+    <h1>i24 Common Library — Preview</h1>
+    <p class="muted">หน้าตัวอย่างสำหรับดูสีแบรนด์ (ยืนยันจากโลโก้) และ component ทั้งหมดบนธีม light/dark — ไฟล์เดียว ไม่ต้อง build</p>
+    <p class="note">ค่าสีในหน้านี้ตรงกับ <code>docs/brand/</code> · กดปุ่ม 🌓 มุมขวาบนเพื่อสลับธีม</p>
+  </section>
+
+  <section id="colors">
+    <h2>Brand colors</h2>
+    <p class="muted">✅ = ยืนยันจากโลโก้</p>
+    <div class="grid swatches">
+      <div class="swatch"><div class="chip" style="background:#EC2129"></div><div class="meta"><b>brand-red-500 ✅</b><code>#EC2129</code></div></div>
+      <div class="swatch"><div class="chip" style="background:#C81B22"></div><div class="meta"><b>brand-red-600</b><code>#C81B22</code></div></div>
+      <div class="swatch"><div class="chip" style="background:#AA171D"></div><div class="meta"><b>brand-red-700</b><code>#AA171D</code></div></div>
+      <div class="swatch"><div class="chip" style="background:#F04E52"></div><div class="meta"><b>brand-red-400</b><code>#F04E52</code></div></div>
+      <div class="swatch"><div class="chip" style="background:#FBD0D2"></div><div class="meta"><b>brand-red-100</b><code>#FBD0D2</code></div></div>
+      <div class="swatch"><div class="chip" style="background:#FDECED"></div><div class="meta"><b>brand-red-50</b><code>#FDECED</code></div></div>
+      <div class="swatch"><div class="chip" style="background:#F1684D"></div><div class="meta"><b>brand-coral-500</b><code>#F1684D</code></div></div>
+      <div class="swatch"><div class="chip" style="background:#F48569"></div><div class="meta"><b>brand-coral-400 ✅</b><code>#F48569</code></div></div>
+      <div class="swatch"><div class="chip" style="background:#F7A48A"></div><div class="meta"><b>brand-coral-300</b><code>#F7A48A</code></div></div>
+    </div>
+
+    <h3 style="margin-top:24px">Neutrals & status</h3>
+    <div class="grid swatches">
+      <div class="swatch"><div class="chip" style="background:#FFFFFF;border-bottom:1px solid #D1D5DB"></div><div class="meta"><b>white ✅</b><code>#FFFFFF</code></div></div>
+      <div class="swatch"><div class="chip" style="background:#F7F7F8"></div><div class="meta"><b>paper-muted</b><code>#F7F7F8</code></div></div>
+      <div class="swatch"><div class="chip" style="background:#D1D5DB"></div><div class="meta"><b>ink-300</b><code>#D1D5DB</code></div></div>
+      <div class="swatch"><div class="chip" style="background:#6B7280"></div><div class="meta"><b>ink-500</b><code>#6B7280</code></div></div>
+      <div class="swatch"><div class="chip" style="background:#1A1A1A"></div><div class="meta"><b>ink-900</b><code>#1A1A1A</code></div></div>
+      <div class="swatch"><div class="chip" style="background:#16A34A"></div><div class="meta"><b>success-500</b><code>#16A34A</code></div></div>
+      <div class="swatch"><div class="chip" style="background:#F59E0B"></div><div class="meta"><b>warning-500</b><code>#F59E0B</code></div></div>
+      <div class="swatch"><div class="chip" style="background:#DC2626"></div><div class="meta"><b>danger-500</b><code>#DC2626</code></div></div>
+      <div class="swatch"><div class="chip" style="background:#2563EB"></div><div class="meta"><b>info-500</b><code>#2563EB</code></div></div>
+    </div>
+  </section>
+
+  <section id="buttons">
+    <h2>Button</h2>
+    <div class="row">
+      <button class="btn btn-primary">Primary</button>
+      <button class="btn btn-secondary">Secondary</button>
+      <button class="btn btn-ghost">Ghost</button>
+      <button class="btn btn-danger">Danger</button>
+      <button class="btn btn-primary" disabled>Disabled</button>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <button class="btn btn-primary sm">Small</button>
+      <button class="btn btn-primary">Medium</button>
+      <button class="btn btn-primary lg">Large</button>
+    </div>
+  </section>
+
+  <section id="badges">
+    <h2>Badge</h2>
+    <div class="row">
+      <span class="badge badge-neutral"><span class="dot"></span>neutral</span>
+      <span class="badge badge-brand">brand</span>
+      <span class="badge badge-accent">accent</span>
+      <span class="badge badge-success">success</span>
+      <span class="badge badge-warning">warning</span>
+      <span class="badge badge-danger">danger</span>
+    </div>
+  </section>
+
+  <section id="cards">
+    <h2>Card</h2>
+    <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(240px,1fr))">
+      <div class="card"><h3 style="margin-top:0">Elevated</h3><p class="muted">พื้น + เงา</p></div>
+      <div class="card outlined"><h3 style="margin-top:0">Outlined</h3><p class="muted">มีเส้นขอบ</p></div>
+      <div class="card filled"><h3 style="margin-top:0">Filled</h3><p class="muted">พื้น surface</p></div>
+    </div>
+  </section>
+
+  <section id="inputs">
+    <h2>Input</h2>
+    <div class="row" style="align-items:flex-start">
+      <div class="field">
+        <label for="a">อีเมล <span aria-hidden="true">*</span></label>
+        <input id="a" class="input" type="email" placeholder="you@i24.co" />
+      </div>
+      <div class="field">
+        <label for="b">รหัสผ่าน (error)</label>
+        <input id="b" class="input err" type="password" aria-invalid="true" aria-describedby="b-err" value="123" />
+        <span id="b-err" class="err-text">อย่างน้อย 8 ตัวอักษร</span>
+      </div>
+      <div class="field">
+        <label for="c">ปิดใช้งาน</label>
+        <input id="c" class="input" disabled value="อ่านอย่างเดียว" />
+      </div>
+    </div>
+  </section>
+
+  <section id="table">
+    <h2>Table</h2>
+    <table>
+      <caption class="muted" style="text-align:left;margin-bottom:8px">ตัวอย่างใบแจ้งหนี้</caption>
+      <thead><tr><th scope="col">เลขที่</th><th scope="col">ลูกค้า</th><th scope="col">ยอด</th><th scope="col">สถานะ</th></tr></thead>
+      <tbody>
+        <tr><td>INV-001</td><td>บริษัท ก</td><td>12,500.00</td><td><span class="badge badge-success">สำเร็จ</span></td></tr>
+        <tr class="selected"><td>INV-002</td><td>บริษัท ข</td><td>8,900.00</td><td><span class="badge badge-warning">รอดำเนินการ</span></td></tr>
+        <tr><td>INV-003</td><td>บริษัท ค</td><td>3,200.00</td><td><span class="badge badge-danger">ผิดพลาด</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="alerts">
+    <h2>Alert</h2>
+    <div class="grid">
+      <div class="alert info" role="status"><span>ℹ️</span><div><b>ข้อมูล</b><span class="muted">ระบบจะปิดปรับปรุงคืนนี้ 23:00</span></div></div>
+      <div class="alert success" role="status"><span>✓</span><div><b>บันทึกสำเร็จ</b><span class="muted">ข้อมูลถูกจัดเก็บแล้ว</span></div></div>
+      <div class="alert warning" role="status"><span>⚠</span><div><b>โปรดตรวจสอบ</b><span class="muted">มีบางฟิลด์ยังไม่กรอก</span></div></div>
+      <div class="alert danger" role="alert"><span>✕</span><div><b>บันทึกไม่สำเร็จ</b><span class="muted">กรุณาลองใหม่อีกครั้ง</span></div></div>
+    </div>
+  </section>
+</div>
+
+<footer class="app">
+  <div class="inner">
+    <span>Powered by</span>
+    <img src="../i24_LOGO.svg" alt="i24" />
+  </div>
+</footer>
+
+<script>
+  // theme-mode toggle
+  document.getElementById('themeBtn').addEventListener('click', function () {
+    var h = document.documentElement;
+    var n = h.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    h.setAttribute('data-theme', n);
+    localStorage.setItem('i24-theme', n);
+  });
+</script>
+</body>
+</html>
