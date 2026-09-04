@@ -59,9 +59,9 @@
     /* พื้นหลังขาว + ลายคลื่นบาง ๆ */
     --page-bg: linear-gradient(135deg, #E4E8EF 0%, #CDD3DE 55%, #C0C7D4 100%);
     --wave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='54'%3E%3Cpath d='M-20 28 Q 25 6 70 28 T 160 28 T 250 28' fill='none' stroke='%2314203c' stroke-opacity='0.05' stroke-width='1.1'/%3E%3C/svg%3E");
-    --blob-red:  rgba(255,255,255,.30);
-    --blob-blue: rgba(255,255,255,.22);
-    --blob-gray: rgba(255,255,255,.32);
+    --blob-red:  rgba(225,29,39,.10);
+    --blob-blue: rgba(30,58,138,.13);
+    --blob-gray: rgba(255,255,255,.42);
     --radius:20px; --radius-sm:12px; --radius-pill:9999px;
   }
   [data-theme="dark"] {
@@ -107,6 +107,11 @@
 
   /* ===== background: ลายคลื่นบาง ๆ + แสง blob สีนุ่ม ===== */
   .bg-fx { position:fixed; inset:0; overflow:hidden; z-index:-1; background:var(--page-bg); }
+  /* grain ละเอียดเพิ่มมิติ ไม่ให้พื้นแบน */
+  .bg-fx::after {
+    content:""; position:absolute; inset:0; pointer-events:none; opacity:.07;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
   .bg-fx span { position:absolute; border-radius:50%; filter:blur(110px); opacity:.9; }
   .bg-fx .b1 { width:560px; height:560px; background:var(--blob-red);  top:-170px; left:-110px; }
   .bg-fx .b2 { width:580px; height:580px; background:var(--blob-blue); top:6%;     right:-170px; }
