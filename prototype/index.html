@@ -106,12 +106,6 @@
 
   /* ===== background: ลายคลื่นบาง ๆ + แสง blob สีนุ่ม ===== */
   .bg-fx { position:fixed; inset:0; overflow:hidden; z-index:-1; background:var(--page-bg); }
-  .bg-fx::before {
-    content:""; position:absolute; inset:0;
-    background-image:var(--wave); background-size:180px 54px; background-repeat:repeat;
-    -webkit-mask-image: radial-gradient(130% 100% at 50% 0%, #000 62%, transparent 100%);
-            mask-image: radial-gradient(130% 100% at 50% 0%, #000 62%, transparent 100%);
-  }
   .bg-fx span { position:absolute; border-radius:50%; filter:blur(110px); opacity:.9; }
   .bg-fx .b1 { width:560px; height:560px; background:var(--blob-red);  top:-170px; left:-110px; }
   .bg-fx .b2 { width:580px; height:580px; background:var(--blob-blue); top:6%;     right:-170px; }
@@ -295,7 +289,7 @@
   <section class="hero glass">
     <span class="pill-tag"><span class="dot"></span> Luxury · Clear Glass · Red / White / Slate / Navy</span>
     <h1>i24 <span>Common Library</span></h1>
-    <p class="muted">กรอบกระจกใสจริง เคลือบเงา + แสงสะท้อน พื้นหลังขาวลายคลื่นบาง ๆ โทนแดง–ขาว–เทา–น้ำเงิน สีแบรนด์จาก <code>i24_LOGO.svg</code></p>
+    <p class="muted">กรอบกระจกใสจริง เคลือบเงา + แสงสะท้อน พื้นหลังขาวไล่เฉดนวล โทนแดง–ขาว–เทา–น้ำเงิน สีแบรนด์จาก <code>i24_LOGO.svg</code></p>
     <div class="row" style="justify-content:center;margin-top:24px">
       <button class="btn btn-primary lg">เริ่มใช้งาน</button>
       <button class="btn btn-accent lg">ดูเอกสาร</button>
