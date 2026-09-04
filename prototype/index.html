@@ -38,28 +38,29 @@
 
     /* ---- TRUE clear glass (blur น้อย) + เคลือบเงาหลายชั้น ---- */
     --glass-tint:  linear-gradient(135deg, rgba(255,255,255,.13) 0%, rgba(255,255,255,.02) 100%);
-    --glass-sheen: radial-gradient(135% 95% at 15% -14%, rgba(255,255,255,.50) 0%, rgba(255,255,255,0) 50%);
-    --glass-top:   linear-gradient(180deg, rgba(255,255,255,.38) 0%, rgba(255,255,255,0) 26%);
-    --glass-gloss: linear-gradient(122deg, rgba(255,255,255,0) 34%, rgba(255,255,255,.42) 45%, rgba(255,255,255,.10) 52%, rgba(255,255,255,0) 62%);
-    /* reflection overlay (::before) */
-    --glass-reflect: linear-gradient(120deg, rgba(255,255,255,.12), transparent 35%);
-    --glass-bg: rgba(255,255,255,.09);
-    --glass-bg-strong: rgba(255,255,255,.20);
-    --glass-border: rgba(255,255,255,.60);
+    --glass-sheen: radial-gradient(135% 95% at 15% -14%, rgba(255,255,255,.55) 0%, rgba(255,255,255,0) 50%);
+    --glass-top:   linear-gradient(180deg, rgba(255,255,255,.40) 0%, rgba(255,255,255,0) 26%);
+    --glass-gloss: linear-gradient(122deg, rgba(255,255,255,0) 34%, rgba(255,255,255,.45) 45%, rgba(255,255,255,.10) 52%, rgba(255,255,255,0) 62%);
+    --glass-reflect: linear-gradient(120deg, rgba(255,255,255,.14), transparent 35%);
+    --glass-bg: rgba(255,255,255,.10);
+    --glass-bg-strong: rgba(255,255,255,.22);
+    --glass-border: rgba(255,255,255,.62);
     --glass-hairline: rgba(20,28,50,.09);
     --glass-shadow:
       0 0 0 1px rgba(20,28,50,.045),
       0 1px 2px rgba(16,22,45,.05),
-      0 18px 42px rgba(16,22,45,.12),
+      0 20px 44px rgba(16,22,45,.13),
       inset 0 1px 0 rgba(255,255,255,.95),
       inset 0 -1px 0 rgba(20,28,50,.05);
     --glass-blur: 3px; --glass-sat: 135%;
     --input-bg: rgba(255,255,255,.18);
 
-    --page-bg:#EEF0F4;
-    --blob-red:  rgba(225,29,39,.08);
-    --blob-blue: rgba(30,58,138,.11);
-    --blob-gray: rgba(90,100,125,.11);
+    /* พื้นหลังขาว + ลายคลื่นบาง ๆ */
+    --page-bg: linear-gradient(120deg, #F4F6FA 0%, #ECEFF4 100%);
+    --wave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='54'%3E%3Cpath d='M-20 28 Q 25 6 70 28 T 160 28 T 250 28' fill='none' stroke='%2314203c' stroke-opacity='0.05' stroke-width='1.1'/%3E%3C/svg%3E");
+    --blob-red:  rgba(225,29,39,.07);
+    --blob-blue: rgba(30,58,138,.10);
+    --blob-gray: rgba(90,100,125,.10);
     --radius:20px; --radius-sm:12px; --radius-pill:9999px;
   }
   [data-theme="dark"] {
@@ -87,10 +88,11 @@
       inset 0 -1px 0 rgba(0,0,0,.25);
     --input-bg: rgba(255,255,255,.04);
 
-    --page-bg:#0A0C11;
-    --blob-red:  rgba(236,33,41,.18);
-    --blob-blue: rgba(46,78,166,.26);
-    --blob-gray: rgba(70,80,105,.20);
+    --page-bg: linear-gradient(120deg, #0A0C11 0%, #0E1119 100%);
+    --wave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='54'%3E%3Cpath d='M-20 28 Q 25 6 70 28 T 160 28 T 250 28' fill='none' stroke='%23ffffff' stroke-opacity='0.05' stroke-width='1.1'/%3E%3C/svg%3E");
+    --blob-red:  rgba(236,33,41,.16);
+    --blob-blue: rgba(46,78,166,.24);
+    --blob-gray: rgba(70,80,105,.18);
   }
 
   * { box-sizing:border-box; }
@@ -102,8 +104,14 @@
     -webkit-font-smoothing:antialiased; transition:background .4s,color .4s;
   }
 
-  /* ===== background: แสง blob สีนุ่ม (ไม่มีลายกริด) ===== */
+  /* ===== background: ลายคลื่นบาง ๆ + แสง blob สีนุ่ม ===== */
   .bg-fx { position:fixed; inset:0; overflow:hidden; z-index:-1; background:var(--page-bg); }
+  .bg-fx::before {
+    content:""; position:absolute; inset:0;
+    background-image:var(--wave); background-size:180px 54px; background-repeat:repeat;
+    -webkit-mask-image: radial-gradient(130% 100% at 50% 0%, #000 62%, transparent 100%);
+            mask-image: radial-gradient(130% 100% at 50% 0%, #000 62%, transparent 100%);
+  }
   .bg-fx span { position:absolute; border-radius:50%; filter:blur(110px); opacity:.9; }
   .bg-fx .b1 { width:560px; height:560px; background:var(--blob-red);  top:-170px; left:-110px; }
   .bg-fx .b2 { width:580px; height:580px; background:var(--blob-blue); top:6%;     right:-170px; }
@@ -116,7 +124,7 @@
   .row { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
   .grid { display:grid; gap:16px; }
 
-  /* clear-glass primitive — ใสจริง + เคลือบเงา (gloss + top highlight + sheen) */
+  /* clear-glass primitive — ใสจริง + เคลือบเงา (gloss + top highlight + sheen + reflection + เงา) */
   .glass {
     position:relative; overflow:hidden;
     background:
@@ -129,12 +137,11 @@
     border:1px solid var(--glass-border); box-shadow:var(--glass-shadow);
     border-radius:var(--radius);
   }
-  /* reflection overlay — แสงสะท้อนมุมบนซ้าย */
   .glass::before {
-    content:""; position:absolute; inset:0;
-    background:var(--glass-reflect);
+    content:""; position:absolute; inset:0; background:var(--glass-reflect);
     border-radius:inherit; pointer-events:none;
   }
+  .glass > * { position:relative; z-index:1; }
   @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) {
     .glass, header.app nav, .btn-glass, .toggle, .input { background:var(--glass-bg-strong); }
   }
@@ -167,9 +174,6 @@
   .spacer { margin-left:auto; }
 
   :where(button,a,input,[tabindex]):focus-visible { outline:2px solid var(--color-focus-ring); outline-offset:3px; }
-
-  /* ให้เนื้อหาใน glass อยู่เหนือ reflection */
-  .glass > * { position:relative; z-index:1; }
 
   /* hero */
   .hero { margin-top:26px; padding:52px 44px; text-align:center; }
@@ -291,7 +295,7 @@
   <section class="hero glass">
     <span class="pill-tag"><span class="dot"></span> Luxury · Clear Glass · Red / White / Slate / Navy</span>
     <h1>i24 <span>Common Library</span></h1>
-    <p class="muted">กรอบกระจกใสจริง (blur น้อย) เคลือบเงาแสงสะท้อนแนวทแยงแบบกระจกลักชูรี พื้นหลังไล่แสงนุ่ม ๆ โทนแดง–ขาว–เทา–น้ำเงิน สีแบรนด์จาก <code>i24_LOGO.svg</code></p>
+    <p class="muted">กรอบกระจกใสจริง เคลือบเงา + แสงสะท้อน พื้นหลังขาวลายคลื่นบาง ๆ โทนแดง–ขาว–เทา–น้ำเงิน สีแบรนด์จาก <code>i24_LOGO.svg</code></p>
     <div class="row" style="justify-content:center;margin-top:24px">
       <button class="btn btn-primary lg">เริ่มใช้งาน</button>
       <button class="btn btn-accent lg">ดูเอกสาร</button>
