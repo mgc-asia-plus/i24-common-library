@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>i24 — Liquid Glass over Video</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Inter", "Noto Sans Thai", system-ui, sans-serif; }
+
+  /* ===== Liquid Glass ===== */
+  .liquid-glass {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgba(255,255,255,.14) 0%, rgba(255,255,255,.05) 100%);
+    backdrop-filter: blur(16px) saturate(180%) brightness(1.08);
+    -webkit-backdrop-filter: blur(16px) saturate(180%) brightness(1.08);
+    border: 1px solid rgba(255,255,255,.30);
+    box-shadow:
+      0 10px 34px rgba(0,0,0,.38),
+      inset 0 1px 0 rgba(255,255,255,.55),
+      inset 0 -1px 0 rgba(0,0,0,.22);
+  }
+  .liquid-glass::before {
+    content: "";
+    position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+    background: linear-gradient(120deg, rgba(255,255,255,.28) 0%, transparent 40%);
+  }
+  .liquid-glass > * { position: relative; z-index: 1; }
+
+  /* demo helpers */
+  .nav-pill { display:flex; align-items:center; gap:22px; padding:0 20px; height:60px; color:#fff; }
+  .nav-pill .logo { width:40px; height:28px; border-radius:9px; display:grid; place-items:center;
+    background:linear-gradient(135deg,#E11D27,#A81319); font-weight:800; font-size:13px;
+    box-shadow:0 4px 12px rgba(168,19,25,.5); }
+  .nav-pill a { color:#fff; text-decoration:none; opacity:.8; font-size:15px; }
+  .nav-pill a.active { opacity:1; font-weight:700; }
+  .nav-pill .sp { margin-left:auto; }
+
+  .hero-card { max-width:640px; margin:0 auto; padding:44px; text-align:center; color:#fff; }
+  .hero-card h1 { margin:0 0 10px; font-size:clamp(30px,5vw,50px); font-weight:800; letter-spacing:-.02em; }
+  .hero-card p { margin:0 0 22px; font-size:16px; color:rgba(255,255,255,.82); }
+
+  .btn { display:inline-flex; align-items:center; gap:8px; height:46px; padding:0 24px; border-radius:9999px;
+    font:inherit; font-weight:700; cursor:pointer; border:1px solid transparent; text-decoration:none; }
+  .btn-primary { background:linear-gradient(135deg,#E11D27,#A81319); color:#fff; box-shadow:0 8px 22px rgba(176,20,27,.5); }
+  .btn-glass { color:#fff; }
+
+  .stats { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:34px; }
+  .stat { padding:16px 22px; border-radius:18px; color:#fff; text-align:center; min-width:150px; }
+  .stat b { display:block; font-size:26px; font-weight:800; }
+  .stat span { font-size:12px; color:rgba(255,255,255,.75); }
+</style>
+</head>
+<body>
+
+<!-- 1. คอนเทนเนอร์หลัก -->
+<div class="main-container" style="position:relative; background-color:#000; min-height:100vh; width:100vw; overflow:hidden;">
+
+  <!-- 2. วิดีโอพื้นหลัง -->
+  <div style="position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0;">
+    <video id="bgVideo" autoplay muted loop playsinline
+      style="width:100%; height:100%; object-fit:cover; opacity:1;"
+      src="https://stream.mux.com/kimF2ha9zLrX64H00UgLGPflCzNtl1T0215MlAmeOztv8.m3u8"></video>
+    <!-- overlay ให้ตัวอักษรอ่านง่ายบนวิดีโอ -->
+    <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.45));"></div>
+  </div>
+
+  <!-- 3. เนื้อหาเว็บ -->
+  <div style="position:relative; z-index:10; padding:0 20px;">
+
+    <!-- nav pill -->
+    <div class="liquid-glass nav-pill" style="border-radius:9999px; max-width:1000px; margin:22px auto 0;">
+      <span class="logo">i24</span>
+      <a href="#" class="active">Dashboard</a>
+      <a href="#">Invoices</a>
+      <a href="#">Reports</a>
+      <span class="sp"></span>
+      <a class="btn btn-primary" href="#" style="height:40px; padding:0 18px;">Get Started</a>
+    </div>
+
+    <!-- hero card -->
+    <div class="liquid-glass hero-card" style="border-radius:28px; margin:40px auto;">
+      <h1>i24 Common Library</h1>
+      <p>Liquid Glass บนวิดีโอพื้นหลัง — โปร่ง มีน้ำหนัก ขอบเรืองแสง โทนแบรนด์แดง/น้ำเงิน</p>
+      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap">
+        <a class="btn btn-primary" href="#">เริ่มใช้งาน</a>
+        <a class="btn btn-glass liquid-glass" href="#" style="border-radius:9999px;">ดูเอกสาร</a>
+      </div>
+
+      <div class="stats">
+        <div class="liquid-glass stat"><b>1,248</b><span>Total Vehicles</span></div>
+        <div class="liquid-glass stat"><b>฿128.4M</b><span>Revenue</span></div>
+        <div class="liquid-glass stat"><b>892</b><span>Customers</span></div>
+      </div>
+    </div>
+
+    <!-- pill ตัวอย่างเดิม -->
+    <div class="liquid-glass" style="border-radius:9999px; padding:12px 24px; max-width:600px; margin:0 auto 40px; color:#fff; text-align:center;">
+      นี่คือกล่องกรอบใสแบบ Liquid Glass
+    </div>
+
+  </div>
+</div>
+
+<!-- hls.js: ให้ .m3u8 เล่นได้บน Chrome/Firefox (Safari เล่นได้เอง) -->
+<script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+<script>
+  (function () {
+    var v = document.getElementById('bgVideo');
+    var src = v.getAttribute('src');
+    if (v.canPlayType('application/vnd.apple.mpegurl')) {
+      /* Safari เล่น HLS ได้เอง */
+    } else if (window.Hls && Hls.isSupported()) {
+      v.removeAttribute('src');
+      var hls = new Hls();
+      hls.loadSource(src);
+      hls.attachMedia(v);
+    }
+  })();
+</script>
+
+</body>
+</html>
