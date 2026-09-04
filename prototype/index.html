@@ -37,13 +37,14 @@
     --color-focus-ring:#2E4EA6;
 
     /* ---- TRUE clear glass (blur น้อย) + เคลือบเงาหลายชั้น ---- */
-    --glass-tint:  linear-gradient(135deg, rgba(255,255,255,.13) 0%, rgba(255,255,255,.02) 100%);
+    /* กระจกโทนเทาโปร่งแสง + เคลือบเงา (แสงยังเป็นสีขาว) */
+    --glass-tint:  linear-gradient(135deg, rgba(104,114,134,.28) 0%, rgba(104,114,134,.12) 100%);
     --glass-sheen: radial-gradient(135% 95% at 15% -14%, rgba(255,255,255,.55) 0%, rgba(255,255,255,0) 50%);
-    --glass-top:   linear-gradient(180deg, rgba(255,255,255,.40) 0%, rgba(255,255,255,0) 26%);
-    --glass-gloss: linear-gradient(122deg, rgba(255,255,255,0) 34%, rgba(255,255,255,.45) 45%, rgba(255,255,255,.10) 52%, rgba(255,255,255,0) 62%);
-    --glass-reflect: linear-gradient(120deg, rgba(255,255,255,.14), transparent 35%);
-    --glass-bg: rgba(255,255,255,.10);
-    --glass-bg-strong: rgba(255,255,255,.22);
+    --glass-top:   linear-gradient(180deg, rgba(255,255,255,.42) 0%, rgba(255,255,255,0) 26%);
+    --glass-gloss: linear-gradient(122deg, rgba(255,255,255,0) 34%, rgba(255,255,255,.48) 45%, rgba(255,255,255,.12) 52%, rgba(255,255,255,0) 62%);
+    --glass-reflect: linear-gradient(120deg, rgba(255,255,255,.18), transparent 35%);
+    --glass-bg: rgba(104,114,134,.16);
+    --glass-bg-strong: rgba(104,114,134,.28);
     --glass-border: rgba(255,255,255,.62);
     --glass-hairline: rgba(20,28,50,.09);
     --glass-shadow:
@@ -56,11 +57,11 @@
     --input-bg: rgba(255,255,255,.18);
 
     /* พื้นหลังขาว + ลายคลื่นบาง ๆ */
-    --page-bg: linear-gradient(120deg, #F4F6FA 0%, #ECEFF4 100%);
+    --page-bg:#FFFFFF;
     --wave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='54'%3E%3Cpath d='M-20 28 Q 25 6 70 28 T 160 28 T 250 28' fill='none' stroke='%2314203c' stroke-opacity='0.05' stroke-width='1.1'/%3E%3C/svg%3E");
-    --blob-red:  rgba(225,29,39,.07);
-    --blob-blue: rgba(30,58,138,.10);
-    --blob-gray: rgba(90,100,125,.10);
+    --blob-red:  rgba(120,130,150,.04);
+    --blob-blue: rgba(120,130,150,.04);
+    --blob-gray: rgba(120,130,150,.05);
     --radius:20px; --radius-sm:12px; --radius-pill:9999px;
   }
   [data-theme="dark"] {
