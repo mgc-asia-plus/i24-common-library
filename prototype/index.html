@@ -41,6 +41,8 @@
     --glass-sheen: radial-gradient(135% 95% at 15% -14%, rgba(255,255,255,.50) 0%, rgba(255,255,255,0) 50%);
     --glass-top:   linear-gradient(180deg, rgba(255,255,255,.38) 0%, rgba(255,255,255,0) 26%);
     --glass-gloss: linear-gradient(122deg, rgba(255,255,255,0) 34%, rgba(255,255,255,.42) 45%, rgba(255,255,255,.10) 52%, rgba(255,255,255,0) 62%);
+    /* reflection overlay (::before) */
+    --glass-reflect: linear-gradient(120deg, rgba(255,255,255,.12), transparent 35%);
     --glass-bg: rgba(255,255,255,.09);
     --glass-bg-strong: rgba(255,255,255,.20);
     --glass-border: rgba(255,255,255,.60);
@@ -72,6 +74,7 @@
     --glass-sheen: radial-gradient(135% 95% at 15% -14%, rgba(255,255,255,.18) 0%, rgba(255,255,255,0) 50%);
     --glass-top:   linear-gradient(180deg, rgba(255,255,255,.16) 0%, rgba(255,255,255,0) 26%);
     --glass-gloss: linear-gradient(122deg, rgba(255,255,255,0) 34%, rgba(255,255,255,.18) 45%, rgba(255,255,255,.04) 52%, rgba(255,255,255,0) 62%);
+    --glass-reflect: linear-gradient(120deg, rgba(255,255,255,.10), transparent 35%);
     --glass-bg: rgba(255,255,255,.04);
     --glass-bg-strong: rgba(255,255,255,.075);
     --glass-border: rgba(255,255,255,.16);
@@ -115,6 +118,7 @@
 
   /* clear-glass primitive — ใสจริง + เคลือบเงา (gloss + top highlight + sheen) */
   .glass {
+    position:relative; overflow:hidden;
     background:
       var(--glass-gloss),
       var(--glass-top),
@@ -124,6 +128,12 @@
     -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-sat)) brightness(1.04);
     border:1px solid var(--glass-border); box-shadow:var(--glass-shadow);
     border-radius:var(--radius);
+  }
+  /* reflection overlay — แสงสะท้อนมุมบนซ้าย */
+  .glass::before {
+    content:""; position:absolute; inset:0;
+    background:var(--glass-reflect);
+    border-radius:inherit; pointer-events:none;
   }
   @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) {
     .glass, header.app nav, .btn-glass, .toggle, .input { background:var(--glass-bg-strong); }
@@ -137,12 +147,18 @@
   /* nav */
   header.app { position:sticky; top:14px; z-index:20; margin:14px auto 0; max-width:1080px; padding:0 14px; }
   header.app nav {
+    position:relative; overflow:hidden;
     display:flex; align-items:center; gap:24px; height:60px; padding:0 20px;
     background: var(--glass-gloss), var(--glass-top), var(--glass-sheen), var(--glass-tint);
     backdrop-filter:blur(7px) saturate(var(--glass-sat)) brightness(1.04);
     -webkit-backdrop-filter:blur(7px) saturate(var(--glass-sat)) brightness(1.04);
     border:1px solid var(--glass-border); box-shadow:var(--glass-shadow); border-radius:var(--radius-pill);
   }
+  header.app nav::before {
+    content:""; position:absolute; inset:0; background:var(--glass-reflect);
+    border-radius:inherit; pointer-events:none;
+  }
+  header.app nav > * { position:relative; z-index:1; }
   .logo { width:44px; height:30px; border-radius:9px; display:grid; place-items:center;
           background:var(--grad-brand); color:#fff; font-weight:800; font-size:14px; letter-spacing:.03em;
           box-shadow:0 4px 12px rgba(168,19,25,.30); }
@@ -151,6 +167,9 @@
   .spacer { margin-left:auto; }
 
   :where(button,a,input,[tabindex]):focus-visible { outline:2px solid var(--color-focus-ring); outline-offset:3px; }
+
+  /* ให้เนื้อหาใน glass อยู่เหนือ reflection */
+  .glass > * { position:relative; z-index:1; }
 
   /* hero */
   .hero { margin-top:26px; padding:52px 44px; text-align:center; }
@@ -248,7 +267,7 @@
     color:var(--color-text-muted); font-size:13px; }
   footer.app .inner img { height:24px; width:auto; display:block; }
 
-  .toggle { height:40px; width:40px; display:grid; place-items:center; border-radius:50%; cursor:pointer;
+  .toggle { position:relative; height:40px; width:40px; display:grid; place-items:center; border-radius:50%; cursor:pointer;
     border:1px solid var(--glass-border); background:var(--glass-bg-strong); color:var(--color-text); font-size:17px;
     backdrop-filter:blur(6px) brightness(1.04); -webkit-backdrop-filter:blur(6px) brightness(1.04); }
 </style>
@@ -297,7 +316,7 @@
 
   <section class="panel glass" id="cards">
     <h2>Cards (clear glass)</h2>
-    <p class="sub muted">พื้นผิวโปร่งใส เคลือบเงา ไม่ขุ่น</p>
+    <p class="sub muted">พื้นผิวโปร่งใส เคลือบเงา + reflection มุมบนซ้าย ไม่ขุ่น</p>
     <div class="grid cards">
       <div class="mini glass"><h3 class="muted" style="font-size:14px;font-weight:500">ยอดวันนี้</h3><div class="kpi accent">฿128,400</div></div>
       <div class="mini glass"><h3 class="muted" style="font-size:14px;font-weight:500">ใบแจ้งหนี้</h3><div class="kpi">342</div></div>
