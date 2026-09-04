@@ -5,6 +5,19 @@
 
 ## [Unreleased]
 
+### Changed — ธีม Luxury Clear Glass (sync จาก prototype)
+- **Accent เปลี่ยน coral → navy** (`#1E3A8A`; 400 `#2E4EA6`, 600 `#152C63`); coral จากโลโก้ไม่ใช้เป็น accent แล้ว (เหลือเฉพาะในตัวโลโก้)
+- **Neutral → slate/charcoal** (`ink-900 #1A1D24`, `ink-700 #333A46`, `ink-500 #6B7482`, `ink-300 #D2D7DF`, `black #0A0C11`)
+- เพิ่มสี **gold** (`#A8811C`/`#E7C873`) สำหรับ status text ในตาราง
+- **Gradient brand เป็นแดงล้วน** (`#E11D27 → #A81319`) + gradient accent navy (`#2A4AA0 → #152C63`)
+- **Clear glass** (blur 3px + เคลือบเงา 4 ชั้น gloss/sheen/top/tint + เงาหลายชั้น) แทน frosted; page-bg `#EEF0F4`/`#0A0C11`; blob แดง/น้ำเงิน/เทา
+- status: danger `#C1121F`, success `#137A47`, warning `#B7791F`, info navy
+- components: button เพิ่ม variant `accent`; badge เพิ่ม `status` (glass + gold), brand/accent เป็น gradient
+- sync `docs/brand/{palette,design-tokens,theme-tailwind,effects}.md` ให้ตรง `prototype/index.html`
+- ⚠️ a11y: `gold` บน light ≈ 3.6:1 (ใช้ text หนา/ใหญ่ หรือเฉดเข้มขึ้น); `white` บน `red-500` ≈ 4.4:1
+- nav-header: ใช้ **โลโก้จริง `i24_LOGO.svg`** (ทั้ง nav + footer) แทนกล่องตัวอักษร; active link = `color-text` (ไม่ใช่แดง)
+- sync component ที่ค้างธีมเก่า: `nav-header` (glass pill + logo), `table` (selected/hover = `grad-brand-soft`, status = badge gold), `input` (focus = navy ring); เพิ่ม semantic `color-bg/surface/border`; แก้ตัวอย่าง token ใน `naming.md`
+
 ### Added — v1 (documentation)
 - โครงเอกสารกลาง: `README.md`, `docs/README.md`
 - `docs/brand/`: `palette.md` (สีจากโลโก้ marked), `design-tokens.md` (primitive + semantic light/dark), `theme-tailwind.md` (Tailwind v4 `@theme`)

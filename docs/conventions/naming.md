@@ -17,7 +17,7 @@
 - **field เป็น `snake_case`** เสมอ (ดู [`json-api.md`](json-api.md))
 
 ## Design tokens
-- token: `kebab-case` มีลำดับชั้น เช่น `brand-red-500`, `color-text-muted`
+- token: `kebab-case` มีลำดับชั้น เช่น `red-500`, `navy-500`, `color-text-muted`
 - semantic นำหน้าด้วยหมวด: `color-*`, `radius-*`, `space-*`, `shadow-*`, `text-*`, `font-*`
 
 ## Handler/usecase (จาก stack Go)

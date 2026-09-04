@@ -1,81 +1,64 @@
-# Design Tokens
+# Design Tokens — Luxury Clear Glass
 
 โครง token 2 ชั้น: **Primitive** (ค่าดิบ) → **Semantic** (สื่อความหมาย, map ตาม theme mode)
-Component อ้าง **semantic** เสมอ ไม่อ้าง primitive ตรง ๆ เพื่อให้สลับ light/dark ได้
-
-> ค่าสี primitive ดึงจาก [`palette.md`](palette.md) (marked — รอยืนยัน)
+Component อ้าง **semantic** เสมอ เพื่อสลับ light/dark ได้
+> sync จาก `prototype/index.html`; สี SSOT อยู่ที่ [`palette.md`](palette.md); effect (glass/gradient) ที่ [`effects.md`](effects.md)
 
 ## 1) Primitive tokens
 
-### Color (ดู palette.md เป็น SSOT — ค่ายืนยันจากโลโก้แล้ว)
-`brand-red-{50,100,400,500,600,700}` · `brand-coral-{300,400,500}` · `ink-{300,500,700,900}` · `white` · `paper` · `paper-muted` · `success/warning/danger/info-500`
-ค่าหลัก (จาก `i24_LOGO.svg`): `brand-red-500 = #EC2129`, `brand-coral-400 = #F48569`, `white = #FFFFFF`
+### Color
+- **red** (brand): `red-500 #EC2129` ✅, `red-600 #B0141B`, `red-700 #7E0E14`
+- **navy** (accent): `navy-400 #2E4EA6`, `navy-500 #1E3A8A`, `navy-600 #152C63`
+- **slate/ink**: `ink-900 #1A1D24`, `ink-700 #333A46`, `ink-500 #6B7482`, `ink-300 #D2D7DF`, `black #0A0C11`, `white #FFFFFF`
+- **gold**: `#A8811C` (light) / `#E7C873` (dark)
+- **status**: danger `#C1121F`, success `#137A47`, warning `#B7791F`, info `#1E3A8A`
 
 ### Typography
 | Token | ค่า | หมายเหตุ |
 |-------|-----|----------|
-| `font-sans` | `-apple-system, BlinkMacSystemFont, "Inter", "Noto Sans Thai", system-ui, sans-serif` | Mac/iOS ใช้ SF Pro; อื่น ๆ ใช้ Inter (ละติน) + Noto Sans Thai (ไทย) |
+| `font-sans` | `-apple-system, BlinkMacSystemFont, "Inter", "Noto Sans Thai", system-ui, sans-serif` | Mac/iOS = SF Pro; อื่น ๆ = Inter (ละติน) + Noto Sans Thai (ไทย) |
 | `font-mono` | `"JetBrains Mono", ui-monospace, monospace` | code |
-| `text-xs` | 12px / 1.4 | |
-| `text-sm` | 14px / 1.5 | |
-| `text-base` | 16px / 1.6 | body default |
-| `text-lg` | 18px / 1.6 | |
-| `text-xl` | 20px / 1.4 | |
-| `text-2xl` | 24px / 1.3 | heading |
-| `text-3xl` | 30px / 1.25 | |
-| `font-normal / medium / semibold / bold / extrabold` | 400 / 500 / 600 / 700 / 800 | 800 สำหรับ display/heading เด่น |
+| `text-xs…3xl` | 12 / 14 / 16 / 18 / 20 / 24 / 30 px | heading letter-spacing `-.02em` |
+| `font-normal…extrabold` | 400 / 500 / 600 / 700 / 800 | 800 สำหรับ display/KPI |
 
-> **Web fonts**: โหลด Inter + Noto Sans Thai (เช่น Google Fonts `display=swap` + `preconnect`) หรือ self-host ผ่าน `@font-face`. ดูตัวอย่างใน `prototype/index.html`
+> **Web fonts**: โหลด Inter + Noto Sans Thai (Google Fonts `display=swap` + `preconnect`) หรือ self-host `@font-face`. ตัวอย่างใน `prototype/index.html`
 
 ### Spacing (scale 4px)
 `space-1=4` · `2=8` · `3=12` · `4=16` · `5=20` · `6=24` · `8=32` · `10=40` · `12=48` · `16=64` (px)
 
 ### Radius
-| Token | ค่า |
-|-------|-----|
-| `radius-sm` | 4px |
-| `radius-md` | 8px |
-| `radius-lg` | 12px |
-| `radius-xl` | 16px |
-| `radius-pill` | 9999px (ปุ่ม/แท็บมุมมน, โทนโลโก้) |
-
-### Shadow
-| Token | ค่า |
-|-------|-----|
-| `shadow-sm` | `0 1px 2px rgba(0,0,0,.06)` |
-| `shadow-md` | `0 2px 8px rgba(0,0,0,.10)` |
-| `shadow-lg` | `0 8px 24px rgba(0,0,0,.14)` |
+`radius-sm 12px` · `radius-md 8px` · `radius (default) 20px` · `radius-pill 9999px`
 
 ## 2) Semantic tokens (theme-aware)
 
-Component ใช้ชื่อพวกนี้ ค่าจะเปลี่ยนตาม theme mode
+| Semantic token | Light | Dark |
+|----------------|-------|------|
+| `color-text` | `#1A1D24` | `#EDEFF4` |
+| `color-text-muted` | `#5C6675` | `#98A1B2` |
+| `color-bg` | `#FFFFFF` | `#0F1115` |
+| `color-surface` | `#F4F6F9` | `#171A21` |
+| `color-border` | `ink-300 #D2D7DF` | `#2A2F3A` |
+| `color-primary` | `red-500 #EC2129` | `#EC2129` |
+| `color-on-primary` | `#FFFFFF` | `#FFFFFF` |
+| `color-accent` | `navy-500 #1E3A8A` | `#7C93E0` |
+| `color-focus-ring` | `navy-400 #2E4EA6` | `#7C93E0` |
+| `color-gold` | `#A8811C` | `#E7C873` |
+| `color-danger` | `#C1121F` | `#F1616B` |
+| `color-success` | `#137A47` | `#3BB273` |
+| `color-warning` | `#B7791F` | `#D6A24A` |
+| `color-info` | `#1E3A8A` | `#7C93E0` |
+| `page-bg` | `#EEF0F4` | `#0A0C11` |
 
-| Semantic token | Light → primitive | Dark → primitive |
-|----------------|-------------------|------------------|
-| `color-bg` | `paper` `#FFFFFF` | `#0F1115` |
-| `color-surface` | `paper-muted` `#F7F7F8` | `#171A21` |
-| `color-border` | `ink-300` `#D1D5DB` | `#2A2F3A` |
-| `color-text` | `ink-900` `#1A1A1A` | `#F3F4F6` |
-| `color-text-muted` | `ink-500` `#6B7280` | `#9CA3AF` |
-| `color-primary` | `brand-red-500` `#EC2129` | `brand-red-500` `#EC2129` |
-| `color-primary-hover` | `brand-red-600` `#C81B22` | `brand-red-400` `#F04E52` |
-| `color-on-primary` | `white` `#FFFFFF` | `white` `#FFFFFF` |
-| `color-accent` | `brand-coral-400` `#F48569` | `brand-coral-300` `#F7A48A` |
-| `color-danger` | `danger-500` `#DC2626` | `#F87171` |
-| `color-success` | `success-500` `#16A34A` | `#4ADE80` |
-| `color-focus-ring` | `brand-red-400` `#F04E52` | `brand-red-400` `#F04E52` |
+> ค่าฝั่ง dark เป็นชุดสำหรับ luxury dark — คง contrast ให้ผ่าน AA
 
-> ค่าฝั่ง dark เป็นชุดเริ่มต้น (derived) — ปรับได้ตอนยืนยันแบรนด์ แต่ต้องคง contrast ให้ผ่าน AA
-
-## 3) Effect tokens (modern UI)
-ลุค modern ใช้ **gradient** + **glass** เพิ่มจาก semantic tokens — ค่าเต็ม + a11y caveats อยู่ที่ [`effects.md`](effects.md)
-- `grad-brand`, `grad-brand-soft` — gradient แบรนด์ (ใช้กับปุ่ม/โลโก้/badge; **ไม่ใช้กับพื้นหลังหน้า/ตัวหนังสือ**)
-- `glass-bg`, `glass-bg-strong`, `glass-border`, `glass-hairline`, `glass-shadow`, `glass-blur` — พื้นผิวกระจก (theme-aware)
-- `page-bg`, `blob-1..3` — พื้นหลังหน้า + ambient glow โทน neutral (ไม่ปนแดง)
+## 3) Effect tokens (clear glass + gradient)
+ค่าเต็ม + recipe + a11y อยู่ที่ [`effects.md`](effects.md)
+- `grad-brand` (`#E11D27 → #A81319`), `grad-accent` (`#2A4AA0 → #152C63`), `grad-brand-soft`
+- `glass-tint / sheen / top / gloss` (เคลือบเงา 4 ชั้น), `glass-bg`, `glass-bg-strong`, `glass-border`, `glass-hairline`, `glass-shadow`, `glass-blur 3px`
+- `blob-red / blob-blue / blob-gray` (ambient background)
 
 ## กติกาใช้ token
-- Component/หน้า → ใช้ **semantic** เท่านั้น (`color-primary`, `color-text`, …)
-- Primitive แก้ที่ palette.md → semantic ที่นี่ → propagate ทุก component
-- ห้าม hardcode hex ในโค้ด/CSS ของโปรเจกต์ปลายทาง
-- theme mode (light/dark) ดู [`../components/theme-mode.md`](../components/theme-mode.md)
-- การแปลงเป็น Tailwind ดู [`theme-tailwind.md`](theme-tailwind.md)
+- Component/หน้า → ใช้ **semantic** เท่านั้น (ห้าม hardcode hex)
+- gradient เฉพาะ element (ปุ่ม/badge/โลโก้) — ห้ามที่ bg หน้า/ตัวหนังสือ
+- surface หลัก (card/nav/footer/ปุ่มรอง) = clear glass
+- theme mode ดู [`../components/theme-mode.md`](../components/theme-mode.md); Tailwind ดู [`theme-tailwind.md`](theme-tailwind.md)

@@ -25,6 +25,6 @@ Go monolith (Chi + HTMX + Tailwind v4) · Next.js · Nest.js · Express.js
 - **v1**: brand, tokens, theme, components, conventions, scaffolding, stacks (go-monolith, nextjs)
 - **v1.1**: backend เต็ม (nestjs, expressjs) — เสร็จแล้ว
 
-> ค่าสีแบรนด์ยืนยันจากไฟล์ vector ทางการ `i24_LOGO.svg` (`brand-red-500 #EC2129`, `coral-400 #F48569`, `white #FFFFFF`). SSOT ของสีอยู่ที่ [`docs/brand/palette.md`](docs/brand/palette.md)
+> ธีม **Luxury Clear Glass**: primary = แดง `#EC2129` (จาก `i24_LOGO.svg`), accent = navy `#1E3A8A`, neutral = slate, surface = clear glass, status text = gold. (coral จากโลโก้ไม่ใช้เป็น accent แล้ว) SSOT ของสีอยู่ที่ [`docs/brand/palette.md`](docs/brand/palette.md)
 
 ดูประวัติการเปลี่ยนแปลงที่ [`CHANGELOG.md`](CHANGELOG.md)

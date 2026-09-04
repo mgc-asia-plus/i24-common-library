@@ -18,15 +18,16 @@
 - `compact` padding แถวลด (`sm`)
 
 ## States
-- **row hover**: พื้น `color-surface`
-- **selected row**: พื้น `brand-red-50` + checkbox
+- **row hover**: พื้น `grad-brand-soft` (tint จาง) หรือ `color-surface`
+- **selected row**: พื้น `grad-brand-soft` + checkbox
+- **status column**: ใช้ badge variant `status` (clear glass + ตัวอักษร `color-gold`) — ดู [`badge.md`](badge.md)
 - **sortable header**: มีไอคอนทิศ + `aria-sort`
 - **loading**: skeleton หรือ overlay + `aria-busy`
 - **empty**: ข้อความ + (optional) ปุ่ม action ให้เริ่ม
 - **error**: ข้อความ error + ปุ่มลองใหม่
 
 ## Tokens used
-`color-bg`, `color-surface`, `color-border`, `color-text`, `color-text-muted`, `brand-red-50`, `space-3/4`, `text-sm`, `radius-md`
+`color-bg`, `color-surface`, `color-border`, `color-text`, `color-text-muted`, `grad-brand-soft`, `color-gold`, `glass-hairline`, `space-3/4`, `text-sm`, `radius-md`
 
 ## Accessibility
 - ใช้ `<table>` semantics จริง: `<thead>/<tbody>`, `<th scope="col|row">`

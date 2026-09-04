@@ -23,15 +23,15 @@ Helper / Error text
 | `md` (default) | 40px | `text-base` |
 
 ## States
-- **default**: border `color-border`, พื้น `color-bg`
-- **focus**: border `color-primary` + ring `color-focus-ring`
+- **default**: border `color-border`, พื้น `color-bg` (หรือ glass `input-bg` ในธีม Luxury Clear Glass)
+- **focus**: ring `color-focus-ring` (navy) — ไม่ใช้ขอบแดง
 - **disabled**: พื้น `color-surface`, opacity ลด, `not-allowed`
 - **readonly**: ไม่มี border เน้น, แก้ไม่ได้แต่ copy ได้
 - **error**: border `color-danger` + error text ใต้ช่อง + `aria-invalid="true"`
 - **success** (optional): border `color-success`
 
 ## Tokens used
-`color-bg`, `color-surface`, `color-border`, `color-text`, `color-text-muted`, `color-primary`, `color-danger`, `color-focus-ring`, `radius-md`, `space-3`, `text-sm/base`
+`color-bg`, `input-bg` (glass), `color-surface`, `color-border`, `color-text`, `color-text-muted`, `color-danger`, `color-focus-ring` (navy), `radius-md`, `space-3`, `text-sm/base`
 
 ## Accessibility
 - ทุก input ต้องมี `<label>` ผูกด้วย `for`/`id` (หรือ `aria-label`)
@@ -45,7 +45,7 @@ Helper / Error text
   <label for="email" class="text-sm text-[--color-text]">อีเมล <span aria-hidden="true">*</span></label>
   <input id="email" type="email" required aria-describedby="email-err"
          class="h-10 rounded-md border border-[--color-border] bg-[--color-bg] px-3 text-[--color-text]
-                focus-visible:border-[--color-primary] focus-visible:outline-2 focus-visible:outline-[--color-focus-ring]" />
+                focus-visible:outline-2 focus-visible:outline-[--color-focus-ring]" />
   <p id="email-err" class="text-sm text-[--color-danger]">รูปแบบอีเมลไม่ถูกต้อง</p>
 </div>
 ```
