@@ -65,3 +65,15 @@
 - **Action**: generation + edit
 - **Artifacts**: docs/brand/effects.md (ใหม่), design-tokens.md, theme-tailwind.md, palette.md, components/{README,button,card}.md, docs/README.md, CHANGELOG.md, prototype/index.html
 - **Outcome**: codify ธีม modern เป็นมาตรฐาน — gradient (element only), glass tokens (theme-aware) + recipe + a11y/fallback, ambient bg neutral (ไม่ปนแดง), fonts Inter+Noto Sans Thai; เพิ่ม variant glass; prototype ปรับตามมติ (ไม่มี gradient แดงที่ bg/text) — เตรียม commit
+
+### [2026-08-17T12:40:00+07:00] Theme: sync docs จาก prototype (Luxury Clear Glass)
+- **Phase**: implementation (docs)
+- **Action**: sync (prototype → docs)
+- **Artifacts**: docs/brand/{palette,design-tokens,theme-tailwind,effects}.md, components/{button,badge}.md, README.md, CHANGELOG.md
+- **Outcome**: ผู้ใช้แก้ prototype เป็นธีม Luxury Clear Glass → sync เอกสารตาม: accent coral→navy #1E3A8A, neutral→slate, เพิ่ม gold, gradient brand แดงล้วน + accent navy, clear glass (blur 3px + gloss 4 ชั้น), status colors ใหม่; button+accent, badge+status; flag coral ถอดจาก palette + a11y gold/red. รอผู้ใช้ยืนยัน commit
+
+### [2026-08-17T13:00:00+07:00] Sync: แก้ docs ที่ค้างธีมเก่า + โลโก้ nav
+- **Phase**: implementation (docs)
+- **Action**: consistency sync
+- **Artifacts**: prototype/index.html (nav logo → i24_LOGO.svg), docs/brand/design-tokens.md (+color-bg/surface/border), components/{nav-header,table,input}.md, conventions/naming.md, README/CHANGELOG
+- **Outcome**: nav ใช้โลโก้จริง; nav-header spec = clear glass pill + active color-text; table selected/hover=grad-brand-soft + status badge gold; input focus=navy ring; เพิ่ม semantic color-bg/surface/border ที่ component อ้าง; naming example → red-500/navy-500. เอกสารสอดคล้องกับ prototype แล้ว

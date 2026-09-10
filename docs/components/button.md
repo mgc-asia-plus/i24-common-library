@@ -9,13 +9,14 @@
 ## Variants
 | Variant | พื้น | ข้อความ | ใช้เมื่อ |
 |---------|------|---------|----------|
-| `primary` | `color-primary` | `color-on-primary` | action หลัก |
+| `primary` | `grad-brand` (แดง) | `color-on-primary` | action หลัก |
+| `accent` | `grad-accent` (navy) | `white` | action รองที่เด่น (คู่กับ primary) |
 | `secondary` | โปร่ง + border `color-border` | `color-text` | action รอง |
 | `ghost` | โปร่ง | `color-primary` | action เบา / ใน toolbar |
 | `glass` | `glass-bg-strong` + border + blur | `color-text` | action รองบนพื้น modern/glass |
 | `danger` | `color-danger` | `white` | ลบ/ทำลาย (ยืนยันแล้ว) |
 
-> โหมด modern: `primary` ใช้ `gradient-brand` + glow ได้ (ดู [`../brand/effects.md`](../brand/effects.md)); ยังต้องคง contrast + focus ring
+> โหมด Luxury Clear Glass: `primary` = `grad-brand` (แดง), `accent` = `grad-accent` (navy), ปุ่มสีมี gloss streak (`::after` overlay ขาวจาง); ปุ่มรอง = `glass`. คง contrast + focus ring (ดู [`../brand/effects.md`](../brand/effects.md))
 
 ## Sizes
 | Size | สูง | padding-x | text |

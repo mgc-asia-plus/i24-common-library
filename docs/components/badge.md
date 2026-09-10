@@ -9,12 +9,14 @@
 ## Variants
 | Variant | พื้น | ข้อความ | ใช้เมื่อ |
 |---------|------|---------|----------|
-| `neutral` | `color-surface` | `color-text-muted` | ทั่วไป |
-| `brand` | `brand-red-50` | `brand-red-600` | เน้นแบรนด์ |
-| `accent` | coral อ่อน | `color-text` | tag/หมวด |
-| `success` | เขียวอ่อน | `color-success` | สำเร็จ |
-| `warning` | เหลืองอ่อน | เหลืองเข้ม | เตือน |
-| `danger` | แดงอ่อน | `color-danger` | ผิดพลาด |
+| `brand` | `grad-brand` (แดง) | `white` | เน้นแบรนด์ |
+| `accent` | `grad-accent` (navy) | `white` | tag/หมวดเด่น |
+| `status` | clear glass (`glass-bg` + hairline) | `color-gold` | สถานะในตาราง (ลุค luxury) |
+| `success` | glass/โปร่ง | `color-success` | สำเร็จ |
+| `warning` | glass/โปร่ง | `color-warning` | เตือน |
+| `danger` | glass/โปร่ง | `color-danger` | ผิดพลาด |
+
+> `status` = กระจกใส + ตัวอักษรสีทอง (`color-gold`) ใช้ในคอลัมน์สถานะของตาราง. ⚠️ gold บน light ≈ 3.6:1 → ใช้ตัวหนา หรือดู a11y ใน [`../brand/effects.md`](../brand/effects.md). สื่อสถานะด้วย dot/ข้อความด้วย ไม่พึ่งสีอย่างเดียว
 
 ## Sizes
 | Size | สูง | text |
@@ -27,7 +29,7 @@
 - dot variant: จุดสีนำหน้าเพื่อสื่อสถานะโดยไม่พึ่งสีอย่างเดียว
 
 ## Tokens used
-`color-surface`, `color-text`, `color-text-muted`, `brand-red-50`, `brand-red-600`, `color-success`, `color-danger`, `radius-pill`, `text-xs/sm`, `space-2/3`
+`grad-brand`, `grad-accent`, `glass-bg`, `glass-hairline`, `color-gold`, `color-text-muted`, `color-success`, `color-danger`, `color-warning`, `radius-pill`, `text-xs/sm`, `space-2/3`
 
 ## Accessibility
 - อย่าสื่อความหมายด้วย "สี" อย่างเดียว — ใส่ข้อความ/ไอคอน/dot ประกอบ

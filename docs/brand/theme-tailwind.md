@@ -1,109 +1,96 @@
-# Theme — Tailwind v4
+# Theme — Tailwind v4 (Luxury Clear Glass)
 
-วิธีแปลง [design tokens](design-tokens.md) → Tailwind CSS v4 โดยใช้ `@theme` + CSS variables สำหรับสลับ light/dark
-
-> snippet ด้านล่างเป็น **ตัวอย่างอ้างอิง** ไม่ใช่ไฟล์สำเร็จที่ต้อง maintain — แต่ละโปรเจกต์ก็อปตั้งต้นแล้วปรับได้
+แปลง [design tokens](design-tokens.md) → Tailwind CSS v4 + CSS variables สำหรับ light/dark
+> snippet เป็น **ตัวอย่างอ้างอิง** — sync จาก `prototype/index.html`; แต่ละโปรเจกต์ก็อปตั้งต้นแล้วปรับได้
 
 ## แนวคิด
-- primitive + semantic (light) ประกาศใน `@theme` เพื่อให้ Tailwind gen utility (`bg-primary`, `text-muted` ฯลฯ)
-- ค่า semantic ผูกกับ CSS variable → `dark` mode แค่ override ตัวแปร ไม่ต้องเปลี่ยน class
+- semantic + effect ผูกกับ CSS variable → `[data-theme="dark"]` override ค่า
+- surface หลักใช้ clear glass (ดู [`effects.md`](effects.md))
 
 ## 1) นิยาม theme (`app.css`)
 ```css
 @import "tailwindcss";
 
 @theme {
-  /* primitive — brand (ค่าจาก palette.md; red-500/coral-400 ยืนยันจากโลโก้) */
-  --color-brand-red-50:  #FDECED;
-  --color-brand-red-100: #FBD0D2;
-  --color-brand-red-400: #F04E52;
-  --color-brand-red-500: #EC2129;
-  --color-brand-red-600: #C81B22;
-  --color-brand-red-700: #AA171D;
-  --color-brand-coral-300: #F7A48A;
-  --color-brand-coral-400: #F48569;
-  --color-brand-coral-500: #F1684D;
+  /* brand red */
+  --color-red-500:#EC2129; --color-red-600:#B0141B; --color-red-700:#7E0E14;
+  /* navy accent */
+  --color-navy-400:#2E4EA6; --color-navy-500:#1E3A8A; --color-navy-600:#152C63;
+  /* slate */
+  --color-ink-900:#1A1D24; --color-ink-700:#333A46; --color-ink-500:#6B7482; --color-ink-300:#D2D7DF; --color-black:#0A0C11;
 
-  /* semantic — ผูกกับ CSS var เพื่อสลับ theme */
-  --color-bg:            var(--i24-bg);
-  --color-surface:       var(--i24-surface);
-  --color-border:        var(--i24-border);
-  --color-text:          var(--i24-text);
-  --color-text-muted:    var(--i24-text-muted);
-  --color-primary:       var(--i24-primary);
-  --color-primary-hover: var(--i24-primary-hover);
-  --color-on-primary:    var(--i24-on-primary);
-  --color-accent:        var(--i24-accent);
+  /* semantic (ผูก CSS var) */
+  --color-text:var(--i24-text); --color-text-muted:var(--i24-text-muted);
+  --color-primary:var(--i24-primary); --color-on-primary:var(--i24-on-primary);
+  --color-accent:var(--i24-accent); --color-focus:var(--i24-focus); --color-gold:var(--i24-gold);
 
-  /* radius / shadow / font */
-  --radius-md: 8px;
-  --radius-pill: 9999px;
-  --font-sans: -apple-system, BlinkMacSystemFont, "Inter", "Noto Sans Thai", system-ui, sans-serif;
+  /* gradients */
+  --gradient-brand: linear-gradient(135deg, #E11D27 0%, #A81319 100%);
+  --gradient-accent: linear-gradient(135deg, #2A4AA0 0%, #152C63 100%);
 
-  /* gradient แบรนด์ (ใช้กับ element ไม่ใช่ bg หน้า/ตัวหนังสือ) */
-  --gradient-brand: linear-gradient(135deg, #EC2129 0%, #F4574B 45%, #F48569 100%);
+  --radius-pill:9999px; --radius-lg:20px;
+  --font-sans:-apple-system, BlinkMacSystemFont, "Inter", "Noto Sans Thai", system-ui, sans-serif;
 }
 ```
 
 ## 2) ค่าตาม theme mode
 ```css
 :root, [data-theme="light"] {
-  --i24-bg: #FFFFFF;        --i24-surface: #F7F7F8;
-  --i24-border: #D1D5DB;    --i24-text: #1A1A1A;
-  --i24-text-muted: #6B7280;
-  --i24-primary: #EC2129;   --i24-primary-hover: #C81B22;
-  --i24-on-primary: #FFFFFF; --i24-accent: #F48569;
-  /* effects (glass + page) */
-  --i24-page-bg:#f4f5f8;
-  --i24-glass-bg:rgba(255,255,255,.55); --i24-glass-bg-strong:rgba(255,255,255,.72);
-  --i24-glass-border:rgba(255,255,255,.70); --i24-glass-hairline:rgba(20,20,24,.08);
-  --i24-glass-shadow:0 8px 32px rgba(31,20,20,.12), inset 0 1px 0 rgba(255,255,255,.6);
+  --i24-text:#1A1D24; --i24-text-muted:#5C6675;
+  --i24-primary:#EC2129; --i24-on-primary:#fff;
+  --i24-accent:#1E3A8A; --i24-focus:#2E4EA6; --i24-gold:#A8811C;
+  --i24-page-bg:#EEF0F4;
+  /* clear glass */
+  --i24-glass-tint:linear-gradient(135deg,rgba(255,255,255,.13),rgba(255,255,255,.02));
+  --i24-glass-top:linear-gradient(180deg,rgba(255,255,255,.38),transparent 26%);
+  --i24-glass-sheen:radial-gradient(135% 95% at 15% -14%,rgba(255,255,255,.50),transparent 50%);
+  --i24-glass-gloss:linear-gradient(122deg,transparent 34%,rgba(255,255,255,.42) 45%,rgba(255,255,255,.10) 52%,transparent 62%);
+  --i24-glass-border:rgba(255,255,255,.60); --i24-glass-hairline:rgba(20,28,50,.09);
+  --i24-glass-bg-strong:rgba(255,255,255,.20);
 }
 [data-theme="dark"] {
-  --i24-bg: #0F1115;        --i24-surface: #171A21;
-  --i24-border: #2A2F3A;    --i24-text: #F3F4F6;
-  --i24-text-muted: #9CA3AF;
-  --i24-primary: #EC2129;   --i24-primary-hover: #F04E52;
-  --i24-on-primary: #FFFFFF; --i24-accent: #F7A48A;
-  --i24-page-bg:#0a0a0f;
-  --i24-glass-bg:rgba(255,255,255,.06); --i24-glass-bg-strong:rgba(255,255,255,.10);
-  --i24-glass-border:rgba(255,255,255,.14); --i24-glass-hairline:rgba(255,255,255,.10);
-  --i24-glass-shadow:0 8px 32px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.10);
+  --i24-text:#EDEFF4; --i24-text-muted:#98A1B2;
+  --i24-primary:#EC2129; --i24-on-primary:#fff;
+  --i24-accent:#7C93E0; --i24-focus:#7C93E0; --i24-gold:#E7C873;
+  --i24-page-bg:#0A0C11;
+  --i24-glass-tint:linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,.012));
+  --i24-glass-top:linear-gradient(180deg,rgba(255,255,255,.16),transparent 26%);
+  --i24-glass-sheen:radial-gradient(135% 95% at 15% -14%,rgba(255,255,255,.18),transparent 50%);
+  --i24-glass-gloss:linear-gradient(122deg,transparent 34%,rgba(255,255,255,.18) 45%,rgba(255,255,255,.04) 52%,transparent 62%);
+  --i24-glass-border:rgba(255,255,255,.16); --i24-glass-hairline:rgba(255,255,255,.08);
+  --i24-glass-bg-strong:rgba(255,255,255,.075);
 }
 ```
 
-### Web fonts + glass utility
+## 3) Web fonts + glass utility
 ```html
-<!-- ใน <head>: โหลดฟอนต์ (หรือ self-host) -->
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet">
 ```
 ```css
 .glass {
-  background:var(--i24-glass-bg); border:1px solid var(--i24-glass-border);
-  box-shadow:var(--i24-glass-shadow); border-radius:20px;
-  backdrop-filter:blur(22px) saturate(160%); -webkit-backdrop-filter:blur(22px) saturate(160%);
+  background: var(--i24-glass-gloss), var(--i24-glass-top), var(--i24-glass-sheen), var(--i24-glass-tint);
+  backdrop-filter: blur(3px) saturate(135%) brightness(1.04);
+  -webkit-backdrop-filter: blur(3px) saturate(135%) brightness(1.04);
+  border:1px solid var(--i24-glass-border); border-radius:20px;
+  box-shadow:
+    0 0 0 1px rgba(20,28,50,.045), 0 1px 2px rgba(16,22,45,.05), 0 18px 42px rgba(16,22,45,.12),
+    inset 0 1px 0 rgba(255,255,255,.95), inset 0 -1px 0 rgba(20,28,50,.05);
 }
-@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) { .glass{ background:var(--i24-surface);} }
-@media (prefers-reduced-transparency: reduce) { .glass{ background:var(--i24-surface); backdrop-filter:none; -webkit-backdrop-filter:none;} }
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) { .glass{ background:var(--i24-glass-bg-strong);} }
+@media (prefers-reduced-transparency: reduce) { .glass{ backdrop-filter:none; -webkit-backdrop-filter:none; background:var(--i24-glass-bg-strong);} }
 ```
-> รายละเอียด gradient/glass/a11y เต็ม → [`effects.md`](effects.md)
 
 ## 3) ใช้ใน markup
 ```html
-<body class="bg-bg text-text">
-  <button class="bg-primary text-on-primary rounded-pill px-5 py-2 hover:bg-primary-hover">
-    บันทึก
-  </button>
-  <p class="text-text-muted">คำอธิบายรอง</p>
+<body class="text-[--color-text]" style="background:var(--i24-page-bg)">
+  <button class="rounded-pill px-6 h-11 text-white" style="background:var(--gradient-brand)">เริ่มใช้งาน</button>
+  <button class="rounded-pill px-6 h-11 text-white" style="background:var(--gradient-accent)">ดูเอกสาร</button>
+  <section class="glass rounded-[20px] p-7"> ... </section>
 </body>
 ```
 
 ## หมายเหตุต่อ stack
-- **Go monolith**: ไฟล์ CSS นี้ build ด้วย Tailwind CLI แล้ว `go:embed` (ดู [`../stacks/go-monolith.md`](../stacks/go-monolith.md))
-- **Next.js**: import `app.css` ที่ root layout (ดู [`../stacks/nextjs.md`](../stacks/nextjs.md))
-- การสลับค่า `data-theme` ทำโดย component ใน [`../components/theme-mode.md`](../components/theme-mode.md)
-
-## กติกา
-- แก้ค่าสีที่ [`palette.md`](palette.md)/[`design-tokens.md`](design-tokens.md) ก่อน แล้วสะท้อนมาที่ snippet นี้
-- ห้ามเพิ่มสีนอก token ลงใน `@theme` โดยไม่ผ่านการอัปเดต tokens
+- **Go monolith**: build CSS นี้ → `go:embed` (ดู [`../stacks/go-monolith.md`](../stacks/go-monolith.md))
+- **Next.js**: import ที่ root layout (ดู [`../stacks/nextjs.md`](../stacks/nextjs.md))
+- สลับ `data-theme` โดย [`../components/theme-mode.md`](../components/theme-mode.md); gradient/glass/a11y เต็มที่ [`effects.md`](effects.md)

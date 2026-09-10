@@ -161,14 +161,8 @@
     -webkit-backdrop-filter:blur(7px) saturate(var(--glass-sat)) brightness(1.04);
     border:1px solid var(--glass-border); box-shadow:var(--glass-shadow); border-radius:var(--radius-pill);
   }
-  header.app nav::before {
-    content:""; position:absolute; inset:0; background:var(--glass-reflect);
-    border-radius:inherit; pointer-events:none;
-  }
-  header.app nav > * { position:relative; z-index:1; }
-  .logo { width:44px; height:30px; border-radius:9px; display:grid; place-items:center;
-          background:var(--grad-brand); color:#fff; font-weight:800; font-size:14px; letter-spacing:.03em;
-          box-shadow:0 4px 12px rgba(168,19,25,.30); }
+  .logo { display:inline-flex; align-items:center; }
+  .logo img { height:30px; width:auto; display:block; }
   header.app nav a { text-decoration:none; color:var(--color-text); font-size:15px; opacity:.66; letter-spacing:-.01em; }
   header.app nav a.active { opacity:1; font-weight:700; color:var(--color-text); }
   .spacer { margin-left:auto; }
@@ -281,7 +275,7 @@
 
 <header class="app">
   <nav aria-label="หลัก">
-    <span class="logo">i24</span>
+    <a href="#" class="logo" aria-label="i24 หน้าแรก"><img src="../i24_LOGO.svg" alt="i24" /></a>
     <a href="#" class="active" aria-current="page">Dashboard</a>
     <a href="#">Invoices</a>
     <a href="#">Reports</a>
