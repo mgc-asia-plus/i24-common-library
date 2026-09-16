@@ -5,6 +5,24 @@
 
 ## [Unreleased]
 
+### Added — v1.2 (Complex Components เต็มรูปแบบสำหรับระบบ Enterprise)
+- **Modal / Dialog (`docs/components/modal.md`)**: หน้าต่างป๊อปอัปยืนยันแบบ White Translucent Glass ไร้ขอบ + Backdrop Blur (`blur(8px)`) พร้อมปุ่ม Primary (Navy Solid) / Danger (Deep Crimson), Focus Trap, ESC listener, และ Body scroll lock
+- **Custom Select / Dropdown (`docs/components/select.md`)**: กล่องเลือกข้อมูลคัสตอมทรงแคปซูล ไม่พึ่งพา native select เพื่อคุมลุค Glassmorphism หรูหรา พร้อม Popover Menu ลอยสวยงาม และรองรับ Keyboard navigation
+- **Toast Notification System (`docs/components/toast.md`)**: ระบบแจ้งเตือนลอยมุมจอ (Floating Feedback) ทรงแคปซูลแก้วขาวใส ไร้ขอบ พร้อม Singleton Manager จัดการคิวและ Auto-dismiss (4s)
+- **Pagination Control (`docs/components/pagination.md`)**: แถบควบคุมการเปลี่ยนหน้าตาราง ผูกกับมาตรฐาน Response Envelope ใน `docs/conventions/json-api.md` (`meta.page`, `page_size`, `total`) ปุ่มหน้าปัจจุบันเป็น Navy Solid Pill
+- **Interactive Demos ใน `prototype/index.html`**: เพิ่มปุ่มและตัวอย่างให้ทดสอบ Modal, Select, Toast, และ Pagination จริงครบทุกสถานะ
+
+### Added / Changed — ธีม Primary Navy ใสทะลุ & Secondary เทากระจกใสทะลุ (ผสาน i24-booking-service)
+- **พื้นหลังสีขาวบริสุทธิ์ (Pure White Canvas #FFFFFF)**: ปรับพื้นหลังหลักของระบบจากโทนเทาไล่สีเป็นสีขาวสว่างสะอาดตา `#FFFFFF` ทำให้ตัวการ์ดสีขาวใสและปุ่มต่าง ๆ ดูพรีเมียม สบายตา และโมเดิร์น
+- **Primary เปลี่ยนเป็น Navy Solid ไร้ขอบ (#0A2540)**: สีกรมท่าทึบคมชัด โดดเด่น Contrast สูง AAA (`#0A2540` / Dark: `#153965`) + ไร้ขอบ `border: none; box-shadow: none;` + text ขาว `#FFFFFF` ทรง Pill Capsule มนเท่า Badges (พร้อมตัวเลือก Navy Glass สำรอง)
+- **Secondary เป็น เทากระจกใสทะลุ ไร้ขอบ (Borderless Gray Glass)**: `rgba(0, 0, 0, 0.06)` (Dark: `rgba(255, 255, 255, 0.12)`) + `backdrop-filter: blur(16px)` ไร้ขอบตามมาตรฐาน `i24-booking-service`
+- **ตัดขอบหนาออก (Borderless & Seamless)**: ถอด `border: 1px solid` และ `inset 0 1px 0` ออกทั้งหมด ทำให้ขอบบางเนียนกลืนกับหน้าจอ ไม่เป็นเส้นกรอบหนาซ้อนชั้นตามสไตล์ iOS / IG
+- **Button Radius เท่ากับ Badges**: ปรับความมนของทุกปุ่มในระบบเป็นทรง Pill Capsule 9999px (`border-radius: 9999px;` / `rounded-full`) มนกลมเท่า Badges 100% ไร้ขอบ (border: none; box-shadow: none;)
+- **Card สีขาวใส บนพื้นขาว (White Translucent Glass — ไร้ขอบ 100%)**: ปรับพื้นผิวการ์ดขาวใส `rgba(255, 255, 255, 0.70)` + `backdrop-filter: blur(24px)` ไร้เส้นขอบ (`border: none;`) พร้อมเงาลอยฟุ้งบางเฉียบ นุ่มตา ไม่เป็นเส้นกรอบหนา
+- **Brand Red เข้มขึ้นเป็น Deep Crimson (#B0141B)**: ปรับสีแดงประจำแบรนด์จากสีสด (#EC2129) เป็นสีแดงเข้มลึกแบบทับทิม/คริมสัน (`#B0141B`) เพื่อลุคที่สุขุม หรูหรา ไม่ฉูดฉาดตา และเข้ากับระบบ Navy-White
+- **Component Docs & Snippets**: อัปเดต `docs/components/{button,card,nav-header}.md` พร้อม Template โค้ดพร้อมก็อปปี้
+- **Theme Tokens**: ซิงก์ `docs/brand/{palette,design-tokens,theme-tailwind,effects}.md` และ `prototype/index.html` ให้ตรงกัน 100%
+
 ### Changed — ธีม Luxury Clear Glass (sync จาก prototype)
 - **Accent เปลี่ยน coral → navy** (`#1E3A8A`; 400 `#2E4EA6`, 600 `#152C63`); coral จากโลโก้ไม่ใช้เป็น accent แล้ว (เหลือเฉพาะในตัวโลโก้)
 - **Neutral → slate/charcoal** (`ink-900 #1A1D24`, `ink-700 #333A46`, `ink-500 #6B7482`, `ink-300 #D2D7DF`, `black #0A0C11`)

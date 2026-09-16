@@ -25,11 +25,10 @@
 - [ ] FOUC guard + ThemeProvider
 - [ ] `components/ui/` ตาม spec + fetcher (JSON snake_case)
 
-### Nest.js / Express.js (v1.1 — outline)
-- [ ] โครง controller/service/repository ([nestjs](stacks/nestjs.md) / [expressjs](stacks/expressjs.md))
+### Nest.js / Express.js (v1.1) — [nestjs](stacks/nestjs.md) / [expressjs](stacks/expressjs.md)
+- [ ] โครง controller/service/repository ตาม layering
 - [ ] validation + error envelope + JSON snake_case ([`conventions/json-api.md`](conventions/json-api.md))
-- [ ] config/env validate ตอน boot
-- (รายละเอียด backend เต็มจะเติมใน v1.1)
+- [ ] config/env validate ตอน boot และ Global Exception Filter / Error Middleware
 
 ## ก่อนถือว่าเสร็จ
 - [ ] สีถูกต้องตาม token ([`brand/palette.md`](brand/palette.md))

@@ -20,7 +20,9 @@
 
 ### Components
 [`components/README.md`](components/README.md) — หลักการร่วม + รายการ
-- [button](components/button.md) · [badge](components/badge.md) · [card](components/card.md) · [input](components/input.md) · [table](components/table.md) · [nav-header](components/nav-header.md) · [alert](components/alert.md) · [theme-mode](components/theme-mode.md) · [footer 🔒](components/footer.md)
+- **Basic**: [button](components/button.md) · [badge](components/badge.md) · [card](components/card.md) · [input](components/input.md) · [table](components/table.md)
+- **Navigation & Layout**: [nav-header](components/nav-header.md) · [footer 🔒](components/footer.md) · [theme-mode](components/theme-mode.md)
+- **Complex & Interactive (v1.2)**: [modal](components/modal.md) · [select](components/select.md) · [toast](components/toast.md) · [pagination](components/pagination.md) · [alert](components/alert.md)
 
 ### Stacks
 - [go-monolith](stacks/go-monolith.md) — Chi + HTMX + Tailwind v4 *(v1)*

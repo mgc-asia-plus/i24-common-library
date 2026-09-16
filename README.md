@@ -24,7 +24,8 @@ Go monolith (Chi + HTMX + Tailwind v4) · Next.js · Nest.js · Express.js
 ## สถานะ
 - **v1**: brand, tokens, theme, components, conventions, scaffolding, stacks (go-monolith, nextjs)
 - **v1.1**: backend เต็ม (nestjs, expressjs) — เสร็จแล้ว
+- **v1.2**: Complex Components ครบชุด (Modal, Select, Toast, Pagination) พร้อม Interactive Demos — เสร็จแล้ว
 
-> ธีม **Luxury Clear Glass**: primary = แดง `#EC2129` (จาก `i24_LOGO.svg`), accent = navy `#1E3A8A`, neutral = slate, surface = clear glass, status text = gold. (coral จากโลโก้ไม่ใช้เป็น accent แล้ว) SSOT ของสีอยู่ที่ [`docs/brand/palette.md`](docs/brand/palette.md)
+> ธีม **Corporate Glassmorphism**: primary = Navy Solid `#0A2540`, secondary = เทากระจกใสทะลุ (Frosted Gray Glass), brand red = Deep Crimson `#B0141B` (สำหรับสถานะ/danger/โลโก้), canvas = ขาวบริสุทธิ์ `#FFFFFF`, surface = ขาวใสไร้ขอบ (White Translucent Glass). SSOT ของสีอยู่ที่ [`docs/brand/palette.md`](docs/brand/palette.md)
 
 ดูประวัติการเปลี่ยนแปลงที่ [`CHANGELOG.md`](CHANGELOG.md)

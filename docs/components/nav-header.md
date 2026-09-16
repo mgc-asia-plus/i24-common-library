@@ -37,16 +37,16 @@
 
 ## Reference snippet
 ```html
-<header class="app" style="position:sticky;top:14px">
-  <nav aria-label="หลัก" class="glass"
-       style="display:flex;align-items:center;gap:24px;height:60px;padding:0 20px;border-radius:9999px">
+<header class="app" style="position:sticky;top:14px;z-index:20">
+  <nav aria-label="หลัก"
+       style="display:flex;align-items:center;gap:24px;height:56px;padding:0 24px;border-radius:9999px;background:rgba(255,255,255,0.35);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border:1px solid rgba(255,255,255,0.4);box-shadow:0 4px 20px rgba(0,0,0,0.04)">
     <a href="/" aria-label="i24 หน้าแรก" style="display:inline-flex;align-items:center">
       <img src="/static/i24_LOGO.svg" alt="i24" style="height:30px;width:auto" />
     </a>
     <a href="/dashboard" aria-current="page" class="text-[--color-text]" style="font-weight:700">แดชบอร์ด</a>
     <a href="/invoices" class="text-[--color-text]" style="opacity:.66">ใบแจ้งหนี้</a>
     <div style="margin-left:auto;display:flex;gap:12px;align-items:center">
-      <!-- theme-mode toggle -->
+      <!-- theme-mode toggle (Pill button) -->
       <!-- user menu -->
     </div>
   </nav>
