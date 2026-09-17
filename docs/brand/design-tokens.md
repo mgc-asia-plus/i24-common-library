@@ -35,6 +35,11 @@
 - `surface-light: rgba(255, 255, 255, 0.70)`, `surface-dark: rgba(255, 255, 255, 0.07)`
 - `text-light: #1A1A1A`, `text-dark: #F3F4F6`
 
+### Color: Cool Slate (หัวตารางเท่านั้น)
+- `slate-200: #E2E8F0` — พื้นหัวตาราง light
+- `slate-700: #334155` — ตัวอักษรหัวตาราง light
+- Dark: พื้น `rgba(255, 255, 255, 0.06)` · ตัวอักษร = `color-text-muted` — **ห้ามใช้ Cool Slate ทึบใน dark**
+
 ### Radius
 | Token | ค่า | การใช้งาน |
 | :--- | :--- | :--- |
@@ -56,3 +61,8 @@
 | `color-on-primary` | `#FFFFFF` | `#FFFFFF` | ตัวหนังสือบนปุ่ม Navy |
 | `color-text` | `#1A1A1A` | `#F3F4F6` | ตัวหนังสือหลัก |
 | `color-text-muted` | `#6B7280` | `#9CA3AF` | ตัวหนังสือรอง |
+| `color-table-header-bg` | `#E2E8F0` | `rgba(255, 255, 255, 0.06)` | พื้นหัวตาราง (Cool Slate light) |
+| `color-table-header-text` | `#334155` | `#9CA3AF` | ตัวอักษรหัวตาราง |
+| `color-success` | `#137A47` | `#3BB273` | สถานะสำเร็จในตาราง |
+| `color-warning` | `#B7791F` | `#D6A24A` | สถานะรอ/เตือนในตาราง |
+| `color-danger` | `#B0141B` | `#B0141B` | สถานะล้มเหลวในตาราง (Deep Crimson) |

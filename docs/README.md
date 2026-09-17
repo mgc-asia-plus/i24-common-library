@@ -13,7 +13,7 @@
 ### Brand & Theme
 | ไฟล์ | เนื้อหา |
 |------|---------|
-| [`brand/palette.md`](brand/palette.md) | สีจากโลโก้ พร้อม hex code + usage + do/don't |
+| [`brand/palette.md`](brand/palette.md) | สีแบรนด์ + หัวตาราง Cool Slate + สถานะตาราง success/warning/danger |
 | [`brand/design-tokens.md`](brand/design-tokens.md) | tokens ทั้งหมด (color/type/spacing/radius/shadow) + semantic light/dark |
 | [`brand/theme-tailwind.md`](brand/theme-tailwind.md) | map tokens → Tailwind v4 `@theme` |
 | [`brand/effects.md`](brand/effects.md) | gradient + glass (modern UI) tokens + recipe + a11y |

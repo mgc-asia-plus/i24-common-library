@@ -5,6 +5,19 @@
 
 ## [Unreleased]
 
+### Changed — Table status colors (sync จาก i24-etax-service)
+- คอลัมน์สถานะในตารางใช้ **success / warning / danger / muted** (ข้อความ + จุด พื้นโปร่ง) — ไม่ใช้ gold ทั้งคอลัมน์
+- Light: success `#137A47` · warning `#B7791F` · danger `#B0141B` · muted `#6B7280`
+- Dark: success `#3BB273` · warning `#D6A24A` · danger `#B0141B` (เหมือน etax ไม่ใช้ `#F1616B`)
+- Mapping อ้างอิง `admintable.processStatusVariant` + `errorTypeBadge`
+- sync `docs/brand/{palette,design-tokens,theme-tailwind}.md`, `docs/components/{table,badge}.md`, `prototype/index.html`
+
+### Changed — Table header Cool Slate (sync จาก i24-etax-service)
+- หัวตาราง light = **Cool Slate**: พื้น `#E2E8F0` · ตัวอักษร `#334155` (AAA ≈ 8.4:1)
+- Dark: พื้น `rgba(255,255,255,0.06)` · ตัวอักษร `color-text-muted` — ไม่ใช้ Cool Slate ทึบ
+- Token ใหม่: primitive `slate-200` / `slate-700` · semantic `color-table-header-bg` / `color-table-header-text`
+- sync `docs/brand/{palette,design-tokens,theme-tailwind}.md`, `docs/components/table.md`, `prototype/index.html`
+
 ### Added — v1.2 (Complex Components เต็มรูปแบบสำหรับระบบ Enterprise)
 - **Modal / Dialog (`docs/components/modal.md`)**: หน้าต่างป๊อปอัปยืนยันแบบ White Translucent Glass ไร้ขอบ + Backdrop Blur (`blur(8px)`) พร้อมปุ่ม Primary (Navy Solid) / Danger (Deep Crimson), Focus Trap, ESC listener, และ Body scroll lock
 - **Custom Select / Dropdown (`docs/components/select.md`)**: กล่องเลือกข้อมูลคัสตอมทรงแคปซูล ไม่พึ่งพา native select เพื่อคุมลุค Glassmorphism หรูหรา พร้อม Popover Menu ลอยสวยงาม และรองรับ Keyboard navigation

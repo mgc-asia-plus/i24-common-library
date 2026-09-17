@@ -39,6 +39,8 @@
 | `border` | `#D1D5DB` | `#2A2F3A` | เส้นคั่นและขอบการ์ด |
 | `text` | `#1A1A1A` | `#F3F4F6` | ข้อความหลัก |
 | `text-muted` | `#6B7280` | `#9CA3AF` | ข้อความรอง |
+| `table-header-bg` | `#E2E8F0` (Cool Slate) | `rgba(255, 255, 255, 0.06)` | พื้นหัวตาราง — **ไม่ใช้กับแถวข้อมูล** |
+| `table-header-text` | `#334155` | `#9CA3AF` (`text-muted`) | ตัวอักษรหัวตาราง |
 
 ---
 
@@ -60,3 +62,20 @@
 | `white #FFFFFF` บน `Navy Solid #0A2540` | **≈ 14.8:1** | ✅ ผ่าน **AAA** ทุกขนาดตัวอักษร |
 | `white #FFFFFF` บน `Brand Red #B0141B` | **≈ 5.9:1** | ✅ ผ่าน **AA / AAA Large** |
 | `text #1A1A1A` บน `Gray Glass (Light)` | **≈ 14.2:1** | ✅ ผ่าน **AAA** ทุกขนาดตัวอักษร |
+| `table-header-text #334155` บน `table-header-bg #E2E8F0` | **≈ 8.4:1** | ✅ ผ่าน **AAA** ทุกขนาดตัวอักษร |
+
+---
+
+## 6. Table status (จาก i24-etax-service `.mac-badge`)
+
+คอลัมน์สถานะในตารางใช้ **ข้อความ + จุดสี** พื้นโปร่ง — **ไม่ทา Cool Slate และไม่ใช้ gold ทั้งคอลัมน์**
+
+| Variant | Light | Dark | ใช้เมื่อ (ตัวอย่าง etax) |
+| :--- | :--- | :--- | :--- |
+| `success` | `#137A47` | `#3BB273` | `ready` / `submitted` / `success` / `imported` |
+| `warning` | `#B7791F` | `#D6A24A` | `pending` / `prepare` / `new` / `failed_retry` / `[transient]` |
+| `danger` | `#B0141B` | `#B0141B` | `failed` / `error` / `invalid` / `[permanent]` |
+| `muted` | `#6B7280` | `#9CA3AF` | ว่าง / ไม่ทราบ / `history` |
+
+Mapping อ้างอิง: `i24-etax-service/internal/helpers/admintable/cell.go` (`processStatusVariant`) + `errorTypeBadge`  
+สเปกคอมโพเนนต์: [`../components/table.md`](../components/table.md) · [`../components/badge.md`](../components/badge.md)

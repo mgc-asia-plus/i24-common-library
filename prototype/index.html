@@ -30,6 +30,7 @@
     --grad-brand-soft: linear-gradient(135deg, rgba(176,20,27,.06), rgba(10,37,64,.08));
 
     --color-text:#1A1D24; --color-text-muted:#5C6675;
+    --color-table-header-bg:#E2E8F0; --color-table-header-text:#334155;
     --color-primary:#0A2540; --color-on-primary:#ffffff;
     --color-accent:#0A2540;
     --color-danger:#B0141B; --color-success:#137A47; --color-warning:#B7791F; --color-info:#0A2540;
@@ -66,8 +67,9 @@
   }
   [data-theme="dark"] {
     --color-text:#EDEFF4; --color-text-muted:#98A1B2;
+    --color-table-header-bg:rgba(255,255,255,.06); --color-table-header-text:var(--color-text-muted);
     --color-on-primary:#ffffff; --color-accent:#7C93E0; --color-focus-ring:#7C93E0;
-    --color-info:#7C93E0; --color-danger:#F1616B; --color-success:#3BB273; --color-warning:#D6A24A;
+    --color-info:#7C93E0; --color-danger:#B0141B; --color-success:#3BB273; --color-warning:#D6A24A;
     --color-gold:#E7C873;
 
     --grad-brand-soft: linear-gradient(135deg, rgba(236,33,41,.12), rgba(46,78,166,.16));
@@ -284,8 +286,10 @@
   .badge-brand { background:var(--grad-brand); color:#fff; }
   .badge-accent { background:var(--grad-accent); color:#fff; }
   .badge-success { color:var(--color-success); } .badge-warning{ color:var(--color-warning); } .badge-danger{ color:var(--color-danger); }
-  /* status ในตาราง: กระจกใส + ตัวอักษรสีทอง */
-  .badge-status { background:var(--glass-bg); border:none; color:var(--color-gold); font-weight:600; }
+  .badge-muted { color:var(--color-text-muted); }
+  /* status ในตาราง = success/warning/danger/muted (etax .mac-badge) ไม่ใช้ gold ทั้งคอลัมน์ */
+  .badge-status { color:var(--color-gold); font-weight:600; }
+  table .badge { background:transparent; backdrop-filter:none; -webkit-backdrop-filter:none; }
 
   /* cards */
   .cards { grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); }
@@ -304,10 +308,11 @@
   .input.err { border-color:var(--color-danger); }
   .err-text { color:var(--color-danger); font-size:13px; }
 
-  /* table */
+  /* table — header Cool Slate (docs/components/table.md) */
   .tbl-wrap { overflow:hidden; border-radius:var(--radius); }
   table { width:100%; border-collapse:collapse; font-size:14px; }
-  thead th { text-align:left; color:var(--color-text-muted); font-weight:600; padding:14px 14px; letter-spacing:.01em;
+  thead { background:var(--color-table-header-bg); }
+  thead th { text-align:left; color:var(--color-table-header-text); font-weight:600; padding:14px 14px; letter-spacing:.01em;
     border-bottom:1px solid var(--glass-hairline); }
   tbody td { padding:14px 14px; border-bottom:1px solid var(--glass-hairline); }
   tbody tr { transition:background .15s; }
@@ -431,6 +436,8 @@
       <div class="swatch"><div class="chip" style="background:#0A0A0F"></div><div class="meta"><b>Canvas Dark</b><code>#0A0A0F</code></div></div>
       <div class="swatch"><div class="chip" style="background:rgba(255,255,255,0.70);backdrop-filter:blur(16px);box-shadow:inset 0 0 0 1px #E5E7EB;"></div><div class="meta"><b>White Glass Card</b><code>rgba(255,255,255,.70)</code></div></div>
       <div class="swatch"><div class="chip" style="background:#1A1A1A"></div><div class="meta"><b>Ink Text</b><code>#1A1A1A</code></div></div>
+      <div class="swatch"><div class="chip" style="background:#E2E8F0"></div><div class="meta"><b>Table Header (Cool Slate)</b><code>#E2E8F0</code></div></div>
+      <div class="swatch"><div class="chip" style="background:#334155"></div><div class="meta"><b>Table Header Text</b><code>#334155</code></div></div>
     </div>
   </section>
 
@@ -489,14 +496,14 @@
 
   <section class="panel glass" id="table">
     <h2>Table & Pagination</h2>
-    <p class="sub muted">ตารางแสดงข้อมูลพร้อมแถบแบ่งหน้า Pagination มาตรฐาน i24 (ผูกกับ JSON API):</p>
+    <p class="sub muted">หัวตาราง Cool Slate · สถานะในตาราง = success / warning / danger (จาก i24-etax-service):</p>
     <div class="tbl-wrap glass" style="margin-top:12px">
       <table>
         <thead><tr><th>เลขที่</th><th>ลูกค้า</th><th>ยอด</th><th>สถานะ</th></tr></thead>
         <tbody>
-          <tr><td>INV-001</td><td>บริษัท ก</td><td>12,500.00</td><td><span class="badge badge-status"><span class="dot"></span>สำเร็จ</span></td></tr>
-          <tr><td>INV-002</td><td>บริษัท ข</td><td>8,900.00</td><td><span class="badge badge-status"><span class="dot"></span>รอดำเนินการ</span></td></tr>
-          <tr><td>INV-003</td><td>บริษัท ค</td><td>3,200.00</td><td><span class="badge badge-status"><span class="dot"></span>ผิดพลาด</span></td></tr>
+          <tr><td>INV-001</td><td>บริษัท ก</td><td>12,500.00</td><td><span class="badge badge-success"><span class="dot"></span>สำเร็จ</span></td></tr>
+          <tr><td>INV-002</td><td>บริษัท ข</td><td>8,900.00</td><td><span class="badge badge-warning"><span class="dot"></span>รอดำเนินการ</span></td></tr>
+          <tr><td>INV-003</td><td>บริษัท ค</td><td>3,200.00</td><td><span class="badge badge-danger"><span class="dot"></span>ผิดพลาด</span></td></tr>
         </tbody>
       </table>
     </div>

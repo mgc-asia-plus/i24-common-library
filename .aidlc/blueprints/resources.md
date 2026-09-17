@@ -38,7 +38,7 @@
 - **Existing API docs**: none
 
 ## Knowledge Resources
-- **Documentation**: none yet
+- **Documentation**: `docs/` — SSOT ที่ `docs/brand/palette.md` (หัวตาราง Cool Slate + สถานะตารางจาก i24-etax-service)
 - **Reference implementations**: i24-etax-service (Go+Chi+HTMX+Tailwind v4) — เป็น consumer อ้างอิงฝั่ง Go
 
 ## Available Tools

@@ -42,7 +42,7 @@ docs/  (อ้าง common-library หรือ submodule)
 
 ## HTMX partial convention
 - component จาก [`../components/`](../components/README.md) → เป็น `{{define "partials/xxx"}}` ใน `internal/template/partials/`
-- search/table pattern: หน้าเต็ม + endpoint `/{resource}/table` คืน `<tbody>`/บล็อก partial (ดู [`../components/table.md`](../components/table.md))
+- search/table pattern: หน้าเต็ม + endpoint `/{resource}/table` คืน `<tbody>`/บล็อก partial (ดู [`../components/table.md`](../components/table.md) — หัวตาราง Cool Slate)
 - ปุ่ม/ฟอร์มยิง `hx-get/hx-post` → handler คืน partial
 
 ## Routing (Chi)

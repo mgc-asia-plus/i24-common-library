@@ -26,10 +26,10 @@ spec ของ UI component กลาง — อธิบายพฤติก�
 | Component | ไฟล์ | ประเภท | สรุป |
 |---|---|---|---|
 | Button | [button.md](button.md) | Basic | ปุ่ม action หลัก (Navy Solid) / ปุ่มรอง (Gray Glass) |
-| Badge | [badge.md](badge.md) | Basic | ป้ายสถานะ/ตัวเลข ทรง Pill Capsule |
+| Badge | [badge.md](badge.md) | Basic | ป้ายสถานะ ทรง Pill — ตารางใช้ success/warning/danger จาก etax |
 | Card | [card.md](card.md) | Layout | กล่องเนื้อหา White Clear Glass ไร้ขอบ |
 | Input | [input.md](input.md) | Form | ช่องกรอกข้อความ + validation |
-| Table | [table.md](table.md) | Data | ตารางข้อมูล |
+| Table | [table.md](table.md) | Data | ตาราง — หัว Cool Slate + สถานะ success/warning/danger |
 | Nav / Header | [nav-header.md](nav-header.md) | Navigation | แถบนำทางบนสุดทรงแคปซูล |
 | Alert | [alert.md](alert.md) | Feedback | แจ้งเตือนแบบ inline |
 | Theme mode | [theme-mode.md](theme-mode.md) | Utility | สลับ light/dark |

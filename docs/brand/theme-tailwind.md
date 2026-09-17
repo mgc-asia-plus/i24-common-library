@@ -22,6 +22,11 @@
   --color-page-bg: var(--i24-page-bg);
   --color-surface: var(--i24-surface);
   --color-border: var(--i24-border);
+  --color-table-header-bg: var(--i24-table-header-bg);
+  --color-table-header-text: var(--i24-table-header-text);
+  --color-success: var(--i24-success);
+  --color-warning: var(--i24-warning);
+  --color-danger: var(--i24-danger);
 
   /* Buttons */
   --color-primary: var(--i24-primary); /* Navy Solid หลัก */
@@ -55,6 +60,15 @@
   --i24-secondary-glass: rgba(0, 0, 0, 0.06);
   --i24-secondary-glass-hover: rgba(0, 0, 0, 0.10);
   --i24-secondary-glass-border: transparent;
+
+  /* Table header: Cool Slate */
+  --i24-table-header-bg: #E2E8F0;
+  --i24-table-header-text: #334155;
+
+  /* Table status (จาก i24-etax-service) */
+  --i24-success: #137A47;
+  --i24-warning: #B7791F;
+  --i24-danger: #B0141B;
 }
 
 [data-theme="dark"] {
@@ -72,6 +86,15 @@
   --i24-secondary-glass: rgba(255, 255, 255, 0.12);
   --i24-secondary-glass-hover: rgba(255, 255, 255, 0.18);
   --i24-secondary-glass-border: transparent;
+
+  /* Table header: ไม่ใช้ Cool Slate ทึบใน dark */
+  --i24-table-header-bg: rgba(255, 255, 255, 0.06);
+  --i24-table-header-text: #9CA3AF;
+
+  /* Table status (จาก i24-etax-service) */
+  --i24-success: #3BB273;
+  --i24-warning: #D6A24A;
+  --i24-danger: #B0141B;
 }
 ```
 
