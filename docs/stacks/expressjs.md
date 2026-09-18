@@ -2,6 +2,7 @@
 
 **สถานะ: v1.1 (เต็ม)** — แนวทาง setup Backend API (REST) ฝั่ง Node/TypeScript ให้ตรงมาตรฐาน i24
 *ไม่ใช่ template code สำเร็จ — เป็นแนวทาง + snippet อ้างอิง; response/JSON ยึด [`../conventions/json-api.md`](../conventions/json-api.md)*
+**StackName:** `expressjs` · **has_ui:** no · **theme pointer:** [`../brand/theme-tailwind.md`](../brand/theme-tailwind.md) (`tailwindcss@4.3.3`)
 
 ## เหมาะกับ
 Backend ที่ต้องการโครงเบา ควบคุมเองได้มาก ไม่ต้องการ framework หนัก (service เล็ก-กลาง)
@@ -105,6 +106,11 @@ export function errorHandler(err, req, res, next) {
 - integration: route ผ่าน `supertest`
 - ตั้งชื่อ `*.test.ts`
 
+## Theme / tokens (has_ui = no)
+Stack นี้เป็น backend — ไม่มีหน้าเว็บ จึงไม่ต้อง build CSS ในบริการนี้
+
+ถ้ามี HTML/CSS ภายหลัง หรือแชร์ token กับ client ให้ต่อ `@theme` ตาม [`../brand/theme-tailwind.md`](../brand/theme-tailwind.md) (pin `tailwindcss@4.3.3`) และอ้างชื่อ token จาก [`../brand/`](../brand/design-tokens.md) — ห้ามคัดลอกตารางสี / ห้ามใส่ hex ล้วน
+
 ## Checklist เริ่มโปรเจกต์
 - [ ] โครง `routes/controllers/services/repositories/middlewares/schemas`
 - [ ] middleware order: requestId → json → routes → notFound → errorHandler
@@ -112,3 +118,4 @@ export function errorHandler(err, req, res, next) {
 - [ ] response helper (envelope) + validate middleware
 - [ ] envelope + JSON snake_case ตรง [`../conventions/json-api.md`](../conventions/json-api.md)
 - [ ] naming/structure/git ตาม [`../conventions/`](../conventions/project-structure.md)
+- [ ] (ถ้ามี CSS) ต่อ theme จาก [`../brand/theme-tailwind.md`](../brand/theme-tailwind.md) — pin `tailwindcss@4.3.3`

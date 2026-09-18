@@ -1,7 +1,7 @@
 # Card
 
 ## Purpose
-กล่องจัดกลุ่มเนื้อหาที่เกี่ยวข้อง (สรุป, รายการ, ฟอร์มย่อย)
+กล่องจัดกลุ่มเนื้อหาที่เกี่ยวข้อง (สรุป, รายการ, ฟอร์มย่อย) — พื้นผิวมาตรฐานคือ **White Clear Glass ไร้ขอบ** ตามแคตตาล็อก
 
 ## Anatomy
 ```
@@ -13,65 +13,70 @@
 │ Footer (action?)         │  ← optional
 └─────────────────────────┘
 ```
+- บังคับ: surface + body
+- ทางเลือก: header, footer, action ในหัวการ์ด
 
 ## Variants
-| Variant | ลักษณะ | ใช้เมื่อ |
-|---------|--------|----------|
-| `white-glass` (แนะนำ) | พื้นขาวใส `rgba(255,255,255,0.45)` + blur 24px + ขอบสะท้อนแสงบางเบา | พื้นผิวมาตรฐาน ลุคหรูหรา มองทะลุเห็นพื้นหลัง |
-| `elevated` | พื้นทึบ `color-bg` + `shadow-sm` | card ลอยบนพื้นทั่วไป |
-| `outlined` | border `color-border`, ไม่มีเงา | บนพื้นที่มีเงาไม่เหมาะ |
-| `filled` | พื้น `color-surface` | เน้นแยกจากพื้นหลัง |
+
+| Variant | เมื่อไหร่ที่ใช้ | Visual |
+|---------|----------------|--------|
+| `white-glass` (แนะนำ) | พื้นผิวมาตรฐาน มองทะลุพื้นหลัง | Recipe `surface-white-glass` — พื้น `color-surface`; มน `radius-card` (20px); ไร้ขอบ |
+| `elevated` | การ์ดลอยบนแคนวาส | พื้น `color-bg`; เงาตาม recipe `surface-white-glass` (light) |
+| `outlined` | พื้นที่มีเงาไม่เหมาะ | เส้น `color-border` / `glass-hairline`; ไม่มีเงา |
+| `filled` | เน้นแยกจากพื้นหลัง | พื้น `color-surface` โดยไม่อ้าง blur เพิ่ม |
+
+คลาสที่ล็อกของตัวแนะนำ: `.card-white-glass` / `.surface-white-glass`
+
+Blur / opacity / เงาอ้างสูตรใน [`../brand/effects.md`](../brand/effects.md) เท่านั้น — ห้ามคิดค่าใหม่; `prefers-reduced-transparency` ตาม recipe เดียวกัน
+
+## Sizes
+
+| Size | Padding | Radius |
+|------|---------|--------|
+| `md` (default) | 24px | `radius-card` (20px) |
+| `compact` | 16px | `radius-card` (20px) |
+
+ความกว้างตาม layout แม่ — การ์ดไม่มีขนาดความสูงคงที่
 
 ## States
-- static เป็นหลัก
-- **interactive card** (ทั้งใบคลิกได้): เพิ่ม hover ยกเงา (`shadow-md`) + focus ring + `cursor-pointer`; ต้องเป็น `<a>`/`<button>` ครอบหรือมี role ที่ถูกต้อง
+
+| State | พฤติกรรม |
+|-------|----------|
+| **default** | static — ไม่โต้ตอบ |
+| **hover** | เฉพาะ interactive card — ใช้เงาจาก recipe `surface-white-glass` (light); `cursor: pointer` |
+| **focus** | interactive card ต้องมีวงแหวน `color-focus-ring` (ค่า = `color-primary` / `--i24-primary` `#0F172A`) |
+| **disabled** | interactive card ที่ปิดแล้ว — ไม่รับคลิก; `aria-disabled`; ไม่มี hover |
+
+Interactive card ทั้งใบต้องเป็น `<a>` หรือ `<button>` (หรือมี role ที่ถูกต้อง) — ห้าม `<div onclick>`
 
 ## Tokens used
-`card-white-glass-bg`, `color-border`, `color-text`, `radius-lg`, `space-4/6`
+- `color-surface` — พื้น white glass (`rgba(255, 255, 255, 0.70)` light / `rgba(255, 255, 255, 0.07)` dark)
+- `color-bg` — แคนวาส / elevated
+- `color-border` / `glass-hairline` — outlined
+- `color-text` (`#1A1A1A` / `#F3F4F6`) — หัวข้อ
+- `color-text-muted` — เนื้อหารอง
+- `radius-card` (20px)
+- `color-focus-ring` — focus ของ interactive card (กฎร่วม SpecIndex); ค่าวงแหวน = `color-primary` / `--i24-primary` (`#0F172A`)
+- Effect: `surface-white-glass` — [`../brand/effects.md`](../brand/effects.md)
 
----
+ชื่อ token จาก [`../brand/design-tokens.md`](../brand/design-tokens.md)
 
-## Ready-to-use Templates (การ์ดสีขาวใส)
+## Accessibility
+- การ์ด static: ไม่มี role พิเศษ; หัวข้อใช้ heading จริง (`h2`/`h3`)
+- Interactive: ใช้ลิงก์/ปุ่ม; คีย์บอร์ด `Tab` + `Enter` / `Space`; focus `color-focus-ring`
+- พื้นที่แตะของ action บนการ์ด ≥ **40×40px**
+- ข้อความบนแก้วต้อง contrast ตาม [`../brand/palette.md`](../brand/palette.md); fallback ทึบเมื่อไม่รองรับ `backdrop-filter` อยู่ใน recipe
 
-### 1. Pure CSS
-```css
-/* Card สีขาวใส ไร้ขอบ บนพื้นหลังสีขาว #FFFFFF (White Translucent Glass — Borderless) */
-.card-white-glass {
-  background: rgba(255, 255, 255, 0.70);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: none;                                 /* ❌ ไร้ขอบ 100% */
-  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.04); /* เงาฟุ้งลอยบางเฉียบ นุ่มตา ไม่ใช่เส้นขอบ */
-  border-radius: 20px;
-  padding: 24px;
-}
-
-/* Dark Mode (Smoke Clear Glass) */
-[data-theme="dark"] .card-white-glass {
-  background: rgba(255, 255, 255, 0.07);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: none;
-  box-shadow: none;
-}
-```
-
-### 2. HTML Markup
+## Reference snippet
 ```html
-<div class="card-white-glass">
-  <header class="flex items-center justify-between mb-4">
-    <h3 class="text-base font-bold text-[#1A1A1A] dark:text-white">หัวข้อการ์ด</h3>
+<article class="card-white-glass surface-white-glass">
+  <header>
+    <h3>หัวข้อการ์ด</h3>
   </header>
-  <div class="text-sm text-[#4B5563] dark:text-[#9CA3AF]">
-    เนื้อหาภายในการ์ดสีขาวใส ไร้ขอบ มองเห็นแสงสีจากพื้นหลังทะลุผ่านเนียนตา
-  </div>
-</div>
-```
+  <p>เนื้อหาภายในการ์ดขาวใส ไร้ขอบ</p>
+</article>
 
-### 3. Tailwind CSS
-```html
-<!-- Card ขาวใส ไร้ขอบ 100% -->
-<div class="p-6 rounded-[20px] border-none shadow-none bg-white/50 dark:bg-white/[0.07] backdrop-blur-2xl">
-  <!-- Content -->
-</div>
+<a href="/detail" class="card-white-glass focus-visible:outline-2 focus-visible:outline-[--color-focus-ring]">
+  การ์ดที่คลิกได้
+</a>
 ```

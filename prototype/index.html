@@ -21,21 +21,24 @@
     /* brand red — Deep Crimson / Ruby (เข้มลึก หรูหรา) */
     --brand-red-500:#B0141B; --brand-red-600:#8E1015; --brand-red-700:#6B0C10;
     /* accent → royal navy */
-    --blue-400:#2E4EA6; --blue-500:#0A2540; --blue-600:#06182B;
+    --blue-400:#2E4EA6; --blue-500:#0F172A; --blue-600:#06182B; /* --blue-500 = color-primary / --i24-primary */
     /* neutrals → slate / charcoal */
     --ink-900:#1A1D24; --ink-700:#333A46; --ink-500:#6B7482; --ink-300:#D2D7DF; --black:#0A0C11;
 
     --grad-brand:  linear-gradient(135deg, #B0141B 0%, #7E0E14 100%);
-    --grad-accent: linear-gradient(135deg, #0A2540 0%, #06182B 100%);
-    --grad-brand-soft: linear-gradient(135deg, rgba(176,20,27,.06), rgba(10,37,64,.08));
+    --grad-accent: linear-gradient(135deg, var(--i24-primary, #0F172A) 0%, var(--blue-600) 100%); /* color-primary → color-primary-hover */
+    --grad-brand-soft: linear-gradient(135deg, rgba(176,20,27,.06), rgba(15,23,42,.08));
+    /* grad-table-row-hover — navy rgba(15,23,42,…) not old rgba(10,37,64,…) */
+    --grad-table-row-hover: linear-gradient(135deg, rgba(176, 20, 27, 0.06), rgba(15, 23, 42, 0.08));
 
     --color-text:#1A1D24; --color-text-muted:#5C6675;
     --color-table-header-bg:#E2E8F0; --color-table-header-text:#334155;
-    --color-primary:#0A2540; --color-on-primary:#ffffff;
-    --color-accent:#0A2540;
-    --color-danger:#B0141B; --color-success:#137A47; --color-warning:#B7791F; --color-info:#0A2540;
+    --color-primary:#0F172A; --i24-primary:#0F172A; --color-on-primary:#ffffff;
+    --color-sidebar-bg:#0F172A; /* color-sidebar-bg — same in light/dark */
+    --color-accent:#0F172A;
+    --color-danger:#B0141B; --color-success:#137A47; --color-warning:#B7791F; --color-info:#0F172A;
     --color-gold:#A8811C;
-    --color-focus-ring:#2E4EA6;
+    --color-focus-ring:var(--color-primary); /* SpecIndex: color-focus-ring maps to color-primary */
 
     /* ---- TRUE clear glass (blur น้อย) + เคลือบเงาหลายชั้น ---- */
     /* กระจกโทนขาวเงา (พื้นหลังเป็นเทาไล่สี) */
@@ -58,7 +61,7 @@
     --input-bg: rgba(255,255,255,.18);
 
     /* พื้นหลังขาวบริสุทธิ์ (#FFFFFF) + ลายคลื่นบาง ๆ */
-    --page-bg: #FFFFFF;
+    --page-bg: #F5F5F7;
     --wave: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='54'%3E%3Cpath d='M-20 28 Q 25 6 70 28 T 160 28 T 250 28' fill='none' stroke='%2314203c' stroke-opacity='0.02' stroke-width='1.1'/%3E%3C/svg%3E");
     --blob-red:  transparent;
     --blob-blue: rgba(30,58,138,.05);
@@ -68,11 +71,14 @@
   [data-theme="dark"] {
     --color-text:#EDEFF4; --color-text-muted:#98A1B2;
     --color-table-header-bg:rgba(255,255,255,.06); --color-table-header-text:var(--color-text-muted);
-    --color-on-primary:#ffffff; --color-accent:#7C93E0; --color-focus-ring:#7C93E0;
+    --color-on-primary:#ffffff; --color-accent:#7C93E0; --color-focus-ring:var(--color-primary);
     --color-info:#7C93E0; --color-danger:#B0141B; --color-success:#3BB273; --color-warning:#D6A24A;
     --color-gold:#E7C873;
+    --color-primary:#0F172A; --i24-primary:#0F172A;
+    --color-sidebar-bg:#0F172A; /* does not switch with [data-theme] */
 
     --grad-brand-soft: linear-gradient(135deg, rgba(236,33,41,.12), rgba(46,78,166,.16));
+    --grad-table-row-hover: linear-gradient(135deg, rgba(236, 33, 41, 0.12), rgba(46, 78, 166, 0.16));
 
     --glass-tint:  linear-gradient(135deg, rgba(255,255,255,.07) 0%, rgba(255,255,255,.012) 100%);
     --glass-sheen: radial-gradient(135% 95% at 15% -14%, rgba(255,255,255,.18) 0%, rgba(255,255,255,0) 50%);
@@ -210,28 +216,28 @@
   }
   .btn:active { transform:scale(0.98); }
 
-  /* Primary: Navy Solid (#0A2540) ไร้ขอบ ทรง Pill Capsule */
+  /* Primary: Navy Solid — color-primary / --i24-primary (#0F172A) ไร้ขอบ ทรง Pill Capsule */
   .btn-primary, .btn-navy-solid {
-    background: #0A2540;
+    background: var(--i24-primary, #0F172A);
     border: none;
     box-shadow: none;
-    color: #FFFFFF;
+    color: var(--color-on-primary, #FFFFFF);
   }
   .btn-primary:hover, .btn-navy-solid:hover {
-    background: #06182B;
+    background: #06182B; /* color-primary-hover (light) */
     transform: translateY(-1px);
   }
   [data-theme="dark"] .btn-primary, [data-theme="dark"] .btn-navy-solid {
-    background: #153965;
-    color: #FFFFFF;
+    background: var(--i24-primary, #0F172A);
+    color: var(--color-on-primary, #FFFFFF);
   }
   [data-theme="dark"] .btn-primary:hover, [data-theme="dark"] .btn-navy-solid:hover {
-    background: #1D4B82;
+    background: #1D4B82; /* color-primary-hover (dark) */
   }
 
-  /* Variant: Navy ใสทะลุ */
+  /* Variant: Navy ใสทะลุ — primary-glass-bg (color-primary / --i24-primary) */
   .btn-navy-glass {
-    background: rgba(10, 37, 64, 0.75);
+    background: rgba(15, 23, 42, 0.75); /* color-primary @ 0.75 */
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: none;
@@ -239,7 +245,7 @@
     color: #FFFFFF;
   }
   .btn-navy-glass:hover {
-    background: rgba(10, 37, 64, 0.88);
+    background: rgba(15, 23, 42, 0.88); /* color-primary @ 0.88 */
     transform: translateY(-1px);
   }
 
@@ -275,7 +281,7 @@
   [data-theme="dark"] .btn-ghost:hover { background:rgba(255, 255, 255, 0.08); }
   .btn-danger { background:var(--color-danger); color:#fff; box-shadow:none; border:none; }
   .btn[disabled] { opacity:.42; cursor:not-allowed; box-shadow:none; transform:none; }
-  .btn.sm { height:34px; padding:0 14px; font-size:13px; }
+  .btn.sm { height:40px; min-height:40px; padding:0 14px; font-size:13px; }
   .btn.lg { height:48px; padding:0 28px; font-size:16px; }
 
   /* badge */
@@ -308,15 +314,117 @@
   .input.err { border-color:var(--color-danger); }
   .err-text { color:var(--color-danger); font-size:13px; }
 
-  /* table — header Cool Slate (docs/components/table.md) */
-  .tbl-wrap { overflow:hidden; border-radius:var(--radius); }
-  table { width:100%; border-collapse:collapse; font-size:14px; }
+  /* table — .mac-table in .mac-table-wrap / .mac-section */
+  .tbl-wrap { overflow:hidden; border-radius:14px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
   thead { background:var(--color-table-header-bg); }
-  thead th { text-align:left; color:var(--color-table-header-text); font-weight:600; padding:14px 14px; letter-spacing:.01em;
-    border-bottom:1px solid var(--glass-hairline); }
-  tbody td { padding:14px 14px; border-bottom:1px solid var(--glass-hairline); }
+  thead th { text-align:left; color:var(--color-table-header-text); font-weight:600; padding:8px 12px; letter-spacing:.01em;
+    border-bottom:1px solid rgba(0,0,0,.05); white-space:nowrap; }
+  tbody td { padding:8px 12px; border-bottom:1px solid rgba(0,0,0,.05); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:220px; }
+  [data-theme="dark"] thead th, [data-theme="dark"] tbody td { border-bottom-color:rgba(255,255,255,.06); }
   tbody tr { transition:background .15s; }
-  tbody tr:hover { background:var(--grad-brand-soft); }
+  tbody tr:hover { background:var(--grad-table-row-hover); }
+
+  .mac-table { width:100%; border-collapse:collapse; font-size:13px; }
+  .mac-table-wrap { overflow:hidden; border-radius:14px; border:1px solid var(--glass-hairline); }
+  .mac-section { border-radius:20px; overflow:hidden; }
+  .mac-section .mac-table-wrap { border:none; border-radius:0; }
+  .mac-table thead th {
+    background:var(--color-table-header-bg); color:var(--color-table-header-text); font-weight:600;
+    padding:8px 12px; white-space:nowrap; text-align:left;
+  }
+  .mac-table tbody td {
+    padding:8px 12px; color:var(--color-text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:240px;
+    border-bottom:1px solid rgba(0,0,0,.05);
+  }
+  [data-theme="dark"] .mac-table tbody td { border-bottom-color:rgba(255,255,255,.06); }
+  .mac-table tbody tr:hover { background:var(--grad-table-row-hover); }
+  .mac-table tbody tr.is-selected { background:var(--grad-table-row-hover); }
+  .mac-table-empty { color:#6E6E73; text-align:center; padding:28px 12px; }
+
+  /* sidebar — color-sidebar-bg / #0F172A, ไม่สลับ theme */
+  .mac-shell {
+    display:grid; grid-template-columns:260px 1fr; min-height:520px;
+    border-radius:20px; overflow:hidden; border:1px solid var(--glass-hairline); position:relative;
+  }
+  .mac-sidebar {
+    background:var(--color-sidebar-bg, #0F172A); color:#fff; display:flex; flex-direction:column;
+    position:relative; min-height:520px; width:260px; max-width:480px; min-width:52px;
+    border-right:1px solid rgba(255,255,255,.08); flex-shrink:0;
+  }
+  [data-theme="dark"] .mac-sidebar,
+  [data-theme="light"] .mac-sidebar {
+    background:var(--color-sidebar-bg, #0F172A);
+  }
+  .mac-sidebar-header {
+    display:flex; align-items:center; gap:10px; padding:16px 14px 12px; flex-shrink:0;
+  }
+  .mac-sidebar-title { font-size:13px; font-weight:600; color:#fff; }
+  .mac-sidebar-badge {
+    font-size:10px; font-weight:600; padding:2px 8px; border-radius:9999px;
+    background:rgba(255,255,255,.14); color:#fff;
+  }
+  .mac-sidebar-nav { flex:1; overflow:auto; padding:4px 10px 16px; }
+  .mac-sidebar-nav::-webkit-scrollbar { width:8px; }
+  .mac-sidebar-nav::-webkit-scrollbar-thumb { background:rgba(255,255,255,.22); border-radius:99px; }
+  .mac-sidebar-nav::-webkit-scrollbar-thumb:hover { background:rgba(255,255,255,.35); }
+  .mac-sidebar-group {
+    margin:14px 8px 6px; font-size:11px; font-weight:600; letter-spacing:.06em;
+    text-transform:uppercase; color:rgba(255,255,255,.55);
+  }
+  .mac-sidebar-item {
+    display:flex; align-items:center; gap:10px; padding:8px 10px; margin:2px 0; min-height:40px;
+    border-radius:6px; color:rgba(255,255,255,.88); text-decoration:none;
+    font-size:13px; font-weight:500; border:0; background:transparent; width:100%; text-align:left; cursor:pointer;
+  }
+  .mac-sidebar-item svg { width:16px; height:16px; flex-shrink:0; }
+  .mac-sidebar-item:hover { background:rgba(255,255,255,.06); }
+  .mac-sidebar-item.is-active { background:rgba(255,255,255,.10); color:#fff; }
+  .mac-sidebar-item.is-nested { position:relative; padding-left:18px; }
+  .mac-sidebar-item.is-nested::before {
+    content:""; position:absolute; left:8px; top:8px; bottom:8px; width:1px; background:rgba(255,255,255,.12);
+  }
+  .mac-sidebar-footer {
+    border-top:1px solid rgba(255,255,255,.12); padding:12px 14px; background:rgba(0,0,0,.12); flex-shrink:0;
+  }
+  [data-theme="dark"] .mac-sidebar-footer { background:rgba(0,0,0,.18); }
+  .mac-sidebar-email { font-size:12px; color:rgba(255,255,255,.60); }
+  .mac-sidebar-logout {
+    margin-top:8px; width:100%; min-height:40px; border:0; border-radius:6px; padding:8px 10px; cursor:pointer;
+    background:transparent; color:#B0141B; font:inherit; font-size:13px; font-weight:500; text-align:left;
+  }
+  .mac-sidebar-logout:hover { background:rgba(176,20,27,.12); }
+  [data-theme="dark"] .mac-sidebar-logout:hover { background:rgba(176,20,27,.18); }
+  .mac-sidebar-resizer {
+    position:absolute; top:0; right:-3px; width:6px; height:100%; cursor:col-resize; z-index:2;
+  }
+  .mac-sidebar.is-collapsed { width:52px !important; min-width:52px; }
+  .mac-sidebar.is-collapsed .mac-sidebar-title,
+  .mac-sidebar.is-collapsed .mac-sidebar-badge,
+  .mac-sidebar.is-collapsed .mac-sidebar-group,
+  .mac-sidebar.is-collapsed .mac-sidebar-item span,
+  .mac-sidebar.is-collapsed .mac-sidebar-email,
+  .mac-sidebar.is-collapsed .mac-sidebar-logout { display:none; }
+  .mac-sidebar.is-collapsed .mac-sidebar-item { justify-content:center; padding:10px 0; }
+  .mac-sidebar.is-collapsed .mac-sidebar-item svg { width:18px; height:18px; }
+  .mac-sidebar.is-collapsed .mac-sidebar-header,
+  .mac-sidebar.is-collapsed .mac-sidebar-footer { justify-content:center; padding:12px 0; }
+  .mac-shell.is-collapsed { grid-template-columns:52px 1fr; }
+  .mac-sidebar-backdrop {
+    display:none; position:absolute; inset:0; background:rgba(0,0,0,.25); z-index:8;
+  }
+  .mac-main { min-width:0; padding:16px; background:var(--page-bg); }
+  .mac-shell-toolbar { display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap; }
+  @media (max-width:1023px) {
+    .mac-shell { grid-template-columns:1fr; }
+    .mac-sidebar {
+      position:absolute; inset:0 auto 0 0; z-index:9; width:min(260px,86vw) !important;
+      transform:translateX(-110%); transition:transform .2s ease;
+    }
+    .mac-shell.is-open .mac-sidebar { transform:translateX(0); }
+    .mac-shell.is-open .mac-sidebar-backdrop { display:block; }
+    .mac-sidebar-resizer { display:none; }
+  }
 
   /* alert */
   .alert { display:flex; gap:12px; padding:16px 18px; border-radius:16px; align-items:flex-start;
@@ -334,8 +442,7 @@
   .i24-page-btn:hover:not(:disabled):not(.active) { background:rgba(0,0,0,0.09); transform:translateY(-1px); }
   [data-theme="dark"] .i24-page-btn { background:rgba(255,255,255,0.08); color:#FFFFFF; }
   [data-theme="dark"] .i24-page-btn:hover:not(:disabled):not(.active) { background:rgba(255,255,255,0.14); }
-  .i24-page-btn.active { background:#0A2540; color:#FFFFFF !important; cursor:default; }
-  [data-theme="dark"] .i24-page-btn.active { background:#153965; }
+  .i24-page-btn.active { background:var(--color-primary); color:var(--color-on-primary) !important; cursor:default; } /* color-primary / --i24-primary */
   .i24-page-btn:disabled { opacity:.4; cursor:not-allowed; }
   .i24-page-ellipsis { color:var(--color-text-muted); padding:0 4px; }
 
@@ -346,7 +453,7 @@
   [data-theme="dark"] .i24-modal-window { background:rgba(26,29,36,0.95); color:#FFFFFF; }
   .i24-modal-overlay.open .i24-modal-window { transform:scale(1); }
   .i24-modal-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
-  .i24-modal-title { font-size:18px; font-weight:700; color:#0A2540; margin:0; }
+  .i24-modal-title { font-size:18px; font-weight:700; color:var(--color-primary); margin:0; } /* color-primary */
   [data-theme="dark"] .i24-modal-title { color:#FFFFFF; }
   .i24-modal-close { background:transparent; border:none; font-size:18px; cursor:pointer; color:#6B7280; padding:4px 8px; border-radius:9999px; }
   .i24-modal-close:hover { background:rgba(0,0,0,0.05); color:#1A1A1A; }
@@ -367,10 +474,9 @@
   [data-theme="dark"] .i24-select-menu { background:rgba(26,29,36,0.95); box-shadow:0 16px 36px -6px rgba(0,0,0,0.40); }
   .i24-select-container.open .i24-select-menu { opacity:1; visibility:visible; transform:translateY(0); }
   .i24-select-option { padding:10px 14px; border-radius:12px; font-size:13px; font-weight:500; color:var(--color-text); cursor:pointer; transition:background .12s ease; }
-  .i24-select-option:hover { background:rgba(10,37,64,0.06); color:#0A2540; }
+  .i24-select-option:hover { background:rgba(15,23,42,0.06); color:var(--color-primary); } /* color-primary */
   [data-theme="dark"] .i24-select-option:hover { background:rgba(255,255,255,0.10); color:#FFFFFF; }
-  .i24-select-option.selected { background:#0A2540; color:#FFFFFF !important; font-weight:600; }
-  [data-theme="dark"] .i24-select-option.selected { background:#153965; }
+  .i24-select-option.selected { background:var(--color-primary); color:var(--color-on-primary) !important; font-weight:600; } /* color-primary / --i24-primary */
 
   /* toast */
   .i24-toast-container { position:fixed; bottom:24px; right:24px; z-index:9999; display:flex; flex-direction:column; gap:10px; pointer-events:none; }
@@ -382,7 +488,7 @@
   .i24-toast-dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
   .i24-toast-dot.success { background:#10B981; box-shadow:0 0 8px rgba(16,185,129,0.5); }
   .i24-toast-dot.error { background:#B0141B; box-shadow:0 0 8px rgba(176,20,27,0.5); }
-  .i24-toast-dot.info { background:#0A2540; box-shadow:0 0 8px rgba(10,37,64,0.4); }
+  .i24-toast-dot.info { background:var(--color-primary); box-shadow:0 0 8px rgba(15,23,42,0.4); } /* color-primary / --i24-primary */
   .i24-toast-close { background:transparent; border:none; font-size:14px; color:#9CA3AF; cursor:pointer; padding:2px 6px; border-radius:9999px; }
   .i24-toast-close:hover { color:#1A1A1A; }
   [data-theme="dark"] .i24-toast-close:hover { color:#FFFFFF; }
@@ -405,10 +511,10 @@
   <nav aria-label="หลัก">
     <a href="#" class="logo" aria-label="i24 หน้าแรก"><img src="../i24_LOGO.svg" alt="i24" /></a>
     <a href="#" class="active" aria-current="page">Dashboard</a>
-    <a href="#">Invoices</a>
-    <a href="#">Reports</a>
+    <a href="#app-shell">Sidebar</a>
+    <a href="#table">Table</a>
     <span class="spacer"></span>
-    <button class="toggle" id="themeBtn" aria-label="สลับธีม" title="สลับ light/dark">🌓</button>
+    <button type="button" class="toggle" id="themeBtn" aria-label="สลับธีม" aria-pressed="false" title="สลับ light/dark">🌓</button>
   </nav>
 </header>
 
@@ -417,7 +523,7 @@
   <section class="hero glass">
     <span class="pill-tag"><span class="dot"></span> Navy Solid & Frosted Gray Glass · i24 System</span>
     <h1>i24 <span>Common Library</span></h1>
-    <p class="muted">ธีมผสมผสานระบบฐานจาก <code>i24-booking-service</code> พร้อม <strong>Primary Navy Solid (#0A2540)</strong> และ <strong>Secondary เทากระจกใสทะลุ</strong></p>
+    <p class="muted">ธีมผสมผสานระบบฐานจาก <code>i24-booking-service</code> พร้อม <strong>Primary Navy Solid</strong> (<code>color-primary</code> / <code>--i24-primary</code> <code>#0F172A</code>) และ <strong>Secondary เทากระจกใสทะลุ</strong></p>
     <div class="row" style="justify-content:center;margin-top:24px">
       <button class="btn btn-primary lg">เริ่มใช้งาน (Navy Solid)</button>
       <button class="btn btn-gray-glass lg">ดูเอกสาร (Gray Glass)</button>
@@ -426,18 +532,18 @@
 
   <section class="panel glass" id="colors">
     <h2>Brand colors & Glass tokens</h2>
-    <p class="sub muted">Primary = Navy Solid (#0A2540) · Secondary = เทากระจกใสทะลุ · Canvas = #FFFFFF · Red = Brand Signature</p>
+    <p class="sub muted">Primary = <code>color-primary</code> / Navy Solid (<code>#0F172A</code>) · Sidebar พื้น <code>color-sidebar-bg</code> เดียวกันทั้ง light/dark · Secondary = เทากระจกใสทะลุ · Canvas = <code>color-bg</code> <code>#F5F5F7</code></p>
     <div class="grid swatches">
-      <div class="swatch"><div class="chip" style="background:rgba(10,37,64,0.75);backdrop-filter:blur(8px);"></div><div class="meta"><b>Navy Glass</b><code>rgba(10,37,64,.75)</code></div></div>
-      <div class="swatch"><div class="chip" style="background:rgba(0,0,0,0.06);"></div><div class="meta"><b>Gray Glass</b><code>rgba(0,0,0,.06)</code></div></div>
-      <div class="swatch"><div class="chip" style="background:#0A2540"></div><div class="meta"><b>Navy Solid</b><code>#0A2540</code></div></div>
-      <div class="swatch"><div class="chip" style="background:#B0141B"></div><div class="meta"><b>Brand Red (Crimson)</b><code>#B0141B</code></div></div>
-      <div class="swatch"><div class="chip" style="background:#FFFFFF;box-shadow:inset 0 0 0 1px #E5E7EB;"></div><div class="meta"><b>Canvas Light</b><code>#FFFFFF</code></div></div>
-      <div class="swatch"><div class="chip" style="background:#0A0A0F"></div><div class="meta"><b>Canvas Dark</b><code>#0A0A0F</code></div></div>
-      <div class="swatch"><div class="chip" style="background:rgba(255,255,255,0.70);backdrop-filter:blur(16px);box-shadow:inset 0 0 0 1px #E5E7EB;"></div><div class="meta"><b>White Glass Card</b><code>rgba(255,255,255,.70)</code></div></div>
-      <div class="swatch"><div class="chip" style="background:#1A1A1A"></div><div class="meta"><b>Ink Text</b><code>#1A1A1A</code></div></div>
-      <div class="swatch"><div class="chip" style="background:#E2E8F0"></div><div class="meta"><b>Table Header (Cool Slate)</b><code>#E2E8F0</code></div></div>
-      <div class="swatch"><div class="chip" style="background:#334155"></div><div class="meta"><b>Table Header Text</b><code>#334155</code></div></div>
+      <div class="swatch"><div class="chip" style="background:rgba(15,23,42,0.75);backdrop-filter:blur(8px);"></div><div class="meta"><b>Navy Glass</b><code>primary-glass-bg / rgba(15,23,42,.75)</code></div></div>
+      <div class="swatch"><div class="chip" style="background:rgba(0,0,0,0.06);"></div><div class="meta"><b>Gray Glass</b><code>color-secondary-glass / rgba(0,0,0,.06)</code></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--color-primary)"></div><div class="meta"><b>Navy Solid</b><code>color-primary / --i24-primary (#0F172A)</code></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--color-danger)"></div><div class="meta"><b>Brand Red (Crimson)</b><code>color-danger / brand-red (#B0141B)</code></div></div>
+      <div class="swatch"><div class="chip" style="background:#F5F5F7;box-shadow:inset 0 0 0 1px #E5E7EB;"></div><div class="meta"><b>Canvas Light</b><code>color-bg / page-bg (#F5F5F7)</code></div></div>
+      <div class="swatch"><div class="chip" style="background:#0A0A0F"></div><div class="meta"><b>Canvas Dark</b><code>color-bg (dark) (#0A0A0F)</code></div></div>
+      <div class="swatch"><div class="chip" style="background:rgba(255,255,255,0.70);backdrop-filter:blur(16px);box-shadow:inset 0 0 0 1px #E5E7EB;"></div><div class="meta"><b>White Glass Card</b><code>color-surface / surface-white-glass</code></div></div>
+      <div class="swatch"><div class="chip" style="background:#1A1A1A"></div><div class="meta"><b>Ink Text</b><code>color-text (#1A1A1A)</code></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--color-table-header-bg)"></div><div class="meta"><b>Table Header (Cool Slate)</b><code>color-table-header-bg (#E2E8F0)</code></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--color-table-header-text)"></div><div class="meta"><b>Table Header Text</b><code>color-table-header-text (#334155)</code></div></div>
     </div>
   </section>
 
@@ -464,7 +570,7 @@
 
     <p class="sub muted" style="margin-top:20px"><strong>ขนาด (Sizes — ทรงแคปซูลเท่า Badges ทุกขนาด):</strong></p>
     <div class="row" style="margin-top:8px">
-      <button class="btn btn-primary sm">Small (34px)</button>
+      <button class="btn btn-primary sm">Small (40px)</button>
       <button class="btn btn-primary">Medium (42px)</button>
       <button class="btn btn-primary lg">Large (48px)</button>
       <button class="btn btn-gray-glass sm">Secondary Small</button>
@@ -494,18 +600,88 @@
     </div>
   </section>
 
+  <section class="panel glass" id="app-shell">
+    <h2>App shell — Sidebar + Table</h2>
+    <p class="sub muted">คลาส <code>.mac-sidebar</code> / <code>.mac-table</code> — พื้น sidebar <code>color-sidebar-bg</code> (<code>#0F172A</code>) ไม่สลับ theme · ตาราง Cool Slate ในกรอบกระจก</p>
+    <div class="mac-shell-toolbar">
+      <button type="button" class="btn btn-gray-glass sm" id="sidebarToggleRail">ย่อ / ขยาย (desktop)</button>
+      <button type="button" class="btn btn-primary sm" id="sidebarOpenMobile">เปิดเมนู (mobile)</button>
+    </div>
+    <div class="mac-shell" id="macShell">
+      <div class="mac-sidebar-backdrop" id="sidebarBackdrop" hidden></div>
+      <aside class="mac-sidebar" id="macSidebar" style="width:260px">
+        <div class="mac-sidebar-header">
+          <span class="mac-sidebar-title">i24 Admin</span>
+          <span class="mac-sidebar-badge">Prod</span>
+        </div>
+        <nav class="mac-sidebar-nav" aria-label="หลัก">
+          <p class="mac-sidebar-group">ภาพรวม</p>
+          <a class="mac-sidebar-item is-active" href="#" aria-current="page" aria-label="แดชบอร์ด">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            <span>แดชบอร์ด</span>
+          </a>
+          <p class="mac-sidebar-group">E-Tax</p>
+          <a class="mac-sidebar-item" href="#" aria-label="ใบกำกับ">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>
+            <span>ใบกำกับ</span>
+          </a>
+          <a class="mac-sidebar-item is-nested" href="#" aria-label="รายการย่อย">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>
+            <span>รายการย่อย</span>
+          </a>
+          <p class="mac-sidebar-group">ระบบ</p>
+          <a class="mac-sidebar-item" href="#" aria-label="ตั้งค่า">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9c.3.6.9 1 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+            <span>ตั้งค่า</span>
+          </a>
+        </nav>
+        <div class="mac-sidebar-footer">
+          <div>
+            <div class="mac-sidebar-title">สมชาย ใจดี</div>
+            <div class="mac-sidebar-email">somchai@i24.co</div>
+          </div>
+          <button type="button" class="mac-sidebar-logout" aria-label="ออกจากระบบ">ออกจากระบบ</button>
+        </div>
+        <div class="mac-sidebar-resizer" id="sidebarResizer" role="separator" aria-orientation="vertical" aria-label="ปรับความกว้างเมนู"></div>
+      </aside>
+      <main class="mac-main mac-section">
+        <div class="mac-table-wrap">
+          <table class="mac-table" aria-label="รายการใบแจ้งหนี้ใน shell">
+            <thead><tr><th scope="col">เลขที่</th><th scope="col">ลูกค้า</th><th scope="col">ยอด</th><th scope="col">สถานะ</th></tr></thead>
+            <tbody>
+              <tr><td>INV-001</td><td>บริษัท ก</td><td>12,500.00</td><td><span class="badge badge-success"><span class="dot"></span>สำเร็จ</span></td></tr>
+              <tr><td>INV-002</td><td>บริษัท ข ชื่อยาวมากจนต้องตัด</td><td>8,900.00</td><td><span class="badge badge-warning"><span class="dot"></span>รอดำเนินการ</span></td></tr>
+              <tr><td>INV-003</td><td>บริษัท ค</td><td>3,200.00</td><td><span class="badge badge-danger"><span class="dot"></span>ผิดพลาด</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <nav class="i24-pagination" aria-label="Pagination ใน shell">
+          <div class="i24-pagination-summary">แสดง <strong>1 - 3</strong> จาก <strong>48</strong> รายการ</div>
+          <div class="i24-pagination-controls">
+            <button type="button" class="i24-page-btn" disabled>‹</button>
+            <button type="button" class="i24-page-btn active" aria-current="page">1</button>
+            <button type="button" class="i24-page-btn">2</button>
+            <button type="button" class="i24-page-btn">›</button>
+          </div>
+        </nav>
+      </main>
+    </div>
+  </section>
+
   <section class="panel glass" id="table">
     <h2>Table & Pagination</h2>
-    <p class="sub muted">หัวตาราง Cool Slate · สถานะในตาราง = success / warning / danger (จาก i24-etax-service):</p>
-    <div class="tbl-wrap glass" style="margin-top:12px">
-      <table>
-        <thead><tr><th>เลขที่</th><th>ลูกค้า</th><th>ยอด</th><th>สถานะ</th></tr></thead>
+    <p class="sub muted">หัวตาราง Cool Slate · `.mac-table` · สถานะ = success / warning / danger:</p>
+    <div class="mac-section glass" style="margin-top:12px">
+      <div class="mac-table-wrap">
+        <table class="mac-table" aria-label="รายการใบแจ้งหนี้">
+        <thead><tr><th scope="col">เลขที่</th><th scope="col">ลูกค้า</th><th scope="col">ยอด</th><th scope="col">สถานะ</th></tr></thead>
         <tbody>
           <tr><td>INV-001</td><td>บริษัท ก</td><td>12,500.00</td><td><span class="badge badge-success"><span class="dot"></span>สำเร็จ</span></td></tr>
           <tr><td>INV-002</td><td>บริษัท ข</td><td>8,900.00</td><td><span class="badge badge-warning"><span class="dot"></span>รอดำเนินการ</span></td></tr>
           <tr><td>INV-003</td><td>บริษัท ค</td><td>3,200.00</td><td><span class="badge badge-danger"><span class="dot"></span>ผิดพลาด</span></td></tr>
         </tbody>
-      </table>
+        </table>
+      </div>
     </div>
 
     <!-- Pagination Demo -->
@@ -605,7 +781,7 @@
 <!-- Live Toast Container -->
 <div id="i24-toast-container" class="i24-toast-container" aria-live="polite"></div>
 
-<footer class="app">
+<footer class="app" aria-label="Powered by i24">
   <div class="inner glass">
     <span>Powered by</span>
     <img src="../i24_LOGO.svg" alt="i24" />
@@ -614,12 +790,63 @@
 
 <script>
   // --- Theme Toggle ---
-  document.getElementById('themeBtn').addEventListener('click', function () {
-    var h = document.documentElement;
-    var n = h.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    h.setAttribute('data-theme', n);
-    localStorage.setItem('i24-theme', n);
-  });
+  (function () {
+    var btn = document.getElementById('themeBtn');
+    function syncPressed() {
+      btn.setAttribute('aria-pressed', document.documentElement.getAttribute('data-theme') === 'dark' ? 'true' : 'false');
+    }
+    syncPressed();
+    btn.addEventListener('click', function () {
+      var h = document.documentElement;
+      var n = h.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      h.setAttribute('data-theme', n);
+      localStorage.setItem('i24-theme', n);
+      syncPressed();
+    });
+  })();
+
+  (function () {
+    var shell = document.getElementById('macShell');
+    var sidebar = document.getElementById('macSidebar');
+    var backdrop = document.getElementById('sidebarBackdrop');
+    var resizer = document.getElementById('sidebarResizer');
+    if (!shell || !sidebar) return;
+
+    document.getElementById('sidebarToggleRail').addEventListener('click', function () {
+      var on = sidebar.classList.toggle('is-collapsed');
+      shell.classList.toggle('is-collapsed', on);
+      if (on) sidebar.style.width = '52px';
+      else sidebar.style.width = '260px';
+    });
+    function openMobile() {
+      shell.classList.add('is-open');
+      backdrop.hidden = false;
+    }
+    function closeMobile() {
+      shell.classList.remove('is-open');
+      backdrop.hidden = true;
+    }
+    document.getElementById('sidebarOpenMobile').addEventListener('click', openMobile);
+    backdrop.addEventListener('click', closeMobile);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeMobile();
+    });
+
+    var dragging = false;
+    resizer.addEventListener('mousedown', function (e) {
+      if (sidebar.classList.contains('is-collapsed')) return;
+      dragging = true;
+      e.preventDefault();
+    });
+    document.addEventListener('mousemove', function (e) {
+      if (!dragging) return;
+      var rect = shell.getBoundingClientRect();
+      var w = Math.min(480, Math.max(220, e.clientX - rect.left));
+      sidebar.style.width = w + 'px';
+      shell.style.gridTemplateColumns = w + 'px 1fr';
+    });
+    document.addEventListener('mouseup', function () { dragging = false; });
+  })();
 
   // --- Modal Logic ---
   var currentModalType = 'confirm';

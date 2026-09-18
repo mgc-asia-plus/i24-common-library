@@ -1,6 +1,16 @@
 # Convention: Project Structure
 
-หลักการจัดโครงโปรเจกต์ที่ใช้ร่วมทุก stack (รายละเอียดต่อ stack ดู [`../stacks/`](../stacks/go-monolith.md))
+หลักการจัดโครงโปรเจกต์ที่ใช้ร่วมทุก stack ที่เอกสารรับรอง (`go-monolith`, `nextjs`, `nestjs`, `expressjs`)
+
+**Read convention:** ชุด ConventionSet ต้องครบ 4 ไฟล์ — [`project-structure.md`](project-structure.md) · [`naming.md`](naming.md) · [`git.md`](git.md) · [`json-api.md`](json-api.md) — ขาดไฟล์ใด = ผิดสัญญา
+
+ขั้นตอน setup / ต่อ theme / footer อยู่ที่ stack guide — convention นี้อธิบายชั้นและโฟลเดอร์เท่านั้น:
+- [`../stacks/go-monolith.md`](../stacks/go-monolith.md)
+- [`../stacks/nextjs.md`](../stacks/nextjs.md)
+- [`../stacks/nestjs.md`](../stacks/nestjs.md)
+- [`../stacks/expressjs.md`](../stacks/expressjs.md)
+
+ค่าสีและ token อยู่ที่ [`../brand/`](../brand/design-tokens.md) — ห้ามสำเนาตาราง palette / hex ในไฟล์ convention
 
 ## หลักการร่วม
 - **แยกชั้นชัด (layering)**: HTTP/handler ↔ business ↔ data — ห้ามข้ามชั้น
@@ -17,14 +27,19 @@
        → domain            (types, params, results — no I/O)
 ```
 
-## ต่อ stack (สรุป)
-| Stack | HTTP | business | data |
-|-------|------|----------|------|
-| Go monolith | `internal/handler` | `internal/usecase` | `internal/repository` |
-| Nest.js | `*.controller.ts` | `*.service.ts` | `*.repository.ts` |
-| Express.js | `routes/`+`controllers/` | `services/` | `repositories/` |
-| Next.js (FE) | route/page + `lib/fetcher` | — | เรียก API |
+## ต่อ stack (สรุปโครง)
+| Stack | id | HTTP | business | data |
+|-------|----|------|----------|------|
+| Go monolith | `go-monolith` | `internal/handler` (+ `internal/template` สำหรับ HTML) | `internal/usecase` | `internal/repository` ; domain ที่ `internal/domain` |
+| Next.js | `nextjs` | `app/` (App Router) + `lib/fetcher` | — (ไม่มี business layer ฝั่ง FE) | เรียก API ตาม [`json-api.md`](json-api.md) |
+| Nest.js | `nestjs` | `*.controller.ts` ใน `modules/<feature>/` | `*.service.ts` | `*.repository.ts` |
+| Express.js | `expressjs` | `routes/` + `controllers/` | `services/` | `repositories/` |
+
+โครงโฟลเดอร์ละเอียดและขั้นตอน bootstrap ดู stack guide ของ stack นั้น — อย่าคัดลอก checklist/setup มาที่นี่
+
+JSON ที่ชั้น HTTP (Go `*Handler`, Nest controller, Express controller) ใช้ envelope ตาม [`json-api.md`](json-api.md)
 
 ## กติกา
 - ดึงมาตรฐานร่วมจากเอกสารกลางนี้ — อย่า fork convention เองต่อโปรเจกต์
-- โฟลเดอร์ที่ Go เป็นเจ้าของ vs Laravel/อื่น ๆ ให้ชัด (กรณี monorepo ผสม)
+- โฟลเดอร์จัดตาม feature/domain ตามตารางด้านบน — ไม่ผสมชั้นข้าม stack ในโมดูลเดียวกัน
+- ชื่อไฟล์/type ตาม [`naming.md`](naming.md); branch/commit ตาม [`git.md`](git.md)

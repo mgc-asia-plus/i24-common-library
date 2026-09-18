@@ -1,170 +1,80 @@
-# Component: Pagination
+# Pagination
 
-**สถานะ: v1.2 (Complete)** — แถบควบคุมการแบ่งหน้าข้อมูล  
-*อ้าง SSOT ที่ [`../brand/design-tokens.md`](../brand/design-tokens.md) และ [`../conventions/json-api.md`](../conventions/json-api.md)*
+## Purpose
+แถบเปลี่ยนหน้าข้อมูลตารางหรือกริดที่ผูกกับ JSON API (`meta.page`, `meta.page_size`, `meta.total`)  
+หน้าปัจจุบันใช้ **Navy Solid** `color-primary` / `--i24-primary` (`#0F172A`) สูตร `btn-navy-solid`; หน้าอื่นใช้ `btn-gray-glass` จาก [`../brand/effects.md`](../brand/effects.md)
 
----
-
-## 1. Purpose (วัตถุประสงค์)
-ใช้ควบคุมการเปลี่ยนหน้าข้อมูลในตาราง (Table) หรือรายการการ์ด (Grid) ที่มีข้อมูลจำนวนมาก เพื่อให้ผู้ใช้สามารถข้ามไปยังหน้าที่ต้องการได้ง่าย สอดคล้องกับมาตรฐาน Pagination API ของ i24
-
-> [!IMPORTANT]
-> **การออกแบบตามธีม i24**:
-> - **Active Page**: **Navy Solid (`#0A2540`)** ตัวหนังสือสีขาว ทรงกลม/แคปซูล (`border-radius: 9999px`) ไร้ขอบ
-> - **Inactive Page & Navigation Buttons**: ปุ่มเทากระจกใส (Frosted Gray Glass `rgba(0, 0, 0, 0.05)`)
-> - **Disabled State**: ปิดการคลิกเมื่ออยู่ที่หน้าแรก (`< Prev`) หรือหน้าสุดท้าย (`Next >`)
-
----
-
-## 2. Anatomy (ส่วนประกอบ)
-1. **Result Summary**: ข้อความสรุป เช่น "แสดง 1 - 20 จาก 137 รายการ"
-2. **Previous Button (`<`)**: ปุ่มย้อนกลับไปหน้าที่แล้ว
-3. **Page Numbers**: ตัวเลขลำดับหน้า (พร้อมเครื่องหมายจุดละสายตา `...` หากมีหลายหน้า)
-4. **Next Button (`>`)**: ปุ่มไปยังหน้าถัดไป
-
----
-
-## 3. สอดคล้องกับ API Convention
-
-ตรงกับ Response Envelope ใน [`../conventions/json-api.md`](../conventions/json-api.md):
-
-```json
-{
-  "data": [ ... ],
-  "error": null,
-  "meta": {
-    "page": 1,
-    "page_size": 20,
-    "total": 137
-  }
-}
+## Anatomy
 ```
+แสดง 1–20 จาก 137    [‹] [1] [2] [3] … [7] [›]
+└── summary ──┘      └── page controls ────────┘
+```
+1. **Result summary** — เช่น "แสดง 1–20 จาก 137 รายการ"
+2. **Previous** — หน้าก่อน
+3. **Page numbers** — เลขหน้า + ellipsis เมื่อหน้าเยอะ
+4. **Next** — หน้าถัดไป
 
----
+วางร่วมกับ [table.md](table.md) ภายใต้ `.mac-section` เมื่อเป็นตาราง `.mac-table`.
 
-## 4. Tokens & Dimensions
+## Variants
+| Variant | เมื่อไหร่ที่ใช้ | ลักษณะ |
+|---------|----------------|--------|
+| `numbered` (default) | ตารางมาตรฐาน | สรุป + prev + เลขหน้า + next |
+| `compact` | จอแคบ / การ์ด | prev / next + ข้อความ "หน้า n จาก m" ไม่โชว์ทุกเลข |
 
-| ส่วน | ค่าที่ใช้ | Token |
-|---|---|---|
-| Page Button Size | `36px × 36px` | Small Pill Button |
-| Active Page BG | `#0A2540` / Dark: `#153965` | `color-primary` (Navy Solid) |
-| Active Page Text | `#FFFFFF` | Text White |
-| Inactive Page BG | `rgba(0, 0, 0, 0.05)` / Dark: `rgba(255, 255, 255, 0.08)` | Gray Glass |
-| Border | `none !important;` | ไร้ขอบ |
-| Radius | `9999px` (Circle/Pill) | `radius-pill` |
+หน้า active **ต้อง** เป็น `color-primary` / `--i24-primary` (`#0F172A`) + `color-on-primary` (`#FFFFFF`) — ห้ามใช้ accent อื่น.
 
----
+## Sizes
+| Size | ปุ่มหน้า / prev / next | ใช้เมื่อ |
+|------|------------------------|---------|
+| `md` (default) | **40×40px** ขั้นต่ำ (แตะมือถือ) | ทั่วไป |
+| `lg` | **42×42px** | แถบกว้าง คู่ตาราง |
 
-## 5. Accessibility (a11y)
-1. **Semantic HTML**: ครอบด้วยแท็ก `<nav aria-label="Pagination Navigation">`
-2. **Current Page**: หน้าปัจจุบันต้องใส่ `aria-current="page"`
-3. **Disabled State**: ปุ่มย้อนกลับ/ถัดไปที่กดไม่ได้ให้ใส่ `disabled` และ `aria-disabled="true"`
+`radius-pill` **9999px**. ห้ามสูง/กว้าง 36px — ต่ำกว่า 40×40.
 
----
+## States
+| State | พฤติกรรม |
+|-------|----------|
+| `default` | ปุ่มหน้าอื่น: สูตร `btn-gray-glass` (`color-secondary-glass`) |
+| `hover` | หน้าอื่นตาม hover `btn-gray-glass`; หน้า active ไม่มี hover เปลี่ยนสีพื้น |
+| `focus` / `focus-visible` | วงแหวน `color-focus-ring` (`color-primary` / `--i24-primary` `#0F172A`) ทุกปุ่มที่โฟกัสได้ |
+| `active` (หน้าปัจจุบัน) | พื้น `color-primary` / `--i24-primary` (`#0F172A`); ตัวหนังสือ `color-on-primary` (`#FFFFFF`); `aria-current="page"`; ไม่ใช่ลิงก์นำทางซ้ำ |
+| `disabled` | Prev ที่หน้า 1 / Next ที่หน้าสุดท้าย: `disabled` + `aria-disabled="true"` |
+| `loading` (optional) | กำลังโหลดหน้าใหม่ — ปุ่มกดไม่ได้ชั่วคราว |
 
-## 6. Ready-to-use Template (Pure CSS & HTML)
+## Tokens used
+- `color-primary` / `--i24-primary` (`#0F172A`) — หน้า active (สูตร `btn-navy-solid`)
+- `color-on-primary` (`#FFFFFF`) — ตัวหนังสือหน้า active
+- `color-primary-hover` (`#06182B` / `#1D4B82`) — ไม่ใช้กับหน้า active; ใช้ถ้ามีปุ่ม Navy อื่นในแถบ
+- `color-secondary-glass` — ปุ่มหน้าอื่น / prev / next (สูตร `btn-gray-glass`, blur **16px**)
+- `color-text` (`#1A1A1A` / `#F3F4F6`) · `color-text-muted` (`#6B7280` / `#9CA3AF`) — สรุปผลและ ellipsis
+- `color-focus-ring` — ใช้ค่า `color-primary` / `--i24-primary` (`#0F172A`)
+- `radius-pill` / `radius-btn` **9999px**
+- `font-sans`
 
+อ้างสูตร: `btn-navy-solid`, `btn-gray-glass` ใน [`../brand/effects.md`](../brand/effects.md).  
+`prefers-reduced-transparency` / fallback ทึบ — ตาม effects.
+
+## Accessibility
+- **Role**: ครอบด้วย `<nav aria-label="Pagination">` (หรือชื่อที่แปลแล้ว); กลุ่มปุ่มเป็นรายการลิงก์/ปุ่มไม่ใช่ตาราง
+- **Current page**: `aria-current="page"` บนปุ่มหน้า active; ใช้ token primary ตาม Variants
+- **Keyboard**: `Tab` เลื่อนระหว่างปุ่มที่กดได้; `Enter` / `Space` เปลี่ยนหน้า; หน้า active ไม่ต้องโฟกัสซ้ำเป็นลิงก์
+- **Touch**: ทุกปุ่มควบคุม ≥ **40×40px**
+- **Focus ที่มองเห็น**: `focus-visible` บน prev / เลขหน้า / next
+- **Disabled**: Prev/Next ที่หมดขอบเขตใส่ `disabled` และ `aria-disabled="true"` — อย่าซ่อนโดยไม่มีทางรู้
+- Ellipsis เป็นข้อความ `aria-hidden="true"` ไม่ใช่ปุ่ม
+
+## Reference snippet
 ```html
 <nav class="i24-pagination" aria-label="Pagination">
-  <div class="i24-pagination-summary">
-    แสดง <strong>1 - 20</strong> จาก <strong>137</strong> รายการ
-  </div>
-
+  <p class="i24-pagination-summary">แสดง 1–20 จาก 137 รายการ</p>
   <div class="i24-pagination-controls">
-    <!-- Prev -->
-    <button type="button" class="i24-page-btn" disabled aria-disabled="true">
-      ‹ ย้อนกลับ
-    </button>
-
-    <!-- Pages -->
-    <button type="button" class="i24-page-btn active" aria-current="page">1</button>
-    <button type="button" class="i24-page-btn">2</button>
-    <button type="button" class="i24-page-btn">3</button>
-    <span class="i24-page-ellipsis">…</span>
-    <button type="button" class="i24-page-btn">7</button>
-
-    <!-- Next -->
-    <button type="button" class="i24-page-btn">
-      ถัดไป ›
-    </button>
+    <button type="button" class="btn-gray-glass" disabled aria-disabled="true">‹</button>
+    <button type="button" class="btn-primary" aria-current="page">1</button>
+    <button type="button" class="btn-gray-glass">2</button>
+    <span aria-hidden="true">…</span>
+    <button type="button" class="btn-gray-glass">›</button>
   </div>
 </nav>
 ```
-
-```css
-.i24-pagination {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 16px 4px;
-  font-size: 13px;
-}
-
-.i24-pagination-summary {
-  color: #6B7280;
-}
-[data-theme="dark"] .i24-pagination-summary {
-  color: #9CA3AF;
-}
-
-.i24-pagination-controls {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* Page Button (Pill Capsule ไร้ขอบ) */
-.i24-page-btn {
-  height: 36px;
-  min-width: 36px;
-  padding: 0 12px;
-  border-radius: 9999px;
-  background: rgba(0, 0, 0, 0.05);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: none !important;
-  color: #1A1A1A;
-  font-size: 13px;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background 0.15s ease, transform 0.15s ease;
-}
-
-.i24-page-btn:hover:not(:disabled):not(.active) {
-  background: rgba(0, 0, 0, 0.09);
-  transform: translateY(-1px);
-}
-
-[data-theme="dark"] .i24-page-btn {
-  background: rgba(255, 255, 255, 0.08);
-  color: #FFFFFF;
-}
-[data-theme="dark"] .i24-page-btn:hover:not(:disabled):not(.active) {
-  background: rgba(255, 255, 255, 0.14);
-}
-
-/* Active Page: Navy Solid #0A2540 */
-.i24-page-btn.active {
-  background: #0A2540;
-  color: #FFFFFF !important;
-  cursor: default;
-}
-[data-theme="dark"] .i24-page-btn.active {
-  background: #153965;
-}
-
-.i24-page-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.i24-page-ellipsis {
-  color: #9CA3AF;
-  padding: 0 4px;
-}
-```
+HTML สั้น — ผูก `meta.page` / `page_size` / `total` ที่ runtime ของ stack ไม่ใส่ template เต็ม.

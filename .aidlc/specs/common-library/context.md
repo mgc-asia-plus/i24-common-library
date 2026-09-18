@@ -74,15 +74,15 @@
 
 ```
         ┌─────────────┐
-        │   Context   │  ✅ (คุณอยู่ที่นี่)
+        │ Context ✅  │
         └──────┬──────┘
                ▼
-        ┌─────────────┐
-        │ Requirements│  user stories + EARS (2 consumer stacks)
-        └──────┬──────┘
+        ┌────────────────┐
+        │ Requirements ✅ │  documentation-based common library
+        └──────┬─────────┘
                ▼
         ┌─────────────┐
-        │Decomposition│  units: tokens → components → prototype
+        │Decomposition ✅│  brand-theme → ui-components → delivery-guides
         └──────┬──────┘
                ▼
      ┌───────────────────┐

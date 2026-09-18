@@ -2,6 +2,7 @@
 
 **สถานะ: v1.1 (เต็ม)** — แนวทาง setup Backend API (REST) ฝั่ง TypeScript ให้ตรงมาตรฐาน i24
 *ไม่ใช่ template code สำเร็จ — เป็นแนวทาง + snippet อ้างอิง; response/JSON ยึด [`../conventions/json-api.md`](../conventions/json-api.md)*
+**StackName:** `nestjs` · **has_ui:** no · **theme pointer:** [`../brand/theme-tailwind.md`](../brand/theme-tailwind.md) (`tailwindcss@4.3.3`)
 
 ## เหมาะกับ
 Backend ที่ต้องการโครง modular + Dependency Injection + decorator ครบ (ทีมกลาง-ใหญ่, โดเมนหลายโมดูล)
@@ -96,6 +97,11 @@ res.status(status).json({ data: null, error: { code, message, details } });
 - e2e: controller ผ่าน `Test.createTestingModule`
 - ตั้งชื่อไฟล์ `*.spec.ts`
 
+## Theme / tokens (has_ui = no)
+Stack นี้เป็น backend — ไม่มีหน้าเว็บ จึงไม่ต้อง build CSS ในบริการนี้
+
+ถ้ามี HTML/CSS ภายหลัง หรือแชร์ token กับ client ให้ต่อ `@theme` ตาม [`../brand/theme-tailwind.md`](../brand/theme-tailwind.md) (pin `tailwindcss@4.3.3`) และอ้างชื่อ token จาก [`../brand/`](../brand/design-tokens.md) — ห้ามคัดลอกตารางสี / ห้ามใส่ hex ล้วน
+
 ## Checklist เริ่มโปรเจกต์
 - [ ] `nest new` + โครง `modules/`, `common/`, `config/`
 - [ ] `ValidationPipe` + `HttpExceptionFilter` + `TransformInterceptor` global
@@ -103,3 +109,4 @@ res.status(status).json({ data: null, error: { code, message, details } });
 - [ ] request-id + logging interceptor
 - [ ] envelope + JSON snake_case ตรง [`../conventions/json-api.md`](../conventions/json-api.md)
 - [ ] naming/structure/git ตาม [`../conventions/`](../conventions/project-structure.md)
+- [ ] (ถ้ามี CSS) ต่อ theme จาก [`../brand/theme-tailwind.md`](../brand/theme-tailwind.md) — pin `tailwindcss@4.3.3`

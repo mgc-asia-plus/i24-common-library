@@ -2,6 +2,7 @@
 
 **สถานะ: v1 (เต็ม)** — แนวทาง setup โปรเจกต์ full-stack SSR ให้ตรงมาตรฐาน i24
 *ไม่ใช่ template code สำเร็จ — เป็นแนวทาง อ้าง SSOT ที่ [`../brand/`](../brand/design-tokens.md) และ [`../components/`](../components/README.md)*
+**StackName:** `go-monolith` · **has_ui:** yes · **theme pin:** [`tailwindcss@4.3.3`](../brand/theme-tailwind.md)
 
 ## เหมาะกับ
 บริการที่ render HTML ฝั่ง server + โต้ตอบด้วย HTMX (เช่น admin, dashboard, ระบบภายใน)
@@ -34,9 +35,9 @@ internal/template/
 docs/  (อ้าง common-library หรือ submodule)
 ```
 
-## Theme setup (Tailwind v4 + go:embed)
-1. เขียน `@theme` + `data-theme` ตาม [`../brand/theme-tailwind.md`](../brand/theme-tailwind.md) ลง `input.css`
-2. build: `npx @tailwindcss/cli -i input.css -o internal/template/static/app.css`
+## Theme setup (Tailwind v4.3.3 + go:embed)
+1. เขียน `@theme` + `data-theme` ตาม [`../brand/theme-tailwind.md`](../brand/theme-tailwind.md) ลง `input.css` — pin `tailwindcss@4.3.3`; อ้างชื่อ token จาก [`../brand/`](../brand/design-tokens.md) ห้ามใส่ hex ล้วน
+2. build: `npx @tailwindcss/cli@4.3.3 -i input.css -o internal/template/static/app.css`
 3. `//go:embed static/*` แล้ว serve ผ่าน handler; รวม `<link rel="stylesheet" href="/static/app.css">` ใน layout
 4. **CSS เปลี่ยน → build:css ก่อน `go build`** (เพราะ embed ตอน compile)
 
@@ -56,8 +57,8 @@ docs/  (อ้าง common-library หรือ submodule)
 
 ## Checklist เริ่มโปรเจกต์ (สรุป — เต็มดู [`../scaffolding.md`](../scaffolding.md))
 - [ ] วางโครง `cmd/` + `internal/` ตาม layering
-- [ ] ตั้ง Tailwind + `@theme` จาก tokens + build `app.css`
+- [ ] ตั้ง Tailwind `4.3.3` + `@theme` จาก [`../brand/theme-tailwind.md`](../brand/theme-tailwind.md) + build `app.css`
 - [ ] `go:embed` templates/static + layout ที่มี FOUC guard theme
 - [ ] สร้าง nav-header + theme-mode toggle
-- [ ] 🔒 ใส่ footer "Powered by i24" ใน layout กลาง ([`../components/footer.md`](../components/footer.md)) — **บังคับทุกหน้า** + วางโลโก้เป็น static asset (`go:embed`)
-- [ ] ยึด component spec ตอนสร้าง UI
+- [ ] 🔒 ใส่ footer **"Powered by i24"** ใน layout กลาง ([`../components/footer.md`](../components/footer.md), catalog [`../components/README.md`](../components/README.md)) — **บังคับทุกหน้า** + วางโลโก้เป็น static asset (`go:embed`)
+- [ ] ยึด component spec ตอนสร้าง UI — ลิงก์ spec ไม่สำเนา anatomy

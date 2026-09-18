@@ -5,6 +5,28 @@
 
 ## [Unreleased]
 
+### Changed — delivery-guides
+- ล็อก **4 stack guides** ใน [`docs/stacks/`](docs/stacks/): [`go-monolith`](docs/stacks/go-monolith.md), [`nextjs`](docs/stacks/nextjs.md), [`nestjs`](docs/stacks/nestjs.md), [`expressjs`](docs/stacks/expressjs.md)
+- ล็อก **4 conventions** ใน [`docs/conventions/`](docs/conventions/): [`project-structure`](docs/conventions/project-structure.md), [`naming`](docs/conventions/naming.md), [`git`](docs/conventions/git.md), [`json-api`](docs/conventions/json-api.md) — JSON envelope + `snake_case`
+- [`docs/scaffolding.md`](docs/scaffolding.md): checklist เริ่มโปรเจกต์ต่อ stack ด้วยมือ — **ไม่มี CLI generator**
+- UI stacks/checklist บังคับ footer **"Powered by i24"**
+- ทุก stack ที่ต่อ CSS/theme ชี้ [`docs/brand/theme-tailwind.md`](docs/brand/theme-tailwind.md) (Tailwind **4.3.3**); ห้าม orphan brand hex ใน delivery docs
+
+### Changed — ui-components catalog
+- ล็อกแคตตาล็อก **14 spec** ใน [`docs/components/`](docs/components/README.md) ตามเทมเพลต 8 หัวข้อ (Purpose / Anatomy / Variants / Sizes / States / Tokens used / Accessibility / Reference snippet): button, badge, card, input, table, nav-header, sidebar, alert, theme-mode, footer, modal, select, toast, pagination
+- Footer **"Powered by i24"** เป็นมาตรฐานบังคับทุกระบบที่มี UI (`docs/components/footer.md` + กฎร่วมใน README)
+- gallery [`prototype/index.html`](prototype/index.html) ตรง spec: `[data-theme]`, `.mac-sidebar`, `.mac-table` (ใน `.mac-table-wrap` / `.mac-section`), และ footer "Powered by i24"
+- spec อ้างชื่อ semantic token จาก `docs/brand/` — ห้าม orphan hex (ใส่ hex ได้เฉพาะคู่กับชื่อ token)
+
+### Changed — Sidebar + Table shell (Navy `#0F172A`)
+- **Navy Solid** ล็อกเป็น `#0F172A` (`--i24-primary`) ทั้งปุ่ม primary, pagination หน้าปัจจุบัน, พื้น `.mac-sidebar` (ไม่สลับ theme)
+- **Sidebar tokens**: `color-sidebar-bg` = `#0F172A` ทั้ง light/dark (พื้นไม่สลับ theme); ตัวอักษรขาวโปร่ง — อ้าง [`docs/brand/palette.md`](docs/brand/palette.md)
+- เพิ่ม spec [`docs/components/sidebar.md`](docs/components/sidebar.md) — แนว macOS Settings, กว้าง 260px (ลาก 220–480), ย่อ rail 52px, mobile overlay
+- ตารางใช้ `.mac-table` ใน `.mac-table-wrap` / `.mac-section` — มุม 14px / การ์ด 20px, ฟอนต์ 13px, hover gradient แดง+กรมท่า
+- Canvas light = `#F5F5F7`; gold badge `#A8811C` / `#E7C873` เป็นทางเลือก
+- sync blueprints `.aidlc/blueprints/{product,resources}.md` ให้ชี้ `docs/brand/palette.md` (Navy `#0F172A`) — ตัดชุดโลโก้แดงเก่าออกจาก primary; Deep Crimson `#B0141B` คงเป็น brand-red/danger
+- demo ใน `prototype/index.html`
+
 ### Changed — Table status colors (sync จาก i24-etax-service)
 - คอลัมน์สถานะในตารางใช้ **success / warning / danger / muted** (ข้อความ + จุด พื้นโปร่ง) — ไม่ใช้ gold ทั้งคอลัมน์
 - Light: success `#137A47` · warning `#B7791F` · danger `#B0141B` · muted `#6B7280`

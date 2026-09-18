@@ -4,33 +4,19 @@
 - **Design tool**: none (ยังไม่ระบุ Figma/Sketch)
 - **Design system docs**: none — จะสร้างในโปรเจกต์นี้
 - **Wireframes/mockups**: none
-- **Brand asset**: `i24_LOGO.png` (workspace root) — ใช้ดึง brand palette
+- **Brand asset**: `i24_LOGO.svg` (workspace root) — โลโก้ทางการ; **อย่าดึง palette จากโลโก้** — SSOT สีอยู่ที่ `docs/brand/palette.md`
 
-## Brand Palette (จากไฟล์ vector ทางการ i24_LOGO.svg)
-> ✅ red-500/coral-400/white ยืนยันจากโลโก้แล้ว; เฉดอื่น derived. หากมี brand guide ทางการ ให้ยึดแทน
+## Brand Palette (SSOT: `docs/brand/palette.md`)
 
-```jsonc
-{
-  "brand": {
-    "red":   { "50": "#FDECED", "100": "#FBD0D2", "400": "#F04E52", "500": "#EC2129", "600": "#C81B22", "700": "#AA171D" },
-    "coral": { "300": "#F7A48A", "400": "#F48569", "500": "#F1684D" }
-  },
-  "neutral": { "white": "#FFFFFF", "paper-muted": "#F7F7F8", "ink-500": "#6B7280", "ink-900": "#1A1A1A" }
-}
-```
+ชุดโลโก้แดงเก่าไม่ใช่ primary อีกต่อไป — ยึด [`docs/brand/palette.md`](../../docs/brand/palette.md) (Navy Solid `#0F172A`)
 
 | Token | Hex | บทบาท |
 |-------|-----|-------|
-| `brand-red-500` | `#EC2129` ✅ | สีหลัก (พื้นโลโก้), primary |
-| `brand-red-600` | `#C81B22` | hover/active |
-| `brand-red-400` | `#F04E52` | เน้นรอง |
-| `brand-red-50` | `#FDECED` | tint พื้นหลัง |
-| `brand-coral-400` | `#F48569` ✅ | accent (blob โลโก้) |
-| `brand-coral-300` | `#F7A48A` | accent อ่อน |
-| `white` | `#FFFFFF` | text บนพื้นแดง / card |
-| `ink-900` | `#1A1A1A` | ข้อความหลัก |
-| `ink-500` | `#6B7280` | ข้อความรอง |
-| `paper-muted` | `#F7F7F8` | surface |
+| `primary-solid` / `--i24-primary` | `#0F172A` | **Navy Solid — สีหลัก** (ปุ่ม, pagination, พื้น `.mac-sidebar`) |
+| `color-sidebar-bg` | `#0F172A` | พื้น sidebar — **ไม่สลับตาม theme** |
+| `on-primary` | `#FFFFFF` | ข้อความบน Navy |
+| canvas (`page-bg`) | `#F5F5F7` / `#0A0A0F` | พื้นหลัง light / dark |
+| `brand-red` / `danger` | `#B0141B` | Deep Crimson — brand-red / danger **ไม่ใช่ primary** |
 
 ## API Resources
 - **OpenAPI/Swagger**: none (library ไม่มี API)

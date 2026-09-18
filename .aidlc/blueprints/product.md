@@ -6,7 +6,7 @@
 - **Type / Scope**: Greenfield / new — เป็น knowledge base ไม่ใช่ code generator
 
 ## Overview
-repo กลางที่เก็บ "ข้อตกลง/มาตรฐาน" ของทุกโปรเจกต์ i24 ในรูปเอกสาร Markdown ที่อ่านชัดเจน — ครอบคลุมอัตลักษณ์แบรนด์ (สีจากโลโก้ พร้อม hex code), design tokens (light/dark), spec ของแต่ละ component, convention การเขียนโค้ด และแนวทาง setup แต่ละ tech stack. เป้าหมายคือให้ทุกทีมอ่านแล้ว implement ได้เองอย่างสม่ำเสมอ โดย **ไม่ต้อง maintain code template หลายชุด** — แก้ที่เอกสารกลางที่เดียว.
+repo กลางที่เก็บ "ข้อตกลง/มาตรฐาน" ของทุกโปรเจกต์ i24 ในรูปเอกสาร Markdown ที่อ่านชัดเจน — ครอบคลุมอัตลักษณ์แบรนด์ (SSOT ที่ `docs/brand/palette.md`, primary = Navy Solid `#0F172A`), design tokens (light/dark), spec ของแต่ละ component, convention การเขียนโค้ด และแนวทาง setup แต่ละ tech stack. เป้าหมายคือให้ทุกทีมอ่านแล้ว implement ได้เองอย่างสม่ำเสมอ โดย **ไม่ต้อง maintain code template หลายชุด** — แก้ที่เอกสารกลางที่เดียว.
 
 ## Problem Statement
 การเก็บ code template ครบทุก stack ต้อง maintain หลายชุดและ drift ง่าย. ต้องการแทนที่ด้วย "เอกสารกลางที่ชัดเจน" เป็น single source of truth ของแบรนด์+มาตรฐาน ให้แต่ละทีมนำไป implement ตาม stack ของตัวเอง.
@@ -18,7 +18,7 @@ repo กลางที่เก็บ "ข้อตกลง/มาตรฐา
 - **Team lead**: ใช้เป็นมาตรฐานบังคับ/ตรวจ review
 
 ## Key Features (เป็นเอกสาร .md ทั้งหมด)
-- **Brand & color**: สีจากโลโก้ พร้อม hex code, usage, do/don't
+- **Brand & color**: SSOT ที่ `docs/brand/palette.md` — primary Navy Solid `#0F172A`, usage, do/don't
 - **Design tokens**: color/typography/spacing/radius/shadow + semantic light/dark
 - **Theme guide**: วิธี map tokens → Tailwind v4 `@theme` (สั้น ๆ พออ้างอิง)
 - **Component specs**: แต่ละ component = anatomy, variants, states, tokens ที่ใช้, accessibility
@@ -29,27 +29,25 @@ repo กลางที่เก็บ "ข้อตกลง/มาตรฐา
 ## Domain Language
 | Term | Definition | Example |
 |------|------------|---------|
-| Design token | ค่าดีไซน์พื้นฐานที่ตั้งชื่อ | `brand-red-500 = #E4181E` |
+| Design token | ค่าดีไซน์พื้นฐานที่ตั้งชื่อ | `primary-solid` / `--i24-primary` = `#0F172A` |
 | Semantic token | token ที่สื่อความหมาย map ต่อ theme | `surface`, `text-primary` (light/dark) |
 | Component spec | เอกสารอธิบาย component 1 ตัว | `components/button.md` |
 | Stack guide | เอกสาร setup ต่อ tech stack | `stacks/nextjs.md` |
 | Scaffolding checklist | ขั้นตอนเริ่มโปรเจกต์ด้วยมือ | `scaffolding.md` |
 
-## Brand Palette (จากไฟล์ vector ทางการ i24_LOGO.svg)
+## Brand Palette (SSOT: `docs/brand/palette.md`)
+
+ชุดโลโก้แดงเก่าไม่ใช่ primary อีกต่อไป — ยึด `docs/brand/palette.md`
+
 | Token | Hex | บทบาท |
 |-------|------|-------|
-| `brand-red-500` | `#EC2129` ✅ | สีหลักแบรนด์ (จากโลโก้) |
-| `brand-red-600` | `#C81B22` | hover/active + white text เล็กบนพื้นแดง |
-| `brand-red-400` | `#F04E52` | เน้นรอง / focus ring |
-| `brand-red-50` | `#FDECED` | tint พื้นหลังอ่อน |
-| `brand-coral-400` | `#F48569` ✅ | accent (blob โลโก้) |
-| `brand-coral-300` | `#F7A48A` | accent อ่อน |
-| `white` | `#FFFFFF` ✅ | ตัวอักษร/พื้น card |
-| `ink-900` | `#1A1A1A` | ข้อความหลัก |
-| `ink-500` | `#6B7280` | ข้อความรอง |
-| `paper-muted` | `#F7F7F8` | surface |
+| `primary-solid` / `--i24-primary` | `#0F172A` | **Navy Solid — สีหลัก** (ปุ่ม, pagination, พื้น `.mac-sidebar`) |
+| `color-sidebar-bg` | `#0F172A` | พื้น sidebar — **ไม่สลับตาม theme** |
+| `on-primary` | `#FFFFFF` | ข้อความบน Navy |
+| canvas (`page-bg`) | `#F5F5F7` / `#0A0A0F` | พื้นหลัง light / dark |
+| `brand-red` / `danger` | `#B0141B` | Deep Crimson — brand-red / danger **ไม่ใช่ primary** |
 
-> ✅ = ยืนยันจากโลโก้; เฉดอื่น derived. SSOT จริงอยู่ที่ `docs/brand/palette.md`
+> ตารางเต็ม (Frosted Gray Glass, Cool Slate หัวตาราง, contrast AA) อยู่ที่ [`docs/brand/palette.md`](../../docs/brand/palette.md)
 
 ## Success Criteria
 - เอกสารครบและอ่านแล้ว implement ได้เองโดยไม่ต้องถามเพิ่ม
@@ -58,7 +56,7 @@ repo กลางที่เก็บ "ข้อตกลง/มาตรฐา
 
 ## Constraints & Assumptions
 - **Constraints**: deliverable เป็น `.md` เท่านั้น (code snippet มีได้เท่าที่จำเป็นเพื่ออธิบาย ไม่เก็บเป็น template code ครบชุด)
-- **Assumptions**: ค่าสีเป็นค่าประมาณจากโลโก้ ต้องยืนยันก่อน lock; อ่านโดย developer ที่รู้ stack ของตัวเองอยู่แล้ว
+- **Assumptions**: ค่าสียึด `docs/brand/palette.md` (Navy Solid `#0F172A`); อ่านโดย developer ที่รู้ stack ของตัวเองอยู่แล้ว
 
 ## Project Type
 - **Type**: Greenfield

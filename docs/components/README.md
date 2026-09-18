@@ -14,12 +14,13 @@ spec ของ UI component กลาง — อธิบายพฤติก�
 8. **Reference snippet** — ตัวอย่างสั้น (HTMX/HTML + React) พออธิบาย ไม่ใช่ template ครบ
 
 ## หลักการร่วม
-- **สีจาก semantic token เท่านั้น** — ห้าม hardcode hex
+- **สีจาก semantic token เท่านั้น** — ห้าม hex ล้วน (orphan brand hex). ใส่ hex ได้เฉพาะเมื่อระบุชื่อ token คู่กัน เช่น Primary Navy Solid = `color-primary` / `--i24-primary` (`#0F172A`)
 - **Focus ที่มองเห็นได้**: ทุก element โต้ตอบได้ต้องมี focus ring (`color-focus-ring`)
-- **ขนาดแตะขั้นต่ำ** 40x40px สำหรับ control บนมือถือ
+- **ขนาดแตะขั้นต่ำ** 40×40px สำหรับ control บนมือถือ
 - **Contrast** ต้องผ่าน WCAG AA (ตรวจจริงด้วยเครื่องมือ — a11y เต็มต้องทดสอบเพิ่ม)
 - **Radius**: control ทั่วไป `radius-md`; ปุ่ม/แท็บสไตล์แบรนด์ใช้ `radius-pill` ได้
 - **State ครบ**: อย่าลืม disabled และ focus-visible
+- **Shell classes (ล็อกชื่อ)**: `.mac-sidebar` / `.mac-table` / `.mac-table-wrap` / `.mac-section`
 - **Modern look (gradient + glass)**: surface (card/nav/footer/ปุ่มรอง) ใช้ **glass** ได้; ปุ่ม primary/badge เน้น/โลโก้ใช้ **gradient** ได้ — แต่ **ห้าม gradient ที่พื้นหลังหน้า/ตัวหนังสือ**. ค่า token + a11y (contrast, `prefers-reduced-transparency`, fallback) ดู [`../brand/effects.md`](../brand/effects.md)
 
 ## รายการคอมโพเนนต์ (v1.2 — Complete)
@@ -29,10 +30,11 @@ spec ของ UI component กลาง — อธิบายพฤติก�
 | Badge | [badge.md](badge.md) | Basic | ป้ายสถานะ ทรง Pill — ตารางใช้ success/warning/danger จาก etax |
 | Card | [card.md](card.md) | Layout | กล่องเนื้อหา White Clear Glass ไร้ขอบ |
 | Input | [input.md](input.md) | Form | ช่องกรอกข้อความ + validation |
-| Table | [table.md](table.md) | Data | ตาราง — หัว Cool Slate + สถานะ success/warning/danger |
+| Table | [table.md](table.md) | Data | ตาราง Cool Slate ใน `.mac-table` ภายใน `.mac-table-wrap` / `.mac-section` |
 | Nav / Header | [nav-header.md](nav-header.md) | Navigation | แถบนำทางบนสุดทรงแคปซูล |
+| Sidebar | [sidebar.md](sidebar.md) | Navigation | แถบซ้าย พื้น `color-sidebar-bg` (`#0F172A`) ไม่สลับ theme — คลาส `.mac-sidebar` |
 | Alert | [alert.md](alert.md) | Feedback | แจ้งเตือนแบบ inline |
-| Theme mode | [theme-mode.md](theme-mode.md) | Utility | สลับ light/dark |
+| Theme mode | [theme-mode.md](theme-mode.md) | Utility | สลับ light/dark ผ่าน `[data-theme]` |
 | Footer | [footer.md](footer.md) | Layout | 🔒 "Powered by i24" — **บังคับทุกระบบที่มี UI** |
 | Modal / Dialog | [modal.md](modal.md) | Complex | หน้าต่างป๊อปอัปยืนยัน + Backdrop blur |
 | Select / Dropdown | [select.md](select.md) | Complex | เมนูเลือกข้อมูลคัสตอม ผิวกระจกใส |

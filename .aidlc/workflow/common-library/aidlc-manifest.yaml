@@ -3,12 +3,12 @@ feature: "common-library"
 language: "th"
 platform: "kiro"
 created: "2026-08-17T09:00:00+07:00"
-updated: "2026-08-17T09:00:00+07:00"
+updated: "2026-09-18T13:49:00+07:00"
 state:
-  status: "active"
+  status: "completed"
   scope: "new"
-  sharedPhases: [context, requirements]
-  mode: null
+  sharedPhases: [context, requirements, decomposition, implement, build, deploy]
+  mode: incremental
   foundationSkipped: false
   implementationMode: null
   quickPath: false
@@ -50,6 +50,18 @@ artifacts:
       - docs/conventions/naming.md
       - docs/conventions/git.md
       - docs/conventions/json-api.md
+  decomposition:
+    status: "approved"
+    timestamp: "2026-09-18T09:15:00+07:00"
+    files: [units.md]
+  build:
+    status: "approved-with-warnings"
+    timestamp: "2026-09-18T13:28:00+07:00"
+    files: [build-report.md]
+  deploy:
+    status: "approved"
+    timestamp: "2026-09-18T13:49:00+07:00"
+    files: [deployment.md, deploy-summary.md]
 implementation:
   totalTasks: 0
   completedTasks: 0
@@ -78,9 +90,195 @@ decisions:
     personas: false
     teamSize: "large (9+)"
     outOfScopeV1: "no real package publish, no docs site, backend template = skeleton+convention only, no i18n, no CI auto-publish"
+  decomposition:
+    need: "domain units"
+    architecture: "Modular Monolith"
+    strategy: "Domain-Driven"
+    foundation: "brand-theme"
+    unitSet: [brand-theme, ui-components, delivery-guides]
+    storyAssignment:
+      brand-theme: [F-brand, F-tokens, F-theme, F-effects]
+      ui-components: [F-components, F-prototype]
+      delivery-guides: [F-stacks, F-conventions, F-scaffolding]
+    dependencies: "Customer/Supplier one-way: brand-theme → ui-components → delivery-guides"
+    sequence: [brand-theme, ui-components, delivery-guides]
+  deploy:
+    ci-platform: "github-pr-only (no workflow)"
+    target: "git-repo-ssot (merge main = release)"
+    strategy: "recreate-via-pr-merge"
+    environments: "main-only"
+    promotion: "pr-review-then-merge-main"
+    iac: "none"
+    secrets: "github-secrets-if-needed (none today)"
+    rollback: "git-revert"
+    migrations: "none"
+    verification: "pr-review-properties + files readable"
 steering:
   updatedBy:
     product: [context]
-    tech: [context]
-    structure: [context]
-units: []
+    tech: [context, design]
+    structure: [context, design]
+versions:
+  resolved_at: "2026-09-18T09:18:00+07:00"
+  source: "web-search"
+  map:
+    tailwindcss: "4.3.3"
+    wcag: "2.1"
+units:
+  - name: brand-theme
+    type: foundation
+    status: completed
+    phase: completed
+    completedPhases: [design, tasks, implement]
+    implementationMode: autonomous
+    implementation:
+      totalTasks: 7
+      completedTasks: 7
+      currentTask: null
+      currentWave: null
+    artifacts:
+      design:
+        status: "approved"
+        timestamp: "2026-09-18T09:28:00+07:00"
+        files: [design.md]
+      tasks:
+        status: "approved"
+        timestamp: "2026-09-18T09:49:00+07:00"
+        files: [tasks.md]
+      implement:
+        status: "approved"
+        timestamp: "2026-09-18T10:16:00+07:00"
+        files:
+          - docs/brand/palette.md
+          - docs/brand/design-tokens.md
+          - docs/brand/theme-tailwind.md
+          - docs/brand/effects.md
+          - CHANGELOG.md
+    decisions:
+      design:
+        canonicalPalette: "Navy Solid #0F172A + Frosted Gray Glass + Deep Crimson (docs/brand/palette.md)"
+        tokenLayers: "Primitive → Semantic (light/dark)"
+        themeMapping: "Tailwind v4 @theme + CSS variables + [data-theme] (snippet)"
+        downstreamRule: "token names only, no hex copy"
+        lightDark: "[data-theme=light|dark] + semantic per mode"
+        brandFiles: [palette.md, design-tokens.md, theme-tailwind.md, effects.md]
+        effectsScope: "effects.md SSOT"
+        repo: "single docs repo, no package manager"
+        correctness: "review properties: unique names, light/dark pairs, contrast AA"
+        contrast: "WCAG 2.1 AA"
+        observability: "Minimal — CHANGELOG + PR"
+        errorTracking: "log-based git/CHANGELOG"
+        lifecycle: "merge main = release"
+      tasks:
+        breakdown: "per SSOT file"
+        approach: "docs first then review checklist"
+        priority: "palette → tokens → theme ∥ effects"
+        integration: "blueprints last"
+        testing: "review 4 properties, no CI script"
+        granularity: "one concern per task"
+        parallel: "theme-tailwind ∥ effects after tokens"
+  - name: ui-components
+    type: domain
+    status: completed
+    phase: completed
+    completedPhases: [design, tasks, implement]
+    implementationMode: autonomous
+    implementation:
+      totalTasks: 7
+      completedTasks: 7
+      currentTask: null
+      currentWave: null
+    artifacts:
+      design:
+        status: "approved"
+        timestamp: "2026-09-18T10:24:00+07:00"
+        files: [design.md]
+      tasks:
+        status: "approved"
+        timestamp: "2026-09-18T10:59:00+07:00"
+        files: [tasks.md]
+      implement:
+        status: "approved"
+        timestamp: "2026-09-18T13:03:00+07:00"
+        files:
+          - docs/components/README.md
+          - prototype/index.html
+          - CHANGELOG.md
+    decisions:
+      design:
+        catalogScope: "14 specs per docs/components/README.md"
+        specTemplate: "8 sections: Purpose Anatomy Variants Sizes States Tokens Accessibility Snippet"
+        preview: "prototype/index.html static HTML gallery"
+        snippets: "short HTML + optional React/Tailwind class names"
+        shellClasses: ".mac-sidebar / .mac-table / .mac-table-wrap / .mac-section"
+        footerMandate: "Powered by i24 required on every UI"
+        componentA11y: "WCAG 2.1 AA focus keyboard 40x40 role/aria"
+        correctness: "review properties: Tokens+States, no orphan hex, prototype class match, footer present"
+        fileLayout: "README index + one file per component"
+        observability: "Minimal — CHANGELOG + PR"
+        errorTracking: "log-based git/CHANGELOG"
+        lifecycle: "merge main = release"
+      tasks:
+        breakdown: "SpecIndex → spec groups → PreviewGallery then review + CHANGELOG"
+        approach: "docs/prototype first then review checklist"
+        priority: "SpecIndex → SpecLibrary → PreviewGallery"
+        integration: "consume brand-theme tokens; skip delivery-guides; CHANGELOG last"
+        testing: "review 4 properties, no CI script"
+        granularity: "one concern per task"
+        parallel: "after README, spec groups 2.1 ∥ 2.2 ∥ 2.3 then prototype"
+  - name: delivery-guides
+    type: domain
+    status: completed
+    phase: completed
+    completedPhases: [design, tasks, implement]
+    implementationMode: autonomous
+    implementation:
+      totalTasks: 5
+      completedTasks: 5
+      currentTask: null
+      currentWave: null
+    artifacts:
+      design:
+        status: "approved"
+        timestamp: "2026-09-18T13:14:00+07:00"
+        files: [design.md]
+      tasks:
+        status: "approved"
+        timestamp: "2026-09-18T13:16:30+07:00"
+        files: [tasks.md]
+      implement:
+        status: "approved"
+        timestamp: "2026-09-18T13:27:00+07:00"
+        files:
+          - docs/stacks/go-monolith.md
+          - docs/stacks/nextjs.md
+          - docs/stacks/nestjs.md
+          - docs/stacks/expressjs.md
+          - docs/conventions/project-structure.md
+          - docs/conventions/naming.md
+          - docs/conventions/git.md
+          - docs/conventions/json-api.md
+          - docs/scaffolding.md
+          - CHANGELOG.md
+    decisions:
+      design:
+        stackSet: "go-monolith, nextjs, nestjs, expressjs"
+        guideDepth: "setup + theme wiring + links; not full templates"
+        conventionFiles: [project-structure.md, naming.md, git.md, json-api.md]
+        scaffolding: "docs/scaffolding.md checklist per stack; no generator"
+        upstreamRefs: "link docs/brand and docs/components; no copied palettes"
+        footerInDelivery: "required Powered by i24 step for UI stacks"
+        jsonApi: "envelope + snake_case"
+        correctness: "review properties: theme pointer, 4 conventions, scaffolding per stack, no orphan hex, footer"
+        fileLayout: "docs/stacks + docs/conventions + docs/scaffolding.md"
+        observability: "Minimal — CHANGELOG + PR"
+        errorTracking: "log-based git/CHANGELOG"
+        lifecycle: "merge main = release"
+      tasks:
+        breakdown: "stack guides → conventions → scaffolding then review + CHANGELOG"
+        approach: "docs first then review checklist"
+        priority: "StackGuideSet → ConventionSet → ScaffoldingChecklist"
+        integration: "SSOT links while writing; no brand/component edits; CHANGELOG last"
+        testing: "review 5 properties, no CI script"
+        granularity: "one concern per task"
+        parallel: "1.1 stack guides ∥ 2.1 conventions then scaffolding"

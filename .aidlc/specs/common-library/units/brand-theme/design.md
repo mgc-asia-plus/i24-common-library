@@ -1,0 +1,185 @@
+# Design — brand-theme (foundation)
+
+## Summary
+- **Architecture**: Modular Monolith — โมดูลเอกสาร `docs/brand/` เป็น SSOT ให้ทุก unit
+- **Stack**: Markdown docs / Tailwind CSS 4.3.3 (`@theme` snippet) / CSS variables / `[data-theme]` / ไม่มี DB / ไม่มี runtime
+- **Components**: 4 (PaletteSSOT, TokenRegistry, ThemeMappingGuide, EffectsSSOT)
+- **Entities**: 6 (Palette, PrimitiveToken, SemanticToken, ThemeModeBinding, EffectRecipe, ContrastPair)
+- **Endpoints**: 4 document contracts (ไม่มี HTTP API)
+- **Integrations**: 2 downstream (ui-components, delivery-guides) + blueprint sync
+- **Operations**: Minimal (CHANGELOG + PR)
+- **PBT Properties**: 4 (ตรวจตอน review ไม่ใช้ไลบรารี)
+- **Testing Strategy**: Included (review checklist)
+- **NFR**: Contrast WCAG 2.1 AA เท่านั้น
+
+## Architecture
+
+**Pattern**: Modular Monolith (D2) + foundation module `brand-theme`  
+**Rationale**: ค่าสี/token ต้องมีเจ้าของคนเดียว; unit อื่นเป็น customer ที่อ้างชื่อ token ห้ามสำเนา hex
+
+```
+                    ┌─────────────────────────┐
+                    │  brand-theme (SSOT)     │
+                    │  docs/brand/*           │
+                    └───────────┬─────────────┘
+              Data (token names)│
+           ┌────────────────────┼────────────────────┐
+           ▼                    ▼                    ▼
+   ui-components         delivery-guides        blueprints
+   (อ้าง token)           (อ้าง token)          (ต้อง sync)
+```
+
+**กติกาขอบเขต**
+- เขียน hex ได้เฉพาะ `palette.md` และ primitive ใน `design-tokens.md`
+- `theme-tailwind.md` map ชื่อ → CSS var / `@theme` — snippet สั้น ไม่ใช่ template เต็ม
+- `effects.md` กำหนดสูตร glass/gradient; component ห้ามคิด blur/opacity เอง
+- ปล่อยมาตรฐาน = merge เข้า `main`
+
+## Components
+
+### PaletteSSOT
+- **Purpose**: ตารางสีทางการ + usage/do-don't + ตาราง contrast
+- **Technology**: Markdown (`docs/brand/palette.md`)
+- **Responsibilities**: lock Navy Solid `#0F172A` (`--i24-primary`) สำหรับปุ่ม/pagination/พื้น sidebar; Frosted Gray Glass; Deep Crimson `#B0141B`; Cool Slate หัวตาราง; token ชุด sidebar (พื้นไม่สลับ theme); gold สถานะทางเลือก
+- **Exposes**: ชื่อสีหลักและบทบาท (primary / sidebar / secondary-glass / brand-red / canvas / table)
+- **Consumes**: ไม่มี (foundation)
+
+### TokenRegistry
+- **Purpose**: registry 2 ชั้น Primitive → Semantic (light/dark)
+- **Technology**: Markdown (`docs/brand/design-tokens.md`)
+- **Responsibilities**: ชื่อ token ไม่ซ้ำ; semantic ทุกตัวมีค่า light และ dark (ยกเว้น `color-sidebar-bg` ที่ค่าเดียวกันทั้งสองโหมด); typography/spacing/radius ของกลาง + `radius-table` 14px / `radius-card` 20px / `radius-sidebar-item` 6px
+- **Exposes**: ชื่อ `PrimitiveToken` / `SemanticToken`
+- **Consumes**: PaletteSSOT (ค่าดิบของสี)
+
+### ThemeMappingGuide
+- **Purpose**: วิธี map token → Tailwind v4 `@theme` + CSS variables + `[data-theme]`
+- **Technology**: Markdown + CSS snippet (`docs/brand/theme-tailwind.md`); pin `tailwindcss@4.3.3`
+- **Responsibilities**: ตัวอย่าง `@theme` / `:root` / `[data-theme="dark"]` สั้นพอ copy ตั้งต้น; ไม่กลายเป็น app template
+- **Exposes**: สัญญา mapping (ชื่อ token → `--color-*` / `--i24-*`)
+- **Consumes**: TokenRegistry
+
+### EffectsSSOT
+- **Purpose**: สูตรพื้นผิวใสทะลุ / gradient ที่ component ต้องอ้าง
+- **Technology**: Markdown + CSS recipe (`docs/brand/effects.md`)
+- **Responsibilities**: blur, opacity, sheen, radius capsule ของปุ่ม; ห้าม component กำหนดสูตรใหม่โดยไม่ผ่านไฟล์นี้
+- **Exposes**: ชื่อ `EffectRecipe`
+- **Consumes**: TokenRegistry (สีในสูตรอ้างชื่อ token)
+
+## Data Model
+
+| Entity | Fields | Constraints | Relationships |
+|--------|--------|-------------|----------------|
+| Palette | name, role (primary/secondary/accent/canvas), hex_or_rgba | hex อยู่ที่นี่เท่านั้น | 1 Palette → N PrimitiveToken |
+| PrimitiveToken | name, value, category (color/type/space/radius/shadow) | name unique ทั้ง registry | อ้าง Palette เมื่อเป็นสี |
+| SemanticToken | name, purpose | name unique; ต้องมี ThemeModeBinding ครบ 2 โหมด | ชี้ PrimitiveToken หรือค่า derived |
+| ThemeModeBinding | mode (`light`\|`dark`), value | โหมดมีได้แค่ light/dark ตาม D3-5 | N:1 SemanticToken |
+| EffectRecipe | name, properties (blur, opacity, shadow, radius) | ค่าสูตรอยู่ที่ effects.md เท่านั้น | อ้าง SemanticToken เป็นสี |
+| ContrastPair | fg, bg, ratio, wcag_level | ต้อง ≥ AA (4.5:1 ข้อความปกติ) สำหรับคู่หลัก | อ้าง Palette / SemanticToken |
+
+**Indexes (logical)**: `PrimitiveToken.name`, `SemanticToken.name` — unique
+
+## API Specification
+
+ไม่มี HTTP API. สัญญาที่ downstream ใช้คือ **document contracts** (อ่านอย่างเดียว):
+
+| Contract | Path | Auth | Request | Response | Errors |
+|----------|------|------|---------|----------|--------|
+| Read palette | `docs/brand/palette.md` | git read | — | ตารางสี + contrast | ถ้า hex นอกไฟล์นี้ = ผิดสัญญา |
+| Read tokens | `docs/brand/design-tokens.md` | git read | — | primitive + semantic | ชื่อซ้ำ / ขาด dark = ผิดสัญญา |
+| Read theme map | `docs/brand/theme-tailwind.md` | git read | — | `@theme` + CSS var snippet | snippet กลายเป็น template เต็ม = นอกขอบเขต |
+| Read effects | `docs/brand/effects.md` | git read | — | recipes | component ใส่ blur เอง = ผิดสัญญา |
+
+**Conventions**
+- Versioning: git + `CHANGELOG.md` (ไม่ใช้ URL version)
+- Pagination / rate limit: ไม่มี
+- Publish: merge `main` = ปล่อย (D3-13)
+
+## Integration Points
+
+| System | Protocol | Purpose | Error handling |
+|--------|----------|---------|----------------|
+| ui-components | Data (token names) | spec อ้างชื่อ token / recipe; Sidebar + Table ใช้คลาส `.mac-sidebar` / `.mac-table` | ถ้าเจอ hex ใน spec → แก้ให้ชี้ brand |
+| delivery-guides | Data (token names) | stack guide อธิบายวิธีต่อ theme | อ้าง `theme-tailwind.md` ไม่ฝังตารางสี |
+| `.aidlc/blueprints/{product,resources}.md` | Docs sync | ตอนนี้ยังมีชุดโลโก้แดงเก่า — ต้อง sync ให้ตรง palette ปัจจุบัน | drift = แก้ blueprint ให้ชี้ `docs/brand/palette.md` |
+
+## Implementation
+
+**Directory**
+```
+docs/brand/
+  palette.md
+  design-tokens.md
+  theme-tailwind.md
+  effects.md
+CHANGELOG.md
+```
+
+**Dev setup**: เปิด Markdown ใน editor — ไม่มี package manager / build (D3-8)
+
+**Conventions**
+- SSOT สี = `palette.md` (Navy Solid `#0F172A` + Frosted Gray Glass + Deep Crimson)
+- Token 2 ชั้น; ธีมด้วย `[data-theme]`
+- พื้น `.mac-sidebar` = `color-sidebar-bg` ไม่สลับตาม theme
+- ตารางใช้ `.mac-table` ใน `.mac-table-wrap` / `.mac-section` — อ้าง token ไม่ประกาศ hex ซ้ำ
+- Snippet Tailwind 4.3.3 สั้น ๆ
+- งานค้างของ unit นี้: จัดให้ 4 ไฟล์สอดคล้องกัน + token sidebar/table + sync blueprints + ตรวจ contrast AA
+
+## Testing Strategy
+
+- **Pyramid**: ไม่มี unit/e2e runtime — ชั้นเดียวคือ **review properties** ตอน PR
+- **Frameworks**: ไม่มี test runner (D3-9 ไม่เลือกสคริปต์/CI)
+- **Coverage**: ทุก semantic มี light+dark; ทุกชื่อไม่ซ้ำ; คู่ contrast หลักมีแถวใน `palette.md`
+- **Mock**: ไม่มี
+- **Test data**: ค่าในเอกสารคือข้อมูลจริง
+- **Run**: checklist ใน PR (ดู Correctness)
+
+## NFR
+
+- **Accessibility**: WCAG 2.1 AA สำหรับ `on-primary` บน primary, `color-text` บน canvas
+- **Performance / scalability / security runtime**: ไม่มี — ไม่ใช่ service
+- **Maintainability**: แก้ค่าที่ `docs/brand/` ที่เดียว
+
+## Operations
+
+**Level**: Minimal
+
+| Signal | ที่ไหน | เมื่อไหร่ |
+|--------|--------|----------|
+| Logging | `CHANGELOG.md` + git history | ทุกการเปลี่ยน token/สี/recipe |
+| Error tracking | commit message / PR description | เมื่อพบ hex นอก SSOT หรือ contrast ตก |
+| Health | ไม่มี endpoint | ความพร้อม = 4 ไฟล์ brand มีครบและลิงก์จาก `docs/README.md` |
+| Lifecycle | merge `main` | ไม่มี graceful shutdown |
+| Config/secrets | ไม่มี | — |
+
+## Correctness
+
+| Property | Description | Validates |
+|----------|-------------|-----------|
+| UniqueTokenNames | ชื่อ primitive + semantic ไม่ชนกันทั้ง registry | TokenRegistry |
+| SemanticPairComplete | semantic ทุกตัวมี binding light และ dark | ThemeModeBinding |
+| ContrastAA | คู่ข้อความหลักผ่าน WCAG 2.1 AA | ContrastPair |
+| NoHexLeak | ไฟล์นอก `docs/brand/` ไม่วาง hex ของแบรนด์ | Downstream contracts |
+
+## Traceability
+
+| Requirement | Component(s) | Endpoint(s) | Entity | Status |
+|-------------|--------------|-------------|--------|--------|
+| F-brand | PaletteSSOT | Read palette | Palette, ContrastPair | Covered |
+| F-tokens | TokenRegistry | Read tokens | PrimitiveToken, SemanticToken, ThemeModeBinding | Covered |
+| F-theme | ThemeMappingGuide | Read theme map | SemanticToken | Covered |
+| F-effects | EffectsSSOT | Read effects | EffectRecipe | Covered |
+
+**Coverage**: 4/4 — ไม่มี gap
+
+**Components without requirement**: ไม่มี
+
+## External References
+
+| Source | Type | Used in |
+|--------|------|---------|
+| `docs/brand/palette.md` | SSOT สีปัจจุบัน | Canonical palette (D3-1) |
+| `docs/brand/design-tokens.md` | Token registry | Data model |
+| `docs/brand/theme-tailwind.md` | Theme snippet | ThemeMappingGuide |
+| `docs/brand/effects.md` | Effect recipes | EffectsSSOT |
+| npm `tailwindcss` 4.3.3 | Version pin | Theme mapping |
+| WCAG 2.1 | A11y spec | Contrast AA |
